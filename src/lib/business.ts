@@ -1,3 +1,9 @@
+import fabricationWorkshop from "@/assets/fabrication-workshop.jpg";
+import ductworkComponents from "@/assets/ductwork-components.jpg";
+import volumeControlDamper from "@/assets/volume-control-damper.jpg";
+import roundDuctwork from "@/assets/round-ductwork.jpg";
+import ductFittingDetail from "@/assets/duct-fitting-detail.jpg";
+
 export const company = {
   name: "GC FABRICATION PTE. LTD.",
   phone: "+65 8969 3747",
@@ -19,7 +25,7 @@ export const services = [
     description:
       "Rectangular ductwork fabricated for ACMV applications, with configurations based on project requirements.",
     application: "For commercial and industrial ventilation systems.",
-    image: "/assets/ductwork-components.jpg",
+    image: ductworkComponents,
     alt: "Illustrative rectangular ductwork components in a fabrication workshop",
     category: "Rectangular Ducts",
   },
@@ -28,7 +34,7 @@ export const services = [
     description:
       "Round ductwork solutions for suitable ventilation applications, discussed against your project needs.",
     application: "For ventilation applications suited to round ductwork.",
-    image: "/assets/round-ductwork.jpg",
+    image: roundDuctwork,
     alt: "Illustrative round ventilation duct sections and fittings",
     category: "Round Ducts",
   },
@@ -37,7 +43,7 @@ export const services = [
     description:
       "Fabricated transition components connecting different duct dimensions or configurations.",
     application: "For changes in duct dimensions or system configuration.",
-    image: "/assets/duct-fitting-detail.jpg",
+    image: ductFittingDetail,
     alt: "Illustrative duct transition and offset fittings",
     category: "Transitions",
   },
@@ -46,7 +52,7 @@ export const services = [
     description:
       "Ductwork fittings and associated components for ventilation systems.",
     application: "For ductwork layouts and connected ventilation runs.",
-    image: "/assets/duct-fitting-detail.jpg",
+    image: ductFittingDetail,
     alt: "Illustrative fabricated duct fittings arranged on a workbench",
     category: "Fittings",
   },
@@ -55,7 +61,7 @@ export const services = [
     description:
       "Ductwork components designed to help regulate airflow within a ventilation system.",
     application: "For ventilation systems requiring airflow regulation.",
-    image: "/assets/volume-control-damper.jpg",
+    image: volumeControlDamper,
     alt: "Illustrative volume control damper in a rectangular duct",
     category: "Dampers",
   },
@@ -64,7 +70,7 @@ export const services = [
     description:
       "Fabrication enquiries considered against customer drawings, dimensions and project requirements, subject to company capabilities.",
     application: "For project-specific ductwork requirements and drawings.",
-    image: "/assets/fabrication-workshop.jpg",
+    image: fabricationWorkshop,
     alt: "Illustrative worker fabricating ventilation ductwork in a workshop",
     category: "Custom",
   },
