@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project architecture
+- Keep the GC Fabrication website as six file-based TanStack Start pages sharing site-shell UI and semantic design tokens, so content remains directly navigable and consistent.
