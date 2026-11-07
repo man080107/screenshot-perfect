@@ -6,13 +6,18 @@ import {
   ArrowUpRight,
   Check,
   ChevronRight,
+  Clock,
+  Mail,
+  MapPin,
   Menu,
   MessageCircle,
   Phone,
+  ShieldCheck,
   X,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { BrandLogo } from "@/components/brand-logo";
 import { company, generalEnquiryMessage, whatsappHref } from "@/lib/business";
 
 const navItems = [
@@ -21,7 +26,8 @@ const navItems = [
   { label: "Services", to: "/services" },
   { label: "Products", to: "/products" },
   { label: "Gallery", to: "/gallery" },
-  { label: "Contact", to: "/contact" },
+  { label: "Request a Quote", to: "/quote" },
+  { label: "Contact Us", to: "/contact" },
 ] as const;
 
 export function SiteLayout({ children }: { children: ReactNode }) {
@@ -29,153 +35,598 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="bg-primary text-primary-foreground">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-5 gap-y-1 px-5 py-2 text-xs sm:px-8 lg:px-10">
-          <span className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-accent" /> ACMV Duct Fabrication · Singapore</span>
-          <a href={`tel:${company.phone.replaceAll(" ", "")}`} className="inline-flex items-center gap-2 transition-colors hover:text-accent"><Phone size={13} /> {company.phone}</a>
+    <div className="flex min-h-screen flex-col bg-background text-foreground antialiased selection:bg-accent selection:text-white">
+      {/* Top Bar with verified Singapore business credentials */}
+      <div className="border-b border-primary/20 bg-[#10243A] text-white">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-2 text-xs sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-center gap-4 text-slate-300">
+            <span className="flex items-center gap-1.5 font-medium">
+              <span className="size-2 rounded-full bg-[#E87932] animate-pulse" />
+              ACMV Duct Fabrication & Accessories Specialist · Singapore
+            </span>
+            <span className="hidden md:inline-flex items-center gap-1 text-slate-400">
+              <Clock size={12} className="text-[#E87932]" />
+              Mon – Sat: 8:00 AM – 6:00 PM
+            </span>
+          </div>
+
+          <div className="flex items-center gap-5 text-slate-300">
+            <a
+              href={`mailto:${company.email}`}
+              className="hidden sm:inline-flex items-center gap-1.5 transition-colors hover:text-[#E87932]"
+            >
+              <Mail size={13} className="text-[#E87932]" />
+              <span>{company.email}</span>
+            </a>
+            <a
+              href={`tel:${company.phone.replaceAll(" ", "")}`}
+              className="inline-flex items-center gap-1.5 font-semibold text-white transition-colors hover:text-[#E87932]"
+            >
+              <Phone size={13} className="text-[#E87932]" />
+              <span>{company.phone}</span>
+            </a>
+          </div>
         </div>
       </div>
-      <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8 lg:px-10">
-          <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="GC Fabrication home" onClick={() => setMobileMenuOpen(false)}>
-            <span className="flex size-10 shrink-0 items-center justify-center bg-accent text-accent-foreground"><span className="display-font text-lg font-extrabold">GC</span></span>
-            <span className="min-w-0"><span className="display-font block truncate text-sm font-extrabold leading-tight">GC FABRICATION</span><span className="block text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Pte. Ltd. · Singapore</span></span>
+
+      {/* Main Navigation Header */}
+      <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs transition-all">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+          <Link
+            to="/"
+            className="flex items-center gap-3 transition-opacity hover:opacity-90"
+            aria-label="GC FABRICATION PTE. LTD. - Home"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <BrandLogo size="md" />
           </Link>
-          <nav className="hidden items-center gap-6 lg:flex" aria-label="Main navigation">
-            {navItems.map((item) => (
-              <Link key={item.to} to={item.to} aria-current={location.pathname === item.to ? "page" : undefined} className={`text-sm font-medium transition-colors hover:text-accent ${location.pathname === item.to ? "text-accent" : "text-foreground"}`}>
-                {item.label}
-              </Link>
-            ))}
+
+          {/* Desktop Nav */}
+          <nav className="hidden items-center gap-7 lg:flex" aria-label="Main Navigation">
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.to;
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`relative py-1 text-sm font-semibold transition-colors hover:text-[#E87932] ${
+                    isActive ? "text-[#E87932]" : "text-[#10243A]"
+                  }`}
+                >
+                  {item.label}
+                  {isActive && (
+                    <span className="absolute inset-x-0 -bottom-3.5 h-0.5 bg-[#E87932] rounded-full" />
+                  )}
+                </Link>
+              );
+            })}
           </nav>
-          <div className="hidden lg:block">
-            <Button asChild className="h-10 rounded-none bg-accent px-4 text-accent-foreground hover:bg-accent/90">
-              <a href={whatsappHref(generalEnquiryMessage)} target="_blank" rel="noreferrer">Request a Quote <ArrowUpRight size={16} /></a>
+
+          {/* Header Action Buttons */}
+          <div className="hidden items-center gap-3 lg:flex">
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="h-9 border-emerald-600/40 text-emerald-700 bg-emerald-50/50 hover:bg-emerald-100 hover:text-emerald-800 font-semibold"
+            >
+              <a
+                href={whatsappHref(generalEnquiryMessage)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5"
+              >
+                <MessageCircle size={15} className="text-emerald-600" />
+                <span>WhatsApp</span>
+              </a>
+            </Button>
+            <Button
+              asChild
+              size="sm"
+              className="h-9 bg-[#E87932] text-white hover:bg-[#d56b27] font-semibold shadow-xs"
+            >
+              <Link to="/quote" className="inline-flex items-center gap-1.5">
+                <span>Request a Quote</span>
+                <ArrowRight size={14} />
+              </Link>
             </Button>
           </div>
-          <Button variant="outline" size="icon" className="size-10 shrink-0 rounded-none lg:hidden" aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={mobileMenuOpen} aria-controls="mobile-navigation" onClick={() => setMobileMenuOpen((open) => !open)}>
-            {mobileMenuOpen ? <X /> : <Menu />}
+
+          {/* Mobile Menu Toggle Button */}
+          <Button
+            variant="outline"
+            size="icon"
+            className="size-10 shrink-0 lg:hidden text-[#10243A]"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+            onClick={() => setMobileMenuOpen((open) => !open)}
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </Button>
         </div>
+
+        {/* Mobile Navigation Dropdown */}
         {mobileMenuOpen && (
-          <nav id="mobile-navigation" className="border-t border-border bg-background px-5 py-4 lg:hidden" aria-label="Mobile navigation">
-            <div className="mx-auto grid max-w-7xl gap-1 sm:px-3">
-              {navItems.map((item) => (
-                <Link key={item.to} to={item.to} aria-current={location.pathname === item.to ? "page" : undefined} onClick={() => setMobileMenuOpen(false)} className={`flex min-h-11 items-center justify-between border-b border-border py-2 text-sm font-semibold ${location.pathname === item.to ? "text-accent" : "text-foreground"}`}>
-                  {item.label}<ChevronRight size={16} />
-                </Link>
-              ))}
-              <Button asChild className="mt-3 h-11 w-full rounded-none bg-accent text-accent-foreground hover:bg-accent/90">
-                <a href={whatsappHref(generalEnquiryMessage)} target="_blank" rel="noreferrer">Request a Quote <ArrowUpRight size={16} /></a>
-              </Button>
+          <nav
+            className="border-b border-border bg-white px-4 py-4 shadow-lg lg:hidden"
+            aria-label="Mobile Navigation"
+          >
+            <div className="mx-auto flex flex-col gap-1">
+              {navItems.map((item) => {
+                const isActive = location.pathname === item.to;
+                return (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    aria-current={isActive ? "page" : undefined}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold transition-colors ${
+                      isActive ? "bg-orange-50 text-[#E87932]" : "text-[#10243A] hover:bg-slate-100"
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    <ChevronRight
+                      size={16}
+                      className={isActive ? "text-[#E87932]" : "text-slate-400"}
+                    />
+                  </Link>
+                );
+              })}
+
+              <div className="mt-4 grid gap-2 border-t border-slate-200 pt-4">
+                <Button
+                  asChild
+                  className="h-11 w-full bg-[#E87932] text-white hover:bg-[#d56b27] font-semibold"
+                >
+                  <Link to="/quote" onClick={() => setMobileMenuOpen(false)}>
+                    Request a Quote <ArrowRight size={16} className="ml-1.5" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-11 w-full border-emerald-600/40 text-emerald-700 bg-emerald-50/50 hover:bg-emerald-100 font-semibold"
+                >
+                  <a
+                    href={whatsappHref(generalEnquiryMessage)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2"
+                  >
+                    <MessageCircle size={17} className="text-emerald-600" />
+                    <span>WhatsApp Direct: {company.phone}</span>
+                  </a>
+                </Button>
+              </div>
+
+              <div className="mt-3 rounded-lg bg-slate-50 p-3 text-xs text-slate-600 space-y-1">
+                <p className="font-semibold text-slate-800">Workshop Address:</p>
+                <p>{company.address}</p>
+                <a
+                  href={company.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 font-semibold text-[#E87932] hover:underline"
+                >
+                  Open in Google Maps <ArrowUpRight size={12} />
+                </a>
+              </div>
             </div>
           </nav>
         )}
       </header>
 
-      <main>{children}</main>
+      {/* Main Body */}
+      <main className="flex-1">{children}</main>
 
-      <footer className="bg-primary text-primary-foreground">
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 py-14 sm:px-8 md:grid-cols-2 lg:grid-cols-4 lg:px-10 lg:py-16">
-          <div className="lg:col-span-1">
-            <Link to="/" className="inline-flex items-center gap-3">
-              <span className="flex size-10 items-center justify-center bg-accent text-accent-foreground"><span className="display-font text-lg font-extrabold">GC</span></span>
-              <span className="display-font text-sm font-extrabold">GC FABRICATION PTE. LTD.</span>
-            </Link>
-            <p className="mt-5 max-w-xs text-sm leading-6 text-primary-foreground/70">ACMV duct fabrication and related ductwork solutions for commercial and industrial applications in Singapore.</p>
-          </div>
-          <div>
-            <p className="section-kicker">Explore</p>
-            <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 text-sm text-primary-foreground/75">
-              {navItems.map((item) => <Link key={item.to} to={item.to} className="transition-colors hover:text-accent">{item.label}</Link>)}
+      {/* Primary Footer */}
+      <footer className="border-t border-slate-800 bg-[#10243A] text-white">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8 lg:py-16">
+          {/* Col 1: Brand Info */}
+          <div className="space-y-4">
+            <BrandLogo variant="dark" size="md" />
+            <p className="text-sm leading-6 text-slate-300">
+              Singapore specialist in ACMV (Air-Conditioning & Mechanical Ventilation) duct
+              fabrication, pre-insulated duct (PID) systems, dampers, and custom engineering sheet
+              metal solutions.
+            </p>
+            <div className="flex items-center gap-2 text-xs font-semibold text-slate-400">
+              <ShieldCheck size={16} className="text-[#E87932]" />
+              <span>Singapore Registered Business</span>
+            </div>
+            <div className="pt-2">
+              <span className="inline-block rounded-sm bg-white/10 px-2.5 py-1 text-xs font-mono text-slate-300">
+                8 Kaki Bukit Ave 4, #04-02 Premier
+              </span>
             </div>
           </div>
+
+          {/* Col 2: Navigation Links */}
           <div>
-            <p className="section-kicker">Services</p>
-            <div className="mt-5 space-y-3 text-sm text-primary-foreground/75">
-              <Link to="/services" className="block transition-colors hover:text-accent">Rectangular & round ductwork</Link>
-              <Link to="/services" className="block transition-colors hover:text-accent">Transitions & fittings</Link>
-              <Link to="/services" className="block transition-colors hover:text-accent">Volume control dampers</Link>
-              <Link to="/services" className="block transition-colors hover:text-accent">Custom ductwork</Link>
-            </div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#E87932]">Explore</p>
+            <ul className="mt-4 space-y-2.5 text-sm text-slate-300">
+              {navItems.map((item) => (
+                <li key={item.to}>
+                  <Link
+                    to={item.to}
+                    className="transition-colors hover:text-[#E87932] inline-flex items-center gap-1.5"
+                  >
+                    <ChevronRight size={14} className="text-slate-500" />
+                    <span>{item.label}</span>
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  to="/privacy"
+                  className="transition-colors hover:text-[#E87932] inline-flex items-center gap-1.5"
+                >
+                  <ChevronRight size={14} className="text-slate-500" />
+                  <span>Privacy Policy</span>
+                </Link>
+              </li>
+            </ul>
           </div>
+
+          {/* Col 3: Services */}
           <div>
-            <p className="section-kicker">Get in touch</p>
-            <a href={company.mapsUrl} target="_blank" rel="noreferrer" className="mt-5 block text-sm leading-6 text-primary-foreground/75 transition-colors hover:text-accent">{company.address}<ArrowUpRight className="ml-1 inline" size={14} /></a>
-            <a href={`tel:${company.phone.replaceAll(" ", "")}`} className="mt-3 block text-sm font-semibold transition-colors hover:text-accent">{company.phone}</a>
-            <a href={whatsappHref(generalEnquiryMessage)} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-2 text-sm font-semibold transition-colors hover:text-accent"><MessageCircle size={15} /> WhatsApp</a>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#E87932]">
+              Fabrication Services
+            </p>
+            <ul className="mt-4 space-y-2.5 text-sm text-slate-300">
+              <li>
+                <Link to="/services" className="transition-colors hover:text-[#E87932]">
+                  Rectangular Duct Fabrication (GI & PID)
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="transition-colors hover:text-[#E87932]">
+                  Round Spiral Ducts & Reducers
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="transition-colors hover:text-[#E87932]">
+                  Duct Transitions & Offsets
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="transition-colors hover:text-[#E87932]">
+                  Duct Fittings (Elbows, Tees, S-Bends)
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="transition-colors hover:text-[#E87932]">
+                  Volume Control Dampers (VCD & NRD)
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="transition-colors hover:text-[#E87932]">
+                  Custom Engineering Ductwork & Tables
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 4: Contact & Workshop */}
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#E87932]">
+              Workshop & Contact
+            </p>
+            <div className="mt-4 space-y-3 text-sm text-slate-300">
+              <a
+                href={company.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-start gap-2.5 transition-colors hover:text-white"
+              >
+                <MapPin size={18} className="shrink-0 text-[#E87932] mt-0.5" />
+                <span className="leading-snug">
+                  {company.address}
+                  <span className="block text-xs font-semibold text-[#E87932] group-hover:underline mt-1">
+                    View on Google Maps →
+                  </span>
+                </span>
+              </a>
+
+              <a
+                href={`tel:${company.phone.replaceAll(" ", "")}`}
+                className="flex items-center gap-2.5 transition-colors hover:text-white font-semibold"
+              >
+                <Phone size={16} className="text-[#E87932]" />
+                <span>{company.phone}</span>
+              </a>
+
+              <a
+                href={`mailto:${company.email}`}
+                className="flex items-center gap-2.5 transition-colors hover:text-white"
+              >
+                <Mail size={16} className="text-[#E87932]" />
+                <span>{company.email}</span>
+              </a>
+
+              <a
+                href={whatsappHref(generalEnquiryMessage)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-md bg-emerald-600/20 px-3 py-2 text-xs font-semibold text-emerald-300 hover:bg-emerald-600/30 transition-colors"
+              >
+                <MessageCircle size={15} className="text-emerald-400" />
+                <span>Chat on WhatsApp ({company.phone})</span>
+              </a>
+            </div>
           </div>
         </div>
-        <div className="border-t border-primary-foreground/15">
-          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-5 py-5 text-xs text-primary-foreground/55 sm:px-8 lg:px-10">
-            <span>© {new Date().getFullYear()} GC FABRICATION PTE. LTD.</span>
-            <span>Illustrative images are not representations of company projects.</span>
+
+        {/* Bottom Legal Bar */}
+        <div className="border-t border-slate-800 bg-[#0c1b2c] py-5">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 text-xs text-slate-400 sm:px-6 lg:px-8">
+            <p>© {new Date().getFullYear()} GC FABRICATION PTE. LTD. All rights reserved.</p>
+            <div className="flex items-center gap-6">
+              <span>ACMV Ductwork · Singapore</span>
+              <Link to="/privacy" className="hover:text-slate-200 transition-colors">
+                Privacy Policy
+              </Link>
+            </div>
           </div>
         </div>
       </footer>
 
-      <Button asChild size="icon" aria-label="Enquire on WhatsApp" className="fixed bottom-5 right-5 z-40 size-14 rounded-full bg-accent text-accent-foreground shadow-lg hover:bg-accent/90">
-        <a href={whatsappHref(generalEnquiryMessage)} target="_blank" rel="noreferrer"><MessageCircle size={23} /></a>
-      </Button>
+      {/* Floating WhatsApp Quick-Contact Button */}
+      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2">
+        <a
+          href={whatsappHref(generalEnquiryMessage)}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat with GC Fabrication on WhatsApp"
+          className="group flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl focus:outline-hidden focus:ring-4 focus:ring-emerald-400/50"
+        >
+          <span className="absolute -inset-1 rounded-full bg-[#25D366] opacity-30 animate-ping pointer-events-none" />
+          <MessageCircle size={28} className="fill-current" />
+        </a>
+      </div>
     </div>
   );
 }
 
-export function PageIntro({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
+export function PageIntro({
+  eyebrow,
+  title,
+  description,
+  badge,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+  badge?: string;
+}) {
   return (
-    <section className="industrial-grid border-b border-border bg-secondary/65">
-      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-        <p className="section-kicker">{eyebrow}</p>
-        <h1 className="display-font mt-4 max-w-4xl text-4xl font-extrabold leading-[1.08] sm:text-5xl lg:text-6xl">{title}</h1>
-        <p className="mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">{description}</p>
-        <div className="mt-8 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground"><span>GC Fabrication</span><ChevronRight size={14} /><span>{eyebrow}</span></div>
+    <section className="relative overflow-hidden border-b border-border bg-[#10243A] text-white py-16 sm:py-20 lg:py-24">
+      <div className="industrial-grid-dark absolute inset-0 opacity-20 pointer-events-none" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="inline-flex items-center gap-1.5 rounded-sm bg-[#E87932] px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white">
+            {eyebrow}
+          </span>
+          {badge && (
+            <span className="rounded-sm bg-white/10 px-2.5 py-1 text-xs font-medium text-slate-300">
+              {badge}
+            </span>
+          )}
+        </div>
+        <h1 className="display-font mt-4 max-w-4xl text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl leading-tight">
+          {title}
+        </h1>
+        <p className="mt-5 max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
+          {description}
+        </p>
+        <div className="mt-8 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+          <Link to="/" className="hover:text-white transition-colors">
+            GC Fabrication
+          </Link>
+          <ChevronRight size={13} />
+          <span className="text-[#E87932]">{eyebrow}</span>
+        </div>
       </div>
     </section>
   );
 }
 
-export function SectionHeading({ eyebrow, title, description, className = "" }: { eyebrow: string; title: string; description?: string; className?: string }) {
-  return <div className={className}><p className="section-kicker">{eyebrow}</p><h2 className="display-font mt-3 max-w-3xl text-3xl font-bold leading-tight sm:text-4xl">{title}</h2>{description && <p className="mt-4 max-w-2xl leading-7 text-muted-foreground">{description}</p>}</div>;
+export function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  centered = false,
+  className = "",
+}: {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  centered?: boolean;
+  className?: string;
+}) {
+  return (
+    <div className={`${centered ? "text-center mx-auto" : ""} max-w-3xl ${className}`}>
+      <span className="section-kicker">{eyebrow}</span>
+      <h2 className="display-font mt-2 text-2xl font-bold tracking-tight text-[#10243A] sm:text-3xl lg:text-4xl">
+        {title}
+      </h2>
+      {description && (
+        <p className="mt-3.5 text-base leading-relaxed text-[#697586] sm:text-lg">{description}</p>
+      )}
+    </div>
+  );
 }
 
-export function WhatsAppButton({ message, children = "Request a Quote", className = "" }: { message?: string; children?: ReactNode; className?: string }) {
-  return <Button asChild className={`min-h-12 rounded-none bg-accent px-5 text-accent-foreground hover:bg-accent/90 ${className}`}><a href={whatsappHref(message ?? generalEnquiryMessage)} target="_blank" rel="noreferrer">{children}<ArrowUpRight size={17} /></a></Button>;
+export function WhatsAppButton({
+  message,
+  children = "Request a Quote",
+  className = "",
+}: {
+  message?: string;
+  children?: ReactNode;
+  className?: string;
+}) {
+  return (
+    <Button
+      asChild
+      className={`h-11 rounded-md bg-[#E87932] px-6 font-semibold text-white shadow-xs hover:bg-[#d56b27] ${className}`}
+    >
+      <a
+        href={whatsappHref(message ?? generalEnquiryMessage)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2"
+      >
+        <span>{children}</span>
+        <ArrowUpRight size={17} />
+      </a>
+    </Button>
+  );
 }
 
 export function ContactBand() {
   return (
-    <section className="bg-secondary">
-      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-14 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10 lg:py-16">
-        <div><p className="section-kicker">Start a conversation</p><h2 className="display-font mt-3 max-w-2xl text-3xl font-bold sm:text-4xl">Have an ACMV fabrication requirement?</h2><p className="mt-4 max-w-2xl leading-7 text-muted-foreground">Get in touch to discuss your ductwork requirements and project specifications.</p></div>
-        <div className="flex shrink-0 flex-wrap gap-3"><WhatsAppButton>WhatsApp Us</WhatsAppButton><Button asChild variant="outline" className="min-h-12 rounded-none border-primary/30 bg-background px-5"><Link to="/contact">Contact Us <ArrowRight size={16} /></Link></Button></div>
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#10243A] to-[#18314e] text-white py-16 sm:py-20">
+      <div className="industrial-grid-dark absolute inset-0 opacity-15 pointer-events-none" />
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+        <div className="max-w-2xl">
+          <span className="inline-flex items-center gap-1.5 rounded-sm bg-[#E87932] px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-white">
+            Ready to Build
+          </span>
+          <h2 className="display-font mt-3 text-2xl font-bold sm:text-3xl lg:text-4xl leading-tight">
+            Ready to Discuss Your Next Project?
+          </h2>
+          <p className="mt-3 text-base text-slate-300">
+            Send us your fabrication drawings, BOQ, or project specifications for a prompt review
+            and discussion.
+          </p>
+        </div>
+        <div className="flex shrink-0 flex-wrap items-center gap-3">
+          <Button
+            asChild
+            size="lg"
+            className="h-12 bg-[#E87932] text-white hover:bg-[#d56b27] font-semibold shadow-md px-6"
+          >
+            <Link to="/quote" className="inline-flex items-center gap-2">
+              <span>Request a Quote</span>
+              <ArrowRight size={17} />
+            </Link>
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            variant="outline"
+            className="h-12 border-emerald-500/60 text-emerald-300 bg-emerald-950/30 hover:bg-emerald-900/50 hover:text-white font-semibold px-6"
+          >
+            <a
+              href={whatsappHref(generalEnquiryMessage)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2"
+            >
+              <MessageCircle size={18} className="text-emerald-400" />
+              <span>WhatsApp Us</span>
+            </a>
+          </Button>
+        </div>
       </div>
     </section>
   );
 }
 
-export function ServiceCard({ title, description, image, alt, category }: { title: string; description: string; image: string; alt: string; category: string }) {
+export function ServiceCard({
+  title,
+  shortDescription,
+  image,
+  alt,
+  category,
+}: {
+  id?: string;
+  title: string;
+  shortDescription: string;
+  image: string;
+  alt: string;
+  category: string;
+}) {
   return (
-    <article className="group border border-border bg-card transition-colors hover:border-accent/60">
-      <Link to="/services" className="block overflow-hidden" aria-label={`Learn more about ${title}`}>
-        <div className="relative aspect-[16/10] overflow-hidden bg-secondary"><img src={image} alt={alt} width={1024} height={1024} loading="lazy" className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.035]" /><span className="absolute bottom-0 left-0 bg-primary px-3 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-primary-foreground">Illustrative image</span></div>
+    <article className="group flex flex-col overflow-hidden rounded-lg border border-slate-200/90 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#E87932]/50 hover:shadow-lg">
+      <Link to="/services" className="relative block aspect-[16/10] overflow-hidden bg-slate-100">
+        <img
+          src={image}
+          alt={alt}
+          width={800}
+          height={500}
+          loading="lazy"
+          className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <span className="absolute bottom-2.5 left-2.5 rounded-sm bg-[#10243A]/90 backdrop-blur-xs px-2.5 py-1 text-[0.68rem] font-semibold uppercase tracking-wider text-white">
+          {category}
+        </span>
       </Link>
-      <div className="p-5 sm:p-6">
-        <p className="section-kicker">{category}</p><h3 className="display-font mt-2 text-xl font-bold leading-snug">{title}</h3><p className="mt-3 min-h-14 text-sm leading-6 text-muted-foreground">{description}</p>
-        <Link to="/services" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-foreground transition-colors hover:text-accent">Learn more <ArrowRight size={16} /></Link>
+      <div className="flex flex-1 flex-col p-6">
+        <h3 className="display-font text-lg font-bold text-[#10243A] leading-snug group-hover:text-[#E87932] transition-colors">
+          {title}
+        </h3>
+        <p className="mt-2.5 flex-1 text-sm leading-relaxed text-[#697586]">{shortDescription}</p>
+        <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4">
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#10243A] hover:text-[#E87932] transition-colors uppercase tracking-wider"
+          >
+            <span>Service Details</span>
+            <ArrowRight size={14} />
+          </Link>
+          <a
+            href={whatsappHref(`Hello GC FABRICATION, I would like to enquire about ${title}.`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 hover:text-emerald-800"
+          >
+            <MessageCircle size={13} />
+            <span>Enquire</span>
+          </a>
+        </div>
       </div>
     </article>
   );
 }
 
-export function FeatureList({ items }: { items: string[] }) {
-  return <ul className="space-y-3">{items.map((item) => <li key={item} className="flex items-start gap-3 text-sm leading-6 text-muted-foreground"><span className="mt-1 flex size-5 shrink-0 items-center justify-center bg-accent/15 text-accent"><Check size={13} /></span>{item}</li>)}</ul>;
-}
-
-export function ScrollCue() {
-  return <a href="#company-introduction" aria-label="Scroll to company introduction" className="inline-flex size-11 items-center justify-center border border-primary-foreground/30 text-primary-foreground transition-colors hover:bg-primary-foreground/10"><ArrowDown size={17} /></a>;
+export function FeatureList({ items }: { items: readonly string[] | string[] }) {
+  return (
+    <ul className="space-y-2.5">
+      {items.map((item) => (
+        <li key={item} className="flex items-start gap-3 text-sm text-[#252B32]">
+          <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+            <Check size={13} className="stroke-[2.5]" />
+          </span>
+          <span className="leading-relaxed">{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 export function PhoneLink({ className = "" }: { className?: string }) {
-  return <a href={`tel:${company.phone.replaceAll(" ", "")}`} className={`inline-flex items-center gap-2 ${className}`}><Phone size={17} />{company.phone}</a>;
+  return (
+    <a
+      href={`tel:${company.phone.replaceAll(" ", "")}`}
+      className={`inline-flex items-center gap-2 font-semibold ${className}`}
+    >
+      <Phone size={16} className="text-[#E87932]" />
+      <span>{company.phone}</span>
+    </a>
+  );
+}
+
+export function ScrollCue() {
+  return (
+    <a
+      href="#company-introduction"
+      aria-label="Scroll to company introduction"
+      className="inline-flex size-11 items-center justify-center rounded-md border border-white/20 text-white transition-colors hover:bg-white/10 hover:border-white/40"
+    >
+      <ArrowDown size={17} />
+    </a>
+  );
 }

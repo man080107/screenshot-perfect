@@ -1,32 +1,39 @@
 import { useState, type FormEvent } from "react";
-import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, MapPin, MessageCircle, Phone } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Building,
+  CheckCircle2,
+  Clock,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Send,
+  User,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { PageIntro, SiteLayout, WhatsAppButton } from "@/components/site";
-import { company, generalEnquiryMessage, whatsappHref } from "@/lib/business";
+import { PageIntro, SiteLayout } from "@/components/site";
+import { company, generalEnquiryMessage, pageHead, whatsappHref } from "@/lib/business";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
-  head: () => ({
-    meta: [
-      { title: "Contact GC Fabrication | ACMV Ductwork Singapore" },
-      { name: "description", content: "Contact GC FABRICATION PTE. LTD. in Singapore by phone, WhatsApp, map directions or an enquiry opened in WhatsApp." },
-      { property: "og:title", content: "Contact GC Fabrication | ACMV Ductwork Singapore" },
-      { property: "og:description", content: "Get in touch about ACMV duct fabrication and project requirements in Singapore." },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/contact" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [{ rel: "canonical", href: "/contact" }],
-  }),
+  head: () =>
+    pageHead(
+      "Contact GC Fabrication | ACMV Ductwork Singapore",
+      "Get in touch with GC FABRICATION PTE. LTD. at Premier @ Kaki Bukit, Singapore. Direct phone, WhatsApp chat, and quotation consultations for ACMV ductwork projects.",
+      "/contact",
+    ),
 });
 
-function ContactPage() {
-  const [whatsappMessage, setWhatsappMessage] = useState<string | null>(null);
+export function ContactPage() {
+  const [whatsappSent, setWhatsappSent] = useState(false);
+  const [lastMessage, setLastMessage] = useState<string>("");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -39,48 +46,318 @@ function ContactPage() {
       service: String(formData.get("service") ?? "").trim(),
       details: String(formData.get("details") ?? "").trim(),
     };
+
     const message = [
-      "Hello GC FABRICATION PTE. LTD., I would like to make an enquiry.",
-      `Full Name: ${values.name}`,
-      `Company Name: ${values.companyName}`,
-      `Phone Number: ${values.phone}`,
-      `Email Address: ${values.email}`,
-      `Service Required: ${values.service}`,
-      `Project Details: ${values.details}`,
+      "Hello GC FABRICATION PTE. LTD., I would like to make an ACMV fabrication enquiry.",
+      `• Contact Name: ${values.name}`,
+      `• Company: ${values.companyName}`,
+      `• Phone: ${values.phone}`,
+      `• Email: ${values.email}`,
+      `• Service Required: ${values.service}`,
+      `• Project Details: ${values.details}`,
     ].join("\n");
-    setWhatsappMessage(message);
+
+    setLastMessage(message);
+    setWhatsappSent(true);
     window.open(whatsappHref(message), "_blank", "noopener,noreferrer");
   }
 
   return (
     <SiteLayout>
-      <PageIntro eyebrow="Contact us" title="Let's discuss your ductwork requirements" description="Contact GC FABRICATION PTE. LTD. in Singapore about ACMV duct fabrication and project requirements." />
-      <section>
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 py-14 sm:px-8 sm:py-18 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:px-10 lg:py-20">
-          <aside>
-            <p className="section-kicker">Get in touch</p><h2 className="display-font mt-3 text-3xl font-bold">GC FABRICATION PTE. LTD.</h2>
-            <div className="mt-8 divide-y divide-border border-y border-border">
-              <a href={company.mapsUrl} target="_blank" rel="noreferrer" className="flex gap-4 py-5 transition-colors hover:text-accent"><span className="flex size-10 shrink-0 items-center justify-center bg-secondary text-accent"><MapPin size={19} /></span><span><span className="block text-sm font-semibold">Address</span><span className="mt-1 block text-sm leading-6 text-muted-foreground">{company.address}</span><span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold">Google Maps directions <ArrowUpRight size={13} /></span></span></a>
-              <a href={`tel:${company.phone.replaceAll(" ", "")}`} className="flex items-center gap-4 py-5 transition-colors hover:text-accent"><span className="flex size-10 shrink-0 items-center justify-center bg-secondary text-accent"><Phone size={18} /></span><span><span className="block text-sm font-semibold">Phone</span><span className="mt-1 block text-sm text-muted-foreground">{company.phone}</span></span></a>
-              <a href={whatsappHref(generalEnquiryMessage)} target="_blank" rel="noreferrer" className="flex items-center gap-4 py-5 transition-colors hover:text-accent"><span className="flex size-10 shrink-0 items-center justify-center bg-secondary text-accent"><MessageCircle size={18} /></span><span><span className="block text-sm font-semibold">WhatsApp</span><span className="mt-1 block text-sm text-muted-foreground">{company.phone}</span></span></a>
-            </div>
-            <div className="mt-6"><WhatsAppButton>WhatsApp Us</WhatsAppButton></div>
-          </aside>
-          <div className="border border-border bg-card p-5 sm:p-8">
-            <p className="section-kicker">Project enquiry</p><h2 className="display-font mt-3 text-2xl font-bold">Tell us what you need</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">Complete the form to open a prefilled WhatsApp message. Review the details and send the message in WhatsApp to deliver your enquiry.</p>
-            <form onSubmit={handleSubmit} className="mt-7 space-y-5">
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div className="space-y-2"><Label htmlFor="name">Full Name <span aria-hidden="true">*</span></Label><Input id="name" name="name" required autoComplete="name" className="h-11 rounded-none" /></div>
-                <div className="space-y-2"><Label htmlFor="companyName">Company Name <span aria-hidden="true">*</span></Label><Input id="companyName" name="companyName" required autoComplete="organization" className="h-11 rounded-none" /></div>
-                <div className="space-y-2"><Label htmlFor="phone">Phone Number <span aria-hidden="true">*</span></Label><Input id="phone" name="phone" type="tel" required autoComplete="tel" className="h-11 rounded-none" /></div>
-                <div className="space-y-2"><Label htmlFor="email">Email Address <span aria-hidden="true">*</span></Label><Input id="email" name="email" type="email" required autoComplete="email" className="h-11 rounded-none" /></div>
+      <PageIntro
+        eyebrow="Contact Us"
+        title="Let's Discuss Your Ductwork Requirements"
+        description="Reach out directly to GC FABRICATION PTE. LTD. in Singapore. Discuss technical drawings, schedule workshop reviews, or request an immediate quotation."
+        badge="Direct Workshop Line"
+      />
+
+      <section className="py-16 sm:py-20 lg:py-24 bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+            {/* Left Column: Verified Business Information */}
+            <div className="lg:col-span-5 space-y-8">
+              <div>
+                <span className="section-kicker">Direct Contact</span>
+                <h2 className="display-font mt-2 text-2xl sm:text-3xl font-extrabold text-[#10243A]">
+                  GC FABRICATION PTE. LTD.
+                </h2>
+                <p className="mt-2 text-sm text-[#697586] leading-relaxed">
+                  We welcome ventilation contractors, project managers, and ACMV engineers to get in
+                  touch or arrange consultations.
+                </p>
               </div>
-              <div className="space-y-2"><Label htmlFor="service">Service Required <span aria-hidden="true">*</span></Label><select id="service" name="service" required defaultValue="" className="flex h-11 w-full border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"><option value="" disabled>Select a service</option><option>Rectangular Duct Fabrication</option><option>Round Duct Fabrication</option><option>Duct Transitions and Fittings</option><option>Volume Control Dampers</option><option>Custom Ductwork Solutions</option><option>Other ACMV ductwork enquiry</option></select></div>
-              <div className="space-y-2"><Label htmlFor="details">Project Details <span aria-hidden="true">*</span></Label><Textarea id="details" name="details" required minLength={8} rows={5} placeholder="Share the project requirements, dimensions or drawings you would like to discuss." className="min-h-32 rounded-none" /></div>
-              <Button type="submit" className="min-h-12 w-full rounded-none bg-accent text-accent-foreground hover:bg-accent/90">Send Enquiry <ArrowUpRight size={17} /></Button>
-              {whatsappMessage && <p role="status" className="border-l-2 border-accent bg-secondary p-4 text-sm leading-6">WhatsApp was opened with your enquiry details. Please review and send the message in WhatsApp. If it did not open, <a className="font-semibold underline underline-offset-4" href={whatsappHref(whatsappMessage)} target="_blank" rel="noreferrer">continue to WhatsApp here</a>.</p>}
-              <p className="text-xs leading-5 text-muted-foreground">Your details are not submitted or stored on this website. The enquiry is delivered only if you choose to send it in WhatsApp.</p>
-            </form>
+
+              {/* Contact Cards */}
+              <div className="space-y-4">
+                <a
+                  href={company.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start gap-4 rounded-xl border border-slate-200 bg-slate-50/70 p-5 transition-all hover:border-[#E87932] hover:bg-white hover:shadow-md"
+                >
+                  <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-[#10243A] text-[#E87932]">
+                    <MapPin size={22} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                      Workshop Location
+                    </span>
+                    <p className="display-font text-sm font-bold text-[#10243A] mt-0.5 leading-snug">
+                      {company.address}
+                    </p>
+                    <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-[#E87932] group-hover:underline">
+                      <span>Open in Google Maps</span>
+                      <ArrowUpRight size={13} />
+                    </span>
+                  </div>
+                </a>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <a
+                    href={`tel:${company.phone.replaceAll(" ", "")}`}
+                    className="flex flex-col rounded-xl border border-slate-200 bg-slate-50/70 p-5 transition-all hover:border-[#E87932] hover:bg-white hover:shadow-md"
+                  >
+                    <span className="flex size-10 items-center justify-center rounded-lg bg-[#10243A] text-[#E87932] mb-3">
+                      <Phone size={18} />
+                    </span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                      Phone Number
+                    </span>
+                    <span className="display-font text-sm font-bold text-[#10243A] mt-0.5">
+                      {company.phone}
+                    </span>
+                    <span className="mt-2 text-[0.72rem] text-slate-500">Direct Workshop Call</span>
+                  </a>
+
+                  <a
+                    href={whatsappHref(generalEnquiryMessage)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col rounded-xl border border-emerald-200 bg-emerald-50/50 p-5 transition-all hover:border-emerald-500 hover:bg-white hover:shadow-md"
+                  >
+                    <span className="flex size-10 items-center justify-center rounded-lg bg-[#25D366] text-white mb-3">
+                      <MessageCircle size={18} />
+                    </span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">
+                      WhatsApp Chat
+                    </span>
+                    <span className="display-font text-sm font-bold text-[#10243A] mt-0.5">
+                      {company.phone}
+                    </span>
+                    <span className="mt-2 text-[0.72rem] text-emerald-700">Quick Response</span>
+                  </a>
+                </div>
+
+                <a
+                  href={`mailto:${company.email}`}
+                  className="flex items-center gap-4 rounded-xl border border-slate-200 bg-slate-50/70 p-5 transition-all hover:border-[#E87932] hover:bg-white hover:shadow-md"
+                >
+                  <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-[#10243A] text-[#E87932]">
+                    <Mail size={22} />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                      Email Address
+                    </span>
+                    <p className="display-font text-sm font-bold text-[#10243A] mt-0.5">
+                      {company.email}
+                    </p>
+                    <span className="text-xs text-slate-500">For drawing submissions & BOQ</span>
+                  </div>
+                </a>
+
+                <div className="flex items-center gap-3 rounded-xl bg-slate-100 p-4 text-xs text-slate-600">
+                  <Clock size={18} className="text-[#E87932] shrink-0" />
+                  <div>
+                    <p className="font-semibold text-slate-800">Operating Schedule:</p>
+                    <p>Monday – Saturday: 8:00 AM – 6:00 PM (Singapore Time)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Contact Enquiry Form */}
+            <div className="lg:col-span-7">
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-10 shadow-sm">
+                <div className="mb-6">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#E87932]">
+                    Enquiry Form
+                  </span>
+                  <h3 className="display-font text-xl sm:text-2xl font-bold text-[#10243A] mt-1">
+                    Send Us an ACMV Enquiry
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#697586] mt-1">
+                    Fill out the fields below. Submitting will prepare your enquiry for one-touch
+                    dispatch via WhatsApp or email.
+                  </p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-1.5">
+                      <Label
+                        htmlFor="contactName"
+                        className="text-xs font-bold uppercase text-slate-700"
+                      >
+                        Full Name <span className="text-red-500">*</span>
+                      </Label>
+                      <div className="relative">
+                        <User size={15} className="absolute left-3 top-3.5 text-slate-400" />
+                        <Input
+                          id="contactName"
+                          name="name"
+                          placeholder="e.g. Michael Chen"
+                          required
+                          className="h-11 pl-9 text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <Label
+                        htmlFor="contactCompany"
+                        className="text-xs font-bold uppercase text-slate-700"
+                      >
+                        Company Name <span className="text-red-500">*</span>
+                      </Label>
+                      <div className="relative">
+                        <Building size={15} className="absolute left-3 top-3.5 text-slate-400" />
+                        <Input
+                          id="contactCompany"
+                          name="companyName"
+                          placeholder="e.g. Apex M&E Engineering"
+                          required
+                          className="h-11 pl-9 text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <Label
+                        htmlFor="contactPhone"
+                        className="text-xs font-bold uppercase text-slate-700"
+                      >
+                        Phone Number <span className="text-red-500">*</span>
+                      </Label>
+                      <div className="relative">
+                        <Phone size={15} className="absolute left-3 top-3.5 text-slate-400" />
+                        <Input
+                          id="contactPhone"
+                          name="phone"
+                          type="tel"
+                          placeholder="e.g. +65 9876 5432"
+                          required
+                          className="h-11 pl-9 text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <Label
+                        htmlFor="contactEmail"
+                        className="text-xs font-bold uppercase text-slate-700"
+                      >
+                        Email Address <span className="text-red-500">*</span>
+                      </Label>
+                      <div className="relative">
+                        <Mail size={15} className="absolute left-3 top-3.5 text-slate-400" />
+                        <Input
+                          id="contactEmail"
+                          name="email"
+                          type="email"
+                          placeholder="e.g. project@apex-eng.com"
+                          required
+                          className="h-11 pl-9 text-sm"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label
+                      htmlFor="contactService"
+                      className="text-xs font-bold uppercase text-slate-700"
+                    >
+                      Service Required <span className="text-red-500">*</span>
+                    </Label>
+                    <select
+                      id="contactService"
+                      name="service"
+                      required
+                      defaultValue=""
+                      className="flex h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-hidden focus:ring-2 focus:ring-ring"
+                    >
+                      <option value="" disabled>
+                        Select a fabrication category
+                      </option>
+                      <option>Rectangular Duct Fabrication (GI & PID)</option>
+                      <option>Round Duct Fabrication (Spiral & Round)</option>
+                      <option>Duct Transitions & Offsets</option>
+                      <option>Duct Fittings (Elbows, Tees, S-Bends)</option>
+                      <option>Volume Control Dampers (VCD & NRD)</option>
+                      <option>Custom Ductwork & Engineering Tables</option>
+                      <option>Other ACMV Accessories & Hardware</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label
+                      htmlFor="contactDetails"
+                      className="text-xs font-bold uppercase text-slate-700"
+                    >
+                      Project Details & Requirements <span className="text-red-500">*</span>
+                    </Label>
+                    <Textarea
+                      id="contactDetails"
+                      name="details"
+                      rows={4}
+                      placeholder="Share dimensions, material requirements (GI, PID, SS), expected quantity, or delivery dates."
+                      required
+                      className="min-h-28 text-sm"
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="h-12 w-full bg-[#E87932] text-white hover:bg-[#d56b27] font-semibold text-base shadow-sm"
+                  >
+                    <span>Send Enquiry via WhatsApp</span>
+                    <Send size={16} className="ml-2" />
+                  </Button>
+
+                  {whatsappSent && (
+                    <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-4 text-xs text-emerald-900 space-y-1">
+                      <p className="font-bold flex items-center gap-1 text-emerald-800">
+                        <CheckCircle2 size={16} className="text-emerald-600" />
+                        WhatsApp Message Prepared
+                      </p>
+                      <p>
+                        We have opened WhatsApp with your enquiry details. If it did not open
+                        automatically,{" "}
+                        <a
+                          href={whatsappHref(lastMessage)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-bold underline text-emerald-950"
+                        >
+                          click here to proceed to WhatsApp
+                        </a>
+                        .
+                      </p>
+                    </div>
+                  )}
+
+                  <div className="pt-2 text-center">
+                    <p className="text-xs text-slate-500">
+                      Need to submit engineering drawings, BOQ, or multi-item schedules?{" "}
+                      <Link to="/quote" className="font-bold text-[#E87932] hover:underline">
+                        Use our Detailed Quotation Wizard →
+                      </Link>
+                    </p>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </section>
