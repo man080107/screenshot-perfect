@@ -18,13 +18,16 @@
 
 /*
  * Design system definition for GC FABRICATION PTE. LTD.
- * Premium Industrial Editorial Aesthetic:
- * - Deep navy: #10243A -> oklch(0.24 0.045 245)
- * - Charcoal: #252B32 -> oklch(0.28 0.012 250)
- * - Industrial orange: #E87932 -> oklch(0.66 0.175 48)
- * - White: #FFFFFF -> oklch(1 0 0)
- * - Light grey: #F4F6F8 -> oklch(0.972 0.005 245)
- * - Secondary text: #697586 -> oklch(0.55 0.022 248)
+ * Premium Corporate Industrial Aesthetic (Client Reference Standard):
+ * - Primary navy: #103766
+ * - Corporate blue: #0755A4
+ * - Deep blue: #082D55
+ * - Light blue: #EAF2FA
+ * - Background: #F7F9FC
+ * - White: #FFFFFF
+ * - Main text: #172E49
+ * - Secondary text: #61738A
+ * - Borders: #DCE5EF
  */
 
 @theme inline {
@@ -53,54 +56,58 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
-  --color-brand-cyan: oklch(0.68 0.15 230);
-  --color-brand-navy: oklch(0.24 0.045 245);
-  --color-brand-orange: oklch(0.66 0.175 48);
+  --color-brand-primary-navy: #103766;
+  --color-brand-corporate-blue: #0755a4;
+  --color-brand-deep-blue: #082d55;
+  --color-brand-light-blue: #eaf2fa;
+  --color-brand-border: #dce5ef;
+  --color-brand-text: #172e49;
+  --color-brand-muted: #61738a;
 }
 
 :root {
   --radius: 0.375rem;
-  --background: oklch(0.985 0.003 245);
-  --foreground: oklch(0.24 0.045 245);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.24 0.045 245);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.24 0.045 245);
-  --primary: oklch(0.24 0.045 245); /* Deep Navy #10243A */
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.965 0.005 245); /* Light Grey #F4F6F8 */
-  --secondary-foreground: oklch(0.24 0.045 245);
-  --muted: oklch(0.955 0.006 245);
-  --muted-foreground: oklch(0.53 0.022 248); /* #697586 */
-  --accent: oklch(0.66 0.175 48); /* Industrial Orange #E87932 */
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.9 0.008 245);
-  --input: oklch(0.88 0.01 245);
-  --ring: oklch(0.66 0.175 48);
+  --background: #ffffff;
+  --foreground: #172e49;
+  --card: #ffffff;
+  --card-foreground: #172e49;
+  --popover: #ffffff;
+  --popover-foreground: #172e49;
+  --primary: #0755a4; /* Corporate Royal Blue */
+  --primary-foreground: #ffffff;
+  --secondary: #f7f9fc; /* Light Background */
+  --secondary-foreground: #103766;
+  --muted: #f0f4f8;
+  --muted-foreground: #61738a; /* Slate secondary text */
+  --accent: #0755a4;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #dce5ef; /* Subtle border */
+  --input: #dce5ef;
+  --ring: #0755a4;
 }
 
 .dark {
-  --background: oklch(0.18 0.03 245);
-  --foreground: oklch(0.98 0.005 245);
-  --card: oklch(0.22 0.035 245);
-  --card-foreground: oklch(0.98 0.005 245);
-  --popover: oklch(0.22 0.035 245);
-  --popover-foreground: oklch(0.98 0.005 245);
-  --primary: oklch(0.66 0.175 48);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.26 0.03 245);
-  --secondary-foreground: oklch(0.98 0.005 245);
-  --muted: oklch(0.26 0.03 245);
-  --muted-foreground: oklch(0.72 0.02 245);
-  --accent: oklch(0.66 0.175 48);
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.66 0.175 48);
+  --background: #082d55;
+  --foreground: #f7f9fc;
+  --card: #103766;
+  --card-foreground: #f7f9fc;
+  --popover: #103766;
+  --popover-foreground: #f7f9fc;
+  --primary: #0755a4;
+  --primary-foreground: #ffffff;
+  --secondary: #0b3a6e;
+  --secondary-foreground: #f7f9fc;
+  --muted: #0b3a6e;
+  --muted-foreground: #a0b2c6;
+  --accent: #0755a4;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #1e4e7a;
+  --input: #1e4e7a;
+  --ring: #0755a4;
 }
 
 @layer base {

@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { PageIntro, SectionHeading, SiteLayout, WhatsAppButton } from "@/components/site";
+import { BottomCtaSection, PageIntro, SectionHeading, SiteLayout } from "@/components/site";
 import { company, pageHead, services, whatsappHref } from "@/lib/business";
 
 export const Route = createFileRoute("/services")({
@@ -34,8 +34,8 @@ export function ServicesPage() {
       />
 
       {/* Services List Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="py-14 sm:py-18 lg:py-22 bg-white">
+        <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Specialist Capabilities"
             title="Engineered for Airtight Performance & Swift Installation"
@@ -50,11 +50,11 @@ export function ServicesPage() {
                 <article
                   key={service.id}
                   id={service.id}
-                  className="grid gap-10 lg:grid-cols-12 lg:items-center scroll-mt-28 border-b border-slate-200 pb-16 last:border-b-0 last:pb-0"
+                  className="grid gap-10 lg:grid-cols-12 lg:items-center scroll-mt-28 border-b border-[#DCE5EF] pb-16 last:border-b-0 last:pb-0"
                 >
                   {/* Image Column */}
                   <div className={`lg:col-span-6 ${isEven ? "lg:order-2" : "lg:order-1"}`}>
-                    <div className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-md aspect-[16/11]">
+                    <div className="group relative overflow-hidden rounded-xl border border-[#DCE5EF] bg-slate-100 shadow-sm aspect-16/11">
                       <img
                         src={service.image}
                         alt={service.alt}
@@ -63,10 +63,10 @@ export function ServicesPage() {
                         loading="lazy"
                         className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute top-3 left-3 rounded-md bg-[#10243A]/90 backdrop-blur-xs px-3 py-1.5 text-white text-xs font-bold uppercase tracking-wider">
+                      <div className="absolute top-3 left-3 rounded-md bg-[#103766]/90 backdrop-blur-xs px-3 py-1 text-white text-xs font-bold uppercase tracking-wider">
                         {service.category}
                       </div>
-                      <div className="absolute bottom-3 right-3 rounded-md bg-white/95 px-3 py-1 text-xs font-mono font-bold text-[#10243A] shadow-xs">
+                      <div className="absolute bottom-3 right-3 rounded-md bg-white/95 px-3 py-1 text-xs font-mono font-bold text-[#103766] shadow-xs">
                         0{index + 1} / 06
                       </div>
                     </div>
@@ -74,38 +74,38 @@ export function ServicesPage() {
 
                   {/* Text Column */}
                   <div
-                    className={`lg:col-span-6 space-y-5 ${isEven ? "lg:order-1" : "lg:order-2"}`}
+                    className={`lg:col-span-6 space-y-4 ${isEven ? "lg:order-1" : "lg:order-2"}`}
                   >
                     <div>
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#E87932]">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#0755A4]">
                         {service.category}
                       </span>
-                      <h2 className="display-font mt-1 text-2xl sm:text-3xl font-extrabold text-[#10243A]">
+                      <h2 className="display-font mt-1 text-2xl sm:text-3xl font-extrabold text-[#103766]">
                         {service.title}
                       </h2>
                     </div>
 
-                    <p className="text-base text-[#252B32] leading-relaxed">
+                    <p className="text-sm sm:text-base text-[#172E49] leading-relaxed">
                       {service.description}
                     </p>
 
-                    <div className="rounded-lg bg-slate-50 border border-slate-200/80 p-4 space-y-2.5">
-                      <p className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                    <div className="rounded-lg bg-[#F7F9FC] border border-[#DCE5EF] p-4 space-y-2">
+                      <p className="text-xs font-bold uppercase tracking-wider text-[#103766]">
                         Typical Application:
                       </p>
-                      <p className="text-sm text-[#697586] leading-relaxed">
+                      <p className="text-xs sm:text-sm text-[#61738A] leading-relaxed">
                         {service.application}
                       </p>
                     </div>
 
                     <div className="space-y-2 pt-1">
-                      <p className="text-xs font-bold uppercase tracking-wider text-[#10243A]">
-                        Key Specifications & Features:
+                      <p className="text-xs font-bold uppercase tracking-wider text-[#103766]">
+                        Key Specifications &amp; Features:
                       </p>
-                      <ul className="grid sm:grid-cols-2 gap-2 text-xs text-[#252B32]">
+                      <ul className="grid sm:grid-cols-2 gap-2 text-xs text-[#172E49]">
                         {service.features.map((feat) => (
                           <li key={feat} className="flex items-start gap-2">
-                            <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                            <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-[#EAF2FA] text-[#0755A4]">
                               <Check size={11} className="stroke-[3]" />
                             </span>
                             <span>{feat}</span>
@@ -114,10 +114,10 @@ export function ServicesPage() {
                       </ul>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
+                    <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-[#DCE5EF]">
                       <Button
                         asChild
-                        className="h-10 bg-[#E87932] text-white hover:bg-[#d56b27] px-5 font-semibold text-xs sm:text-sm"
+                        className="h-10 rounded-md bg-[#0755A4] text-white hover:bg-[#064789] px-5 font-semibold text-xs sm:text-sm shadow-xs"
                       >
                         <Link to="/quote">
                           <span>Request Quote for {service.title}</span>
@@ -127,7 +127,7 @@ export function ServicesPage() {
                       <Button
                         asChild
                         variant="outline"
-                        className="h-10 border-slate-300 font-semibold text-xs sm:text-sm text-slate-700 hover:bg-slate-50"
+                        className="h-10 rounded-md border-[#DCE5EF] font-semibold text-xs sm:text-sm text-[#103766] hover:bg-slate-50"
                       >
                         <a
                           href={whatsappHref(
@@ -151,48 +151,12 @@ export function ServicesPage() {
       </section>
 
       {/* Bottom CTA Band */}
-      <section className="bg-slate-50 border-t border-slate-200 py-14 sm:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 rounded-2xl bg-[#10243A] p-8 sm:p-12 text-white shadow-xl">
-            <div className="max-w-2xl space-y-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#E87932]">
-                Custom Fabrication Enquiries
-              </span>
-              <h3 className="display-font text-2xl sm:text-3xl font-bold">
-                Have Complex Drawings or Urgent Deadlines?
-              </h3>
-              <p className="text-sm text-slate-300">
-                Share your architectural CAD drawings or BOQ for direct review by our workshop team.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3 shrink-0">
-              <Button
-                asChild
-                className="h-12 bg-[#E87932] text-white hover:bg-[#d56b27] px-6 font-semibold"
-              >
-                <Link to="/quote">Submit Drawings for Quote</Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="h-12 border-white/30 text-white bg-white/10 hover:bg-white/20 font-semibold px-5"
-              >
-                <a
-                  href={whatsappHref(
-                    "Hello GC FABRICATION, I have project drawings ready for an ACMV quotation review.",
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2"
-                >
-                  <MessageCircle size={18} className="text-emerald-400" />
-                  <span>WhatsApp Drawings</span>
-                </a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <BottomCtaSection
+        heading="Have Complex Drawings or Urgent Deadlines?"
+        description="Share your architectural CAD drawings or BOQ for direct review by our workshop engineering team in Kaki Bukit."
+        buttonText="Submit Drawings for Quote"
+        buttonHref="/quote"
+      />
     </SiteLayout>
   );
 }
