@@ -134,7 +134,7 @@ export function HomePage() {
               />
 
               <div className="relative size-full overflow-hidden rounded-lg lg:rounded-none shadow-md lg:shadow-none my-4 lg:my-0">
-                <picture>
+                <picture className="block size-full">
                   <source srcSet="/images/hero/home-hero-wide.webp" type="image/webp" />
                   <img
                     src="/images/hero/home-hero-wide.jpg"
@@ -165,7 +165,7 @@ export function HomePage() {
               >
                 {/* Image */}
                 <div className="relative h-32 sm:h-36 w-full overflow-hidden rounded-md bg-white border border-[#DCE5EF]/60">
-                  <picture>
+                  <picture className="block size-full">
                     <source srcSet={cat.image} type="image/webp" />
                     <img
                       src={cat.image.replace(".webp", ".jpg")}
@@ -237,7 +237,7 @@ export function HomePage() {
               >
                 {/* Image */}
                 <div className="relative aspect-square w-full overflow-hidden rounded-md bg-[#F7F9FC] border border-[#DCE5EF]/40 flex items-center justify-center p-2">
-                  <picture>
+                  <picture className="flex size-full items-center justify-center">
                     <source srcSet={p.image} type="image/webp" />
                     <img
                       src={p.image.replace(".webp", ".jpg")}
@@ -395,7 +395,7 @@ export function HomePage() {
                     className="group overflow-hidden rounded-lg border border-[#DCE5EF] bg-white shadow-xs"
                   >
                     <div className="relative h-28 sm:h-32 w-full overflow-hidden bg-slate-100">
-                      <picture>
+                      <picture className="block size-full">
                         <source srcSet={proj.image} type="image/webp" />
                         <img
                           src={proj.image.replace(".webp", ".jpg")}

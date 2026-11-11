@@ -114,7 +114,7 @@ export function AboutPage() {
               />
 
               <div className="relative size-full overflow-hidden rounded-lg lg:rounded-none shadow-md lg:shadow-none my-4 lg:my-0">
-                <picture>
+                <picture className="block size-full">
                   <source srcSet="/images/hero/about-hero-facility.webp" type="image/webp" />
                   <img
                     src="/images/hero/about-hero-facility.jpg"
@@ -169,14 +169,17 @@ export function AboutPage() {
                 {/* 1. HVAC Ducting */}
                 <div className="group flex flex-col overflow-hidden rounded-lg border border-[#DCE5EF] bg-white p-3.5 shadow-xs transition-all hover:border-[#0755A4]/40 hover:shadow-md">
                   <div className="h-28 w-full overflow-hidden rounded-md bg-slate-100">
-                    <img
-                      src={assets.aboutCapDucting}
-                      alt="HVAC Ducting installations"
-                      width={400}
-                      height={250}
-                      loading="lazy"
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <picture className="block size-full">
+                      <source srcSet={assets.aboutCapDucting} type="image/webp" />
+                      <img
+                        src={assets.aboutCapDucting.replace(".webp", ".jpg")}
+                        alt="HVAC Ducting installations"
+                        width={400}
+                        height={250}
+                        loading="lazy"
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </picture>
                   </div>
                   <div className="mt-3 flex items-start gap-2.5">
                     <div className="text-[#0755A4] mt-0.5 shrink-0">
@@ -195,14 +198,17 @@ export function AboutPage() {
                 {/* 2. Fabrication Services */}
                 <div className="group flex flex-col overflow-hidden rounded-lg border border-[#DCE5EF] bg-white p-3.5 shadow-xs transition-all hover:border-[#0755A4]/40 hover:shadow-md">
                   <div className="h-28 w-full overflow-hidden rounded-md bg-slate-100">
-                    <img
-                      src={assets.aboutCapHood}
-                      alt="Fabrication Services and stainless kitchen hood"
-                      width={400}
-                      height={250}
-                      loading="lazy"
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <picture className="block size-full">
+                      <source srcSet={assets.aboutCapHood} type="image/webp" />
+                      <img
+                        src={assets.aboutCapHood.replace(".webp", ".jpg")}
+                        alt="Fabrication Services and stainless kitchen hood"
+                        width={400}
+                        height={250}
+                        loading="lazy"
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </picture>
                   </div>
                   <div className="mt-3 flex items-start gap-2.5">
                     <div className="text-[#0755A4] mt-0.5 shrink-0">
@@ -220,14 +226,17 @@ export function AboutPage() {
                 {/* 3. HVAC Components */}
                 <div className="group flex flex-col overflow-hidden rounded-lg border border-[#DCE5EF] bg-white p-3.5 shadow-xs transition-all hover:border-[#0755A4]/40 hover:shadow-md">
                   <div className="h-28 w-full overflow-hidden rounded-md bg-slate-100">
-                    <img
-                      src={assets.aboutCapDiffuser}
-                      alt="HVAC Components grilles and diffusers"
-                      width={400}
-                      height={250}
-                      loading="lazy"
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <picture className="block size-full">
+                      <source srcSet={assets.aboutCapDiffuser} type="image/webp" />
+                      <img
+                        src={assets.aboutCapDiffuser.replace(".webp", ".jpg")}
+                        alt="HVAC Components grilles and diffusers"
+                        width={400}
+                        height={250}
+                        loading="lazy"
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </picture>
                   </div>
                   <div className="mt-3 flex items-start gap-2.5">
                     <div className="text-[#0755A4] mt-0.5 shrink-0">
@@ -245,14 +254,17 @@ export function AboutPage() {
                 {/* 4. Industrial Supplies */}
                 <div className="group flex flex-col overflow-hidden rounded-lg border border-[#DCE5EF] bg-white p-3.5 shadow-xs transition-all hover:border-[#0755A4]/40 hover:shadow-md">
                   <div className="h-28 w-full overflow-hidden rounded-md bg-slate-100">
-                    <img
-                      src={assets.aboutCapSupplies}
-                      alt="Industrial supplies, paints, tools and accessories"
-                      width={400}
-                      height={250}
-                      loading="lazy"
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <picture className="block size-full">
+                      <source srcSet={assets.aboutCapSupplies} type="image/webp" />
+                      <img
+                        src={assets.aboutCapSupplies.replace(".webp", ".jpg")}
+                        alt="Industrial supplies, paints, tools and accessories"
+                        width={400}
+                        height={250}
+                        loading="lazy"
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </picture>
                   </div>
                   <div className="mt-3 flex items-start gap-2.5">
                     <div className="text-[#0755A4] mt-0.5 shrink-0">
@@ -281,7 +293,7 @@ export function AboutPage() {
             {/* Left Photo: Welder with Sparks */}
             <div className="lg:col-span-3">
               <div className="overflow-hidden rounded-lg border border-[#DCE5EF] bg-white shadow-sm h-48 sm:h-56 w-full">
-                <picture>
+                <picture className="block size-full">
                   <source srcSet="/images/workshop/workshop-welder.webp" type="image/webp" />
                   <img
                     src="/images/workshop/workshop-welder.jpg"
@@ -403,14 +415,17 @@ export function AboutPage() {
                 {/* 1. Commercial Buildings */}
                 <div className="group overflow-hidden rounded-lg border border-white/15 bg-white/5 shadow-xs">
                   <div className="h-24 w-full overflow-hidden bg-slate-800">
-                    <img
-                      src={assets.projCommercial}
-                      alt="Commercial Buildings applications"
-                      width={300}
-                      height={200}
-                      loading="lazy"
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <picture className="block size-full">
+                      <source srcSet={assets.projCommercial} type="image/webp" />
+                      <img
+                        src={assets.projCommercial.replace(".webp", ".jpg")}
+                        alt="Commercial Buildings applications"
+                        width={300}
+                        height={200}
+                        loading="lazy"
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </picture>
                   </div>
                   <div className="p-2 bg-[#061F3B] text-center">
                     <p className="text-[11px] font-semibold text-slate-200 truncate">
@@ -422,14 +437,17 @@ export function AboutPage() {
                 {/* 2. Industrial Facilities */}
                 <div className="group overflow-hidden rounded-lg border border-white/15 bg-white/5 shadow-xs">
                   <div className="h-24 w-full overflow-hidden bg-slate-800">
-                    <img
-                      src={assets.projIndustrial}
-                      alt="Industrial Facilities ACMV solutions"
-                      width={300}
-                      height={200}
-                      loading="lazy"
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <picture className="block size-full">
+                      <source srcSet={assets.projIndustrial} type="image/webp" />
+                      <img
+                        src={assets.projIndustrial.replace(".webp", ".jpg")}
+                        alt="Industrial Facilities ACMV solutions"
+                        width={300}
+                        height={200}
+                        loading="lazy"
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </picture>
                   </div>
                   <div className="p-2 bg-[#061F3B] text-center">
                     <p className="text-[11px] font-semibold text-slate-200 truncate">
@@ -441,14 +459,17 @@ export function AboutPage() {
                 {/* 3. Residential Projects */}
                 <div className="group overflow-hidden rounded-lg border border-white/15 bg-white/5 shadow-xs">
                   <div className="h-24 w-full overflow-hidden bg-slate-800">
-                    <img
-                      src={assets.projResidential}
-                      alt="Residential Projects ventilation"
-                      width={300}
-                      height={200}
-                      loading="lazy"
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <picture className="block size-full">
+                      <source srcSet={assets.projResidential} type="image/webp" />
+                      <img
+                        src={assets.projResidential.replace(".webp", ".jpg")}
+                        alt="Residential Projects ventilation"
+                        width={300}
+                        height={200}
+                        loading="lazy"
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </picture>
                   </div>
                   <div className="p-2 bg-[#061F3B] text-center">
                     <p className="text-[11px] font-semibold text-slate-200 truncate">
@@ -460,14 +481,17 @@ export function AboutPage() {
                 {/* 4. Hospitality & Retail */}
                 <div className="group overflow-hidden rounded-lg border border-white/15 bg-white/5 shadow-xs">
                   <div className="h-24 w-full overflow-hidden bg-slate-800">
-                    <img
-                      src={assets.projHospitality}
-                      alt="Hospitality and Retail exhaust hoods and ducting"
-                      width={300}
-                      height={200}
-                      loading="lazy"
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <picture className="block size-full">
+                      <source srcSet={assets.projHospitality} type="image/webp" />
+                      <img
+                        src={assets.projHospitality.replace(".webp", ".jpg")}
+                        alt="Hospitality and Retail exhaust hoods and ducting"
+                        width={300}
+                        height={200}
+                        loading="lazy"
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </picture>
                   </div>
                   <div className="p-2 bg-[#061F3B] text-center">
                     <p className="text-[11px] font-semibold text-slate-200 truncate">
@@ -479,14 +503,17 @@ export function AboutPage() {
                 {/* 5. Healthcare */}
                 <div className="group overflow-hidden rounded-lg border border-white/15 bg-white/5 shadow-xs">
                   <div className="h-24 w-full overflow-hidden bg-slate-800">
-                    <img
-                      src={assets.aboutIndHealthcare}
-                      alt="Healthcare and cleanroom ventilation systems"
-                      width={300}
-                      height={200}
-                      loading="lazy"
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <picture className="block size-full">
+                      <source srcSet={assets.aboutIndHealthcare} type="image/webp" />
+                      <img
+                        src={assets.aboutIndHealthcare.replace(".webp", ".jpg")}
+                        alt="Healthcare and cleanroom ventilation systems"
+                        width={300}
+                        height={200}
+                        loading="lazy"
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </picture>
                   </div>
                   <div className="p-2 bg-[#061F3B] text-center">
                     <p className="text-[11px] font-semibold text-slate-200 truncate">Healthcare</p>

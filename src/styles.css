@@ -159,6 +159,14 @@
   font-family: var(--font-display);
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .industrial-grid {
   background-image:
     linear-gradient(

@@ -116,14 +116,17 @@ export function GalleryPage() {
                 aria-label={`View full image: ${item.title}`}
               >
                 <div className="relative aspect-4/3 w-full overflow-hidden bg-slate-100">
-                  <img
-                    src={item.image}
-                    alt={item.alt}
-                    width={800}
-                    height={600}
-                    loading="lazy"
-                    className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <picture className="block size-full">
+                    <source srcSet={item.image} type="image/webp" />
+                    <img
+                      src={item.image.replace(".webp", ".jpg")}
+                      alt={item.alt}
+                      width={800}
+                      height={600}
+                      loading="lazy"
+                      className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </picture>
                   <div className="absolute top-2.5 left-2.5 rounded-sm bg-[#103766]/90 backdrop-blur-xs px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-wider text-white">
                     {item.category}
                   </div>
@@ -174,13 +177,16 @@ export function GalleryPage() {
               </div>
 
               <div className="relative overflow-hidden rounded-lg bg-black/5 aspect-4/3 sm:aspect-16/10 flex items-center justify-center">
-                <img
-                  src={activeItem.image}
-                  alt={activeItem.alt}
-                  width={1200}
-                  height={800}
-                  className="max-h-[45vh] sm:max-h-[60vh] w-auto object-contain"
-                />
+                <picture className="flex size-full items-center justify-center">
+                  <source srcSet={activeItem.image} type="image/webp" />
+                  <img
+                    src={activeItem.image.replace(".webp", ".jpg")}
+                    alt={activeItem.alt}
+                    width={1200}
+                    height={800}
+                    className="max-h-[45vh] sm:max-h-[60vh] w-auto object-contain"
+                  />
+                </picture>
 
                 {/* Left/Right overlay controls */}
                 <button

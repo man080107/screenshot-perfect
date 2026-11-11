@@ -2,7 +2,16 @@ import fs from "fs";
 import path from "path";
 import { describe, expect, it } from "vitest";
 
-import { catalogProducts, homeCategoryCards, productCategories } from "@/lib/business";
+import {
+  catalogProducts,
+  featuredCarouselItems,
+  galleryItems,
+  homeCategoryCards,
+  popularProducts,
+  productCategories,
+  projectIndustries,
+  services,
+} from "@/lib/business";
 import { siteImages } from "@/lib/images";
 
 describe("High-Resolution Asset Library & Image Integrity", () => {
@@ -42,13 +51,24 @@ describe("High-Resolution Asset Library & Image Integrity", () => {
     });
   });
 
-  it("has all catalog product images verified with valid file sources", () => {
-    catalogProducts.forEach((prod) => {
-      expect(prod.image).toBeDefined();
-      if (prod.image.startsWith("/")) {
-        const diskPath = path.join(process.cwd(), "public", prod.image.replace(/^\//, ""));
-        expect(fs.existsSync(diskPath), `Product image exists: ${prod.image}`).toBe(true);
-      }
+  it("has all catalog product, service, gallery, carousel, and industry images verified with WebP & JPG fallbacks", () => {
+    const allRefs = [
+      ...catalogProducts.map((p) => p.image),
+      ...services.map((s) => s.image),
+      ...galleryItems.map((g) => g.image),
+      ...featuredCarouselItems.map((f) => f.image),
+      ...popularProducts.map((p) => p.image),
+      ...projectIndustries.map((i) => i.image),
+    ];
+
+    allRefs.forEach((imgPath) => {
+      expect(imgPath.startsWith("/images/"), `Expected public /images/ path, got: ${imgPath}`).toBe(
+        true,
+      );
+      const webpDisk = path.join(process.cwd(), "public", imgPath.replace(/^\//, ""));
+      const jpgDisk = webpDisk.replace(/\.webp$/, ".jpg");
+      expect(fs.existsSync(webpDisk), `WebP exists: ${imgPath}`).toBe(true);
+      expect(fs.existsSync(jpgDisk), `JPG fallback exists: ${imgPath}`).toBe(true);
     });
   });
 

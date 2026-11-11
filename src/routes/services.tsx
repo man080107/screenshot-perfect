@@ -55,14 +55,17 @@ export function ServicesPage() {
                   {/* Image Column */}
                   <div className={`lg:col-span-6 ${isEven ? "lg:order-2" : "lg:order-1"}`}>
                     <div className="group relative overflow-hidden rounded-xl border border-[#DCE5EF] bg-slate-100 shadow-sm aspect-16/11">
-                      <img
-                        src={service.image}
-                        alt={service.alt}
-                        width={900}
-                        height={600}
-                        loading="lazy"
-                        className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
+                      <picture className="block size-full">
+                        <source srcSet={service.image} type="image/webp" />
+                        <img
+                          src={service.image.replace(".webp", ".jpg")}
+                          alt={service.alt}
+                          width={900}
+                          height={600}
+                          loading="lazy"
+                          className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                      </picture>
                       <div className="absolute top-3 left-3 rounded-md bg-[#103766]/90 backdrop-blur-xs px-3 py-1 text-white text-xs font-bold uppercase tracking-wider">
                         {service.category}
                       </div>

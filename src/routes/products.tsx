@@ -199,7 +199,7 @@ export function ProductsPage() {
                 }}
               />
               <div className="relative size-full overflow-hidden rounded-lg lg:rounded-none shadow-md lg:shadow-none my-3 lg:my-0">
-                <picture>
+                <picture className="block size-full">
                   <source srcSet="/images/hero/products-hero-wide.webp" type="image/webp" />
                   <img
                     src="/images/hero/products-hero-wide.jpg"
@@ -507,7 +507,7 @@ export function ProductsPage() {
                   </Button>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3.5 sm:gap-4">
+                <div className="grid grid-cols-1 min-[375px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3.5 sm:gap-4">
                   {filteredProducts.map((p) => (
                     <article
                       key={p.id}
@@ -516,7 +516,7 @@ export function ProductsPage() {
                       <div>
                         {/* High-Resolution Product Image */}
                         <div className="relative aspect-4/3 w-full overflow-hidden rounded-md bg-[#F7F9FC] border border-[#DCE5EF]/40 flex items-center justify-center p-2">
-                          <picture>
+                          <picture className="flex size-full items-center justify-center">
                             <source srcSet={p.image} type="image/webp" />
                             <img
                               src={p.image.replace(".webp", ".jpg")}
@@ -598,7 +598,7 @@ export function ProductsPage() {
                       className="group shrink-0 w-36 sm:w-40 flex flex-col rounded-lg border border-[#DCE5EF] bg-white p-2.5 shadow-xs transition-all hover:border-[#0755A4]/40 hover:shadow-md"
                     >
                       <div className="h-20 sm:h-22 w-full overflow-hidden rounded-md bg-[#F7F9FC] p-1 flex items-center justify-center">
-                        <picture>
+                        <picture className="flex size-full items-center justify-center">
                           <source srcSet={item.image} type="image/webp" />
                           <img
                             src={item.image.replace(".webp", ".jpg")}
@@ -622,14 +622,17 @@ export function ProductsPage() {
               <div className="lg:hidden rounded-lg border border-[#DCE5EF] bg-[#F7F9FC]/70 overflow-hidden shadow-xs">
                 <div className="grid grid-cols-1 sm:grid-cols-12 items-center">
                   <div className="sm:col-span-5 h-44 sm:h-full overflow-hidden">
-                    <img
-                      src={assets.prodCustomFabrication}
-                      alt="Custom duct bend and precision offset fabrication"
-                      width={400}
-                      height={300}
-                      loading="lazy"
-                      className="size-full object-cover"
-                    />
+                    <picture className="block size-full">
+                      <source srcSet={assets.prodCustomFabrication} type="image/webp" />
+                      <img
+                        src={assets.prodCustomFabrication.replace(".webp", ".jpg")}
+                        alt="Custom duct bend and precision offset fabrication"
+                        width={400}
+                        height={300}
+                        loading="lazy"
+                        className="size-full object-cover"
+                      />
+                    </picture>
                   </div>
                   <div className="p-5 sm:col-span-7 space-y-3">
                     <h3 className="display-font text-base font-bold text-[#103766]">
@@ -685,14 +688,17 @@ export function ProductsPage() {
               <div className="overflow-hidden rounded-lg border border-[#DCE5EF] bg-white shadow-xs">
                 {/* Photo Header */}
                 <div className="relative aspect-4/3 w-full overflow-hidden bg-slate-100">
-                  <img
-                    src={assets.prodCustomFabrication}
-                    alt="Custom duct bend and precision offset fabrication"
-                    width={400}
-                    height={300}
-                    loading="lazy"
-                    className="size-full object-cover"
-                  />
+                  <picture className="block size-full">
+                    <source srcSet={assets.prodCustomFabrication} type="image/webp" />
+                    <img
+                      src={assets.prodCustomFabrication.replace(".webp", ".jpg")}
+                      alt="Custom duct bend and precision offset fabrication"
+                      width={400}
+                      height={300}
+                      loading="lazy"
+                      className="size-full object-cover"
+                    />
+                  </picture>
                 </div>
 
                 {/* Content */}
@@ -815,7 +821,7 @@ export function ProductsPage() {
 
             <div className="space-y-4 my-2">
               <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-slate-50 border border-[#DCE5EF] flex items-center justify-center p-3">
-                <picture>
+                <picture className="flex size-full items-center justify-center">
                   <source srcSet={selectedProduct.image} type="image/webp" />
                   <img
                     src={selectedProduct.image.replace(".webp", ".jpg")}
