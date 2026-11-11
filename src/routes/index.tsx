@@ -81,33 +81,33 @@ export function HomePage() {
           ========================================================================= */}
       <section className="relative overflow-hidden bg-gradient-to-r from-[#F7F9FC] via-[#F7F9FC] to-[#EDF3FA] border-b border-[#DCE5EF]">
         <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 items-center lg:grid-cols-12 min-h-[440px] lg:min-h-[480px]">
+          <div className="grid grid-cols-1 items-center lg:grid-cols-12 min-h-[380px] sm:min-h-[440px] lg:min-h-[480px]">
             {/* Left Content Column */}
-            <div className="py-12 sm:py-16 lg:py-20 lg:col-span-6 z-10 pr-0 lg:pr-8">
+            <div className="py-8 sm:py-16 lg:py-20 lg:col-span-6 z-10 pr-0 lg:pr-8">
               {/* Eyebrow */}
-              <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-[#0755A4] flex items-center gap-2">
+              <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-[#0755A4] leading-snug">
                 QUALITY PRODUCTS | CUSTOM FABRICATION | INDUSTRIAL SOLUTIONS
               </p>
 
               {/* Main Heading */}
-              <h1 className="display-font mt-4 text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-[#103766] leading-[1.18]">
+              <h1 className="display-font mt-3 sm:mt-4 text-[28px] sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-[#103766] leading-[1.18]">
                 HVAC Ducting, Fabrication &amp; Industrial Supply Solutions
               </h1>
 
               {/* Description */}
-              <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#61738A] max-w-xl">
+              <p className="mt-3.5 sm:mt-4 text-[15px] sm:text-base leading-relaxed text-[#61738A] max-w-xl">
                 We provide high-quality HVAC ducting products, fabrication services and a wide range
                 of industrial supplies for commercial, residential and industrial projects in
                 Singapore.
               </p>
 
               {/* Two CTA Buttons */}
-              <div className="mt-7 flex flex-wrap items-center gap-3.5">
+              <div className="mt-6 sm:mt-7 flex flex-col min-[380px]:flex-row flex-wrap items-stretch min-[380px]:items-center gap-3 sm:gap-3.5">
                 <Button
                   asChild
-                  className="h-11 rounded-md bg-[#0755A4] px-6 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[#064789]"
+                  className="h-11 rounded-md bg-[#0755A4] px-5 sm:px-6 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[#064789]"
                 >
-                  <Link to="/quote" className="inline-flex items-center gap-2">
+                  <Link to="/quote" className="inline-flex items-center justify-center gap-2">
                     <span>Request a Quote</span>
                     <ArrowRight size={15} />
                   </Link>
@@ -116,9 +116,11 @@ export function HomePage() {
                 <Button
                   asChild
                   variant="outline"
-                  className="h-11 rounded-md border-[#DCE5EF] bg-white px-6 text-sm font-semibold text-[#103766] hover:bg-slate-50 transition-colors shadow-xs"
+                  className="h-11 rounded-md border-[#DCE5EF] bg-white px-5 sm:px-6 text-sm font-semibold text-[#103766] hover:bg-slate-50 transition-colors shadow-xs"
                 >
-                  <Link to="/products">Explore Products</Link>
+                  <Link to="/products" className="inline-flex items-center justify-center">
+                    Explore Products
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -172,7 +174,6 @@ export function HomePage() {
                       alt={cat.title}
                       width={600}
                       height={450}
-                      loading="lazy"
                       className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </picture>
@@ -226,32 +227,31 @@ export function HomePage() {
             </Link>
           </div>
 
-          {/* 7 Horizontal Cards Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3.5">
+          {/* 7 Popular Products: Horizontal Swipeable Strip on mobile, 4/7 col Grid above */}
+          <div className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory no-scrollbar sm:grid sm:grid-cols-4 lg:grid-cols-7 sm:gap-3.5 sm:overflow-visible sm:pb-0">
             {popularProducts.map((p) => (
               <Link
                 key={p.id}
                 to="/products"
-                search={{ category: p.category }}
-                className="group flex flex-col overflow-hidden rounded-lg border border-[#DCE5EF] bg-white p-3 transition-all duration-200 hover:-translate-y-1 hover:border-[#0755A4]/40 hover:shadow-md"
+                search={{ category: p.category, product: p.productId }}
+                className="group shrink-0 w-[148px] snap-start sm:w-auto flex flex-col overflow-hidden rounded-lg border border-[#DCE5EF] bg-white p-3 transition-all duration-200 hover:-translate-y-1 hover:border-[#0755A4]/40 hover:shadow-md"
               >
                 {/* Image */}
-                <div className="relative aspect-square w-full overflow-hidden rounded-md bg-[#F7F9FC] border border-[#DCE5EF]/40 flex items-center justify-center p-2">
+                <div className="relative aspect-square w-full overflow-hidden rounded-md bg-white flex items-center justify-center p-1">
                   <picture className="flex size-full items-center justify-center">
                     <source srcSet={p.image} type="image/webp" />
                     <img
-                      src={p.image.replace(".webp", ".jpg")}
+                      src={p.fallbackImage || p.image.replace(".webp", ".jpg")}
                       alt={p.name}
                       width={300}
                       height={300}
-                      loading="lazy"
                       className="size-full object-contain transition-transform duration-300 group-hover:scale-105"
                     />
                   </picture>
                 </div>
 
                 {/* Footer with Title and Small Arrow */}
-                <div className="mt-2.5 flex items-center justify-between gap-1">
+                <div className="mt-2 flex items-center justify-between gap-1">
                   <span className="text-xs font-semibold text-[#103766] group-hover:text-[#0755A4] transition-colors line-clamp-1">
                     {p.name}
                   </span>
@@ -263,6 +263,10 @@ export function HomePage() {
               </Link>
             ))}
           </div>
+          <p className="mt-2 flex items-center justify-end gap-1 text-[11px] font-medium text-[#61738A] sm:hidden">
+            <span>Swipe products</span>
+            <ArrowRight size={11} />
+          </p>
         </div>
       </section>
 
@@ -402,7 +406,6 @@ export function HomePage() {
                           alt={proj.name}
                           width={600}
                           height={400}
-                          loading="lazy"
                           className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                       </picture>

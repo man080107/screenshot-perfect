@@ -59,12 +59,13 @@ import { BottomCtaSection, SiteLayout } from "@/components/site";
 export const Route = createFileRoute("/products")({
   validateSearch: (search: Record<string, unknown>) => ({
     category: typeof search.category === "string" ? search.category : undefined,
+    product: typeof search.product === "string" ? search.product : undefined,
   }),
   component: ProductsPage,
   head: () =>
     pageHead(
       "Quality Products for Every Project | GC Fabrication Singapore",
-      "Explore GC Fabrication's complete range of HVAC ducting, ventilation components, insulation materials and custom fabrication solutions in Singapore.",
+      "Explore GC Fabrication's complete range of PID ducts, GI duct works, dampers, grilles, diffusers, kitchen hoods, insulation, tapes, and accessories.",
       "/products",
     ),
 });
@@ -82,8 +83,22 @@ export function ProductsPage() {
     if (searchParams.category) {
       setSelectedCategory(searchParams.category);
       setSelectedSubcategory(null);
+    } else if (searchParams.category === undefined) {
+      setSelectedCategory("all");
+      setSelectedSubcategory(null);
     }
   }, [searchParams.category]);
+
+  useEffect(() => {
+    if (searchParams.product) {
+      const target = catalogProducts.find((item) => item.id === searchParams.product);
+      if (target) {
+        setSelectedCategory(target.categoryId);
+        setSelectedSubcategory(null);
+        setSelectedProduct(target);
+      }
+    }
+  }, [searchParams.product]);
 
   // Carousel ref for featured products
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -109,7 +124,7 @@ export function ProductsPage() {
       list = list.filter((p) => p.subcategory === selectedSubcategory);
     }
 
-    // Filter by Search Query
+    // Filter by Search Query (title, category, subcategory, description, keywords)
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
       list = list.filter(
@@ -117,7 +132,8 @@ export function ProductsPage() {
           p.title.toLowerCase().includes(q) ||
           p.description.toLowerCase().includes(q) ||
           p.categoryName.toLowerCase().includes(q) ||
-          (p.subcategory && p.subcategory.toLowerCase().includes(q)),
+          p.subcategory.toLowerCase().includes(q) ||
+          p.keywords.some((kw) => kw.toLowerCase().includes(q)),
       );
     }
 
@@ -127,7 +143,9 @@ export function ProductsPage() {
     } else if (sortBy === "za") {
       list = [...list].sort((a, b) => b.title.localeCompare(a.title));
     } else if (sortBy === "featured") {
-      list = [...list].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+      list = [...list].sort(
+        (a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || a.displayOrder - b.displayOrder,
+      );
     }
 
     return list;
@@ -137,28 +155,38 @@ export function ProductsPage() {
   const currentCategoryObj = productCategories.find((c) => c.id === selectedCategory);
   const currentCategoryName =
     selectedCategory === "all"
-      ? "HVAC Ducting & Fittings"
-      : (currentCategoryObj?.name ?? "Products Catalogue");
+      ? "All Products Catalogue"
+      : (currentCategoryObj?.name ?? "Products");
+  const currentCategorySummary =
+    selectedCategory === "all"
+      ? "Official GC Fabrication catalogue spanning PID ducts, GI duct works, flanges, dampers, grilles, diffusers, kitchen hoods, insulation, tapes, and project supplies."
+      : ("summary" in (currentCategoryObj ?? {}) &&
+          (currentCategoryObj as { summary?: string }).summary) ||
+        "High-quality ACMV ducting solutions and fabrication components for commercial and industrial projects.";
+  const currentCategoryDisclaimer =
+    selectedCategory !== "all" && "disclaimer" in (currentCategoryObj ?? {})
+      ? (currentCategoryObj as { disclaimer?: string }).disclaimer
+      : undefined;
 
   const categoryIcon = (id: string) => {
     switch (id) {
       case "all":
         return <Layers size={14} />;
-      case "hvac-ducting":
+      case "pid-ducts-duct-works":
         return <Wind size={14} />;
-      case "grilles-diffusers":
+      case "pid-duct-accessories":
+        return <Wrench size={14} />;
+      case "dampers":
+        return <SlidersHorizontal size={14} />;
+      case "grilles-diffusers-louvres":
         return <Box size={14} />;
-      case "kitchen-hood":
+      case "kitchen-hoods":
         return <Utensils size={14} />;
-      case "insulation":
+      case "insulation-accessories":
         return <Shield size={14} />;
       case "tapes":
         return <Layers size={14} />;
-      case "hardware-tools":
-        return <Wrench size={14} />;
-      case "paints":
-        return <Paintbrush size={14} />;
-      case "safety":
+      case "other-industrial-items":
         return <ShieldCheck size={14} />;
       default:
         return <Box size={14} />;
@@ -172,9 +200,9 @@ export function ProductsPage() {
           ========================================================================= */}
       <section className="relative overflow-hidden bg-gradient-to-r from-[#F7F9FC] via-[#F7F9FC] to-[#EDF3FA] border-b border-[#DCE5EF]">
         <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 items-center lg:grid-cols-12 min-h-[340px] sm:min-h-[380px] lg:min-h-[400px]">
+          <div className="grid grid-cols-1 items-center lg:grid-cols-12 min-h-[300px] sm:min-h-[360px] lg:min-h-[400px]">
             {/* Left Content */}
-            <div className="py-10 sm:py-14 lg:col-span-6 z-10 pr-0 lg:pr-8">
+            <div className="py-7 sm:py-12 lg:col-span-6 z-10 pr-0 lg:pr-8">
               <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-[#0755A4]">
                 PRODUCTS
               </p>
@@ -191,7 +219,7 @@ export function ProductsPage() {
             </div>
 
             {/* Right Photo Column with Angle Mask */}
-            <div className="relative lg:col-span-6 h-full min-h-[240px] sm:min-h-[300px] lg:min-h-[400px] w-full overflow-hidden flex items-center">
+            <div className="relative lg:col-span-6 h-full min-h-[200px] sm:min-h-[280px] lg:min-h-[400px] w-full overflow-hidden flex items-center">
               <div
                 className="absolute inset-0 z-10 pointer-events-none hidden lg:block"
                 style={{
@@ -224,67 +252,66 @@ export function ProductsPage() {
       <section className="bg-white py-8 sm:py-12">
         <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
           {/* MOBILE / TABLET TOP BAR CONTROLS (Hidden on Desktop) */}
-          <div className="lg:hidden mb-6 space-y-4">
+          <div data-whatsapp-hide="true" className="lg:hidden mb-6 space-y-4">
             {/* Breadcrumb & Title */}
-            <div className="space-y-1">
-              <div className="flex items-center gap-1.5 text-xs text-[#61738A]">
+            <div className="space-y-1.5">
+              <div className="flex flex-wrap items-center gap-1.5 text-xs text-[#61738A]">
                 <Link to="/" className="hover:text-[#0755A4]">
                   Home
                 </Link>
                 <ChevronRight size={12} />
                 <span className="text-[#103766] font-medium">{currentCategoryName}</span>
               </div>
-              <div className="flex items-center justify-between gap-2">
-                <h2 className="display-font text-xl sm:text-2xl font-bold text-[#103766]">
-                  {currentCategoryName}
-                </h2>
-                <span className="rounded-full bg-[#EAF2FA] px-2.5 py-1 text-xs font-bold text-[#0755A4]">
-                  {filteredProducts.length} items
-                </span>
-              </div>
+              <h2 className="display-font text-xl sm:text-2xl font-bold text-[#103766]">
+                {currentCategoryName}
+              </h2>
+              <p className="text-xs leading-relaxed text-[#61738A]">{currentCategorySummary}</p>
+              {currentCategoryDisclaimer && (
+                <p className="rounded-md border border-amber-200 bg-amber-50/70 px-3 py-2 text-[11px] font-medium text-amber-900">
+                  {currentCategoryDisclaimer}
+                </p>
+              )}
             </div>
 
             {/* Mobile Filter Button & Search */}
             <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5">
-              <div className="relative sm:col-span-8">
+              <div className="relative sm:col-span-7">
                 <Search
                   size={16}
                   className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                 />
                 <input
                   type="text"
-                  placeholder="Search products, ducts, diffusers..."
+                  placeholder="Search ducts, dampers, grilles, accessories..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full h-10 rounded-md border border-[#DCE5EF] bg-slate-50/60 pl-9 pr-8 text-xs sm:text-sm text-[#103766] focus:bg-white focus:outline-hidden focus:border-[#0755A4]"
+                  className="w-full h-11 rounded-md border border-[#DCE5EF] bg-slate-50/60 pl-9 pr-8 text-xs sm:text-sm text-[#103766] focus:bg-white focus:outline-hidden focus:border-[#0755A4]"
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery("")}
+                    aria-label="Clear search"
                     className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                   >
-                    <X size={14} />
+                    <X size={15} />
                   </button>
                 )}
               </div>
 
-              <div className="flex items-center gap-2 sm:col-span-4">
+              <div className="flex items-center gap-2 sm:col-span-5">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setMobileCategoryOpen(true)}
-                  className="flex-1 h-10 border-[#DCE5EF] text-xs font-semibold text-[#103766] flex items-center justify-center gap-1.5 bg-white shadow-xs"
+                  className="flex-1 h-11 border-[#DCE5EF] text-xs font-semibold text-[#103766] flex items-center justify-center gap-1.5 bg-white shadow-xs"
                 >
                   <Filter size={14} className="text-[#0755A4]" />
-                  <span>
-                    Category (
-                    {productCategories.find((c) => c.id === selectedCategory)?.count || 96})
-                  </span>
+                  <span>{selectedCategory === "all" ? "Categories" : currentCategoryName}</span>
                 </Button>
 
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-32 h-10 rounded-md border border-[#DCE5EF] text-xs font-medium text-[#103766]">
+                  <SelectTrigger className="w-32 h-11 rounded-md border border-[#DCE5EF] text-xs font-medium text-[#103766]">
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
                   <SelectContent>
@@ -296,8 +323,8 @@ export function ProductsPage() {
               </div>
             </div>
 
-            {/* Mobile Quick Category Pills (Touch Horizontal Scroll) */}
-            <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar pt-1">
+            {/* Mobile Quick Category Pills (Touch Horizontal Scroll — no invented counts) */}
+            <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar pt-0.5">
               {productCategories.map((cat) => {
                 const isSelected = selectedCategory === cat.id;
                 return (
@@ -308,23 +335,52 @@ export function ProductsPage() {
                       setSelectedCategory(cat.id);
                       setSelectedSubcategory(null);
                     }}
-                    className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer ${
+                    className={`shrink-0 rounded-full px-3.5 py-2 text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer ${
                       isSelected
                         ? "bg-[#0755A4] text-white shadow-xs"
-                        : "bg-[#F7F9FC] text-[#61738A] border border-[#DCE5EF] hover:border-[#0755A4]/40"
+                        : "bg-[#F7F9FC] text-[#103766] border border-[#DCE5EF] hover:border-[#0755A4]/40"
                     }`}
                   >
                     {categoryIcon(cat.id)}
                     <span>{cat.name}</span>
-                    <span
-                      className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? "bg-white/20" : "bg-slate-200/80 text-slate-600"}`}
-                    >
-                      {cat.count}
-                    </span>
                   </button>
                 );
               })}
             </div>
+
+            {/* Mobile Subcategory Filter Pills when active category has subcategories */}
+            {"subcategories" in (currentCategoryObj ?? {}) &&
+              (currentCategoryObj as { subcategories?: string[] }).subcategories && (
+                <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedSubcategory(null)}
+                    className={`shrink-0 rounded-md px-2.5 py-1.5 text-[11px] font-semibold border transition-colors ${
+                      selectedSubcategory === null
+                        ? "border-[#0755A4] bg-[#EAF2FA] text-[#0755A4]"
+                        : "border-[#DCE5EF] bg-white text-[#61738A]"
+                    }`}
+                  >
+                    All {currentCategoryName}
+                  </button>
+                  {(currentCategoryObj as { subcategories: string[] }).subcategories.map((sub) => (
+                    <button
+                      key={sub}
+                      type="button"
+                      onClick={() =>
+                        setSelectedSubcategory(selectedSubcategory === sub ? null : sub)
+                      }
+                      className={`shrink-0 rounded-md px-2.5 py-1.5 text-[11px] font-semibold border transition-colors ${
+                        selectedSubcategory === sub
+                          ? "border-[#0755A4] bg-[#EAF2FA] text-[#0755A4]"
+                          : "border-[#DCE5EF] bg-white text-[#61738A]"
+                      }`}
+                    >
+                      {sub}
+                    </button>
+                  ))}
+                </div>
+              )}
           </div>
 
           {/* MAIN 3-COLUMN DESKTOP / RESPONSIVE GRID */}
@@ -341,7 +397,10 @@ export function ProductsPage() {
                 <nav className="space-y-1" aria-label="Category Filters">
                   {productCategories.map((cat) => {
                     const isSelected = selectedCategory === cat.id;
-                    const isHvacDucting = cat.id === "hvac-ducting";
+                    const subList =
+                      "subcategories" in cat
+                        ? (cat as { subcategories?: string[] }).subcategories
+                        : undefined;
 
                     return (
                       <div key={cat.id} className="space-y-1">
@@ -351,52 +410,46 @@ export function ProductsPage() {
                             setSelectedCategory(cat.id);
                             setSelectedSubcategory(null);
                           }}
-                          className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-xs font-semibold transition-colors cursor-pointer ${
+                          className={`flex w-full items-center justify-between rounded-md px-3 py-2.5 text-left text-xs font-semibold transition-colors cursor-pointer ${
                             isSelected
                               ? "bg-[#0755A4] text-white"
                               : "text-[#103766] hover:bg-[#F7F9FC]"
                           }`}
                         >
-                          <span className="flex items-center gap-2">
-                            {categoryIcon(cat.id)}
-                            <span>{cat.name}</span>
+                          <span className="flex items-center gap-2 min-w-0">
+                            <span className="shrink-0">{categoryIcon(cat.id)}</span>
+                            <span className="leading-snug">{cat.name}</span>
                           </span>
-
-                          <span
-                            className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                              isSelected ? "bg-white/20 text-white" : "bg-slate-100 text-[#61738A]"
+                          <ChevronRight
+                            size={13}
+                            className={`shrink-0 transition-transform ${
+                              isSelected ? "text-white/80 translate-x-0.5" : "text-slate-400"
                             }`}
-                          >
-                            {cat.count}
-                          </span>
+                          />
                         </button>
 
-                        {/* Expandable Subcategories for HVAC Ducting */}
-                        {isHvacDucting &&
-                          (selectedCategory === "hvac-ducting" || selectedCategory === "all") && (
-                            <div className="ml-4 space-y-1 border-l-2 border-[#DCE5EF] pl-3 py-1">
-                              {cat.subcategories?.map((sub) => {
-                                const isSubActive = selectedSubcategory === sub;
-                                return (
-                                  <button
-                                    key={sub}
-                                    type="button"
-                                    onClick={() => {
-                                      setSelectedCategory("hvac-ducting");
-                                      setSelectedSubcategory(isSubActive ? null : sub);
-                                    }}
-                                    className={`block w-full text-left py-1 text-[11px] font-medium transition-colors cursor-pointer ${
-                                      isSubActive
-                                        ? "text-[#0755A4] font-bold"
-                                        : "text-[#61738A] hover:text-[#0755A4]"
-                                    }`}
-                                  >
-                                    {sub}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          )}
+                        {/* Expandable Subcategories for active category */}
+                        {subList && isSelected && (
+                          <div className="ml-4 space-y-1 border-l-2 border-[#DCE5EF] pl-3 py-1">
+                            {subList.map((sub) => {
+                              const isSubActive = selectedSubcategory === sub;
+                              return (
+                                <button
+                                  key={sub}
+                                  type="button"
+                                  onClick={() => setSelectedSubcategory(isSubActive ? null : sub)}
+                                  className={`block w-full text-left py-1 text-[11px] font-medium transition-colors cursor-pointer ${
+                                    isSubActive
+                                      ? "text-[#0755A4] font-bold"
+                                      : "text-[#61738A] hover:text-[#0755A4]"
+                                  }`}
+                                >
+                                  {sub}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        )}
                       </div>
                     );
                   })}
@@ -456,35 +509,68 @@ export function ProductsPage() {
                   )}
                 </div>
 
-                <div className="mt-2.5 flex flex-wrap items-baseline justify-between gap-4">
-                  <div>
+                <div className="mt-2.5 flex flex-wrap items-end justify-between gap-4">
+                  <div className="max-w-xl">
                     <h2 className="display-font text-2xl font-extrabold text-[#103766]">
                       {currentCategoryName}
                     </h2>
-                    <p className="mt-1 text-xs text-[#61738A]">
-                      High-quality ducting solutions for efficient air distribution and ventilation
-                      systems.
+                    <p className="mt-1 text-xs leading-relaxed text-[#61738A]">
+                      {currentCategorySummary}
                     </p>
+                    {currentCategoryDisclaimer && (
+                      <p className="mt-2 rounded-md border border-amber-200 bg-amber-50/70 px-3 py-1.5 text-[11px] font-medium text-amber-900">
+                        {currentCategoryDisclaimer}
+                      </p>
+                    )}
                   </div>
 
-                  {/* Sort by control */}
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-[#61738A]">Sort by:</span>
-                    <Select value={sortBy} onValueChange={setSortBy}>
-                      <SelectTrigger className="w-32 h-8 rounded-md border border-[#DCE5EF] text-xs font-medium text-[#103766]">
-                        <SelectValue placeholder="Featured" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="featured">Featured</SelectItem>
-                        <SelectItem value="az">Name: A to Z</SelectItem>
-                        <SelectItem value="za">Name: Z to A</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  {/* Desktop Search + Sort control */}
+                  <div className="flex items-center gap-2.5">
+                    <div className="relative w-52">
+                      <Search
+                        size={14}
+                        className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Search catalogue..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="h-8 w-full rounded-md border border-[#DCE5EF] bg-[#F7F9FC] pl-8 pr-7 text-xs text-[#103766] focus:bg-white focus:border-[#0755A4] focus:outline-hidden"
+                      />
+                      {searchQuery && (
+                        <button
+                          type="button"
+                          onClick={() => setSearchQuery("")}
+                          aria-label="Clear search"
+                          className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                        >
+                          <X size={13} />
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-[#61738A]">Sort by:</span>
+                      <Select value={sortBy} onValueChange={setSortBy}>
+                        <SelectTrigger className="w-32 h-8 rounded-md border border-[#DCE5EF] text-xs font-medium text-[#103766]">
+                          <SelectValue placeholder="Featured" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="featured">Featured</SelectItem>
+                          <SelectItem value="az">Name: A to Z</SelectItem>
+                          <SelectItem value="za">Name: Z to A</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Product Cards Grid: 1 col on ultra-narrow, 2 cols on mobile/tablet, 4 on large screens */}
+              {/* Product Cards Grid:
+                  - Narrow mobile (<=430px): Single-column compact horizontal product cards
+                  - Tablet (431px-1023px): 2–3 columns vertical cards
+                  - Desktop (xl+): 4 columns vertical cards */}
               {filteredProducts.length === 0 ? (
                 <div className="rounded-lg border border-dashed border-[#DCE5EF] p-12 text-center">
                   <p className="text-sm font-semibold text-[#103766]">
@@ -507,49 +593,59 @@ export function ProductsPage() {
                   </Button>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 min-[375px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3.5 sm:gap-4">
+                <div
+                  id="catalogue-cards-grid"
+                  data-whatsapp-hide="true"
+                  className="grid grid-cols-1 min-[431px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4"
+                >
                   {filteredProducts.map((p) => (
                     <article
                       key={p.id}
-                      className="group flex flex-col justify-between overflow-hidden rounded-lg border border-[#DCE5EF] bg-white p-3 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#0755A4]/40 hover:shadow-md"
+                      onClick={() => setSelectedProduct(p)}
+                      className="group flex flex-row min-[431px]:flex-col min-[431px]:justify-between items-center min-[431px]:items-stretch gap-3 min-[431px]:gap-0 overflow-hidden rounded-lg border border-[#DCE5EF] bg-white p-3 shadow-xs transition-all duration-300 hover:border-[#0755A4]/40 hover:shadow-md min-[431px]:hover:-translate-y-1 cursor-pointer"
                     >
-                      <div>
-                        {/* High-Resolution Product Image */}
-                        <div className="relative aspect-4/3 w-full overflow-hidden rounded-md bg-[#F7F9FC] border border-[#DCE5EF]/40 flex items-center justify-center p-2">
-                          <picture className="flex size-full items-center justify-center">
-                            <source srcSet={p.image} type="image/webp" />
-                            <img
-                              src={p.image.replace(".webp", ".jpg")}
-                              alt={p.title}
-                              width={400}
-                              height={300}
-                              loading="lazy"
-                              className="size-full object-contain transition-transform duration-300 group-hover:scale-105"
-                            />
-                          </picture>
-                        </div>
+                      {/* Clean Studio Product Thumbnail — Horizontal 104x104 on narrow mobile, 4:3 above */}
+                      <div className="relative h-[104px] w-[104px] shrink-0 min-[431px]:h-auto min-[431px]:w-full min-[431px]:aspect-4/3 overflow-hidden rounded-md bg-white flex items-center justify-center">
+                        <picture className="flex size-full items-center justify-center">
+                          <source srcSet={p.image} type="image/webp" />
+                          <img
+                            src={p.fallbackImage || p.image.replace(".webp", ".jpg")}
+                            alt={p.alt || p.title}
+                            width={600}
+                            height={450}
+                            loading="lazy"
+                            className="size-full object-contain transition-transform duration-300 group-hover:scale-105"
+                          />
+                        </picture>
+                      </div>
 
-                        {/* Title & Description */}
-                        <div className="mt-3">
-                          <h3 className="display-font text-xs sm:text-sm font-bold text-[#103766] group-hover:text-[#0755A4] transition-colors leading-snug">
+                      {/* Text Content + View Details */}
+                      <div className="min-w-0 flex-1 flex flex-col justify-between min-[431px]:mt-2.5">
+                        <div>
+                          <span className="inline-block text-[10px] font-semibold uppercase tracking-wider text-[#0755A4]/90 min-[431px]:hidden">
+                            {p.categoryName}
+                          </span>
+                          <h3 className="display-font text-sm min-[431px]:text-[13px] font-bold text-[#103766] group-hover:text-[#0755A4] transition-colors leading-snug">
                             {p.title}
                           </h3>
-                          <p className="mt-1.5 text-[11px] text-[#61738A] leading-relaxed line-clamp-2 sm:line-clamp-3">
+                          <p className="mt-1 text-xs min-[431px]:text-[11px] text-[#61738A] leading-relaxed line-clamp-3">
                             {p.description}
                           </p>
                         </div>
-                      </div>
 
-                      {/* View Details Link */}
-                      <div className="mt-3.5 border-t border-[#DCE5EF]/60 pt-2.5">
-                        <button
-                          type="button"
-                          onClick={() => setSelectedProduct(p)}
-                          className="inline-flex items-center gap-1 text-xs font-bold text-[#0755A4] hover:text-[#064789] transition-colors cursor-pointer"
-                        >
-                          <span>View Details</span>
-                          <ArrowRight size={12} />
-                        </button>
+                        <div className="mt-2.5 min-[431px]:mt-3 min-[431px]:border-t min-[431px]:border-[#DCE5EF]/60 min-[431px]:pt-2">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedProduct(p);
+                            }}
+                            className="inline-flex min-h-8 items-center gap-1 text-xs font-bold text-[#0755A4] hover:text-[#064789] transition-colors cursor-pointer"
+                          >
+                            <span>View Details</span>
+                            <ArrowRight size={12} />
+                          </button>
+                        </div>
                       </div>
                     </article>
                   ))}
@@ -559,7 +655,11 @@ export function ProductsPage() {
               {/* -----------------------------------------------------------------
                   Featured Products Carousel Strip below the main grid
                   ----------------------------------------------------------------- */}
-              <div className="border-t border-[#DCE5EF] pt-8">
+              <div
+                id="featured-products-carousel"
+                data-whatsapp-hide="true"
+                className="border-t border-[#DCE5EF] pt-8"
+              >
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className="display-font text-base sm:text-lg font-bold text-[#103766]">
@@ -779,7 +879,7 @@ export function ProductsPage() {
                     setSelectedSubcategory(null);
                     setMobileCategoryOpen(false);
                   }}
-                  className={`w-full flex items-center justify-between rounded-lg p-2.5 text-xs font-semibold transition-colors ${
+                  className={`w-full flex items-center justify-between rounded-lg p-3 text-xs font-semibold transition-colors ${
                     isSelected
                       ? "bg-[#0755A4] text-white"
                       : "bg-[#F7F9FC] text-[#103766] hover:bg-[#EAF2FA]"
@@ -789,13 +889,10 @@ export function ProductsPage() {
                     {categoryIcon(cat.id)}
                     <span>{cat.name}</span>
                   </span>
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                      isSelected ? "bg-white/20 text-white" : "bg-slate-200 text-[#61738A]"
-                    }`}
-                  >
-                    {cat.count}
-                  </span>
+                  <ChevronRight
+                    size={14}
+                    className={isSelected ? "text-white/80" : "text-slate-400"}
+                  />
                 </button>
               );
             })}
@@ -812,7 +909,7 @@ export function ProductsPage() {
           <DialogContent className="max-w-lg rounded-xl border border-[#DCE5EF] bg-white p-6 shadow-2xl">
             <DialogHeader>
               <span className="text-[11px] font-bold uppercase tracking-wider text-[#0755A4]">
-                {selectedProduct.categoryName}
+                {selectedProduct.categoryName} · {selectedProduct.subcategory}
               </span>
               <DialogTitle className="display-font text-lg font-bold text-[#103766]">
                 {selectedProduct.title}
@@ -820,14 +917,17 @@ export function ProductsPage() {
             </DialogHeader>
 
             <div className="space-y-4 my-2">
-              <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-slate-50 border border-[#DCE5EF] flex items-center justify-center p-3">
+              <div className="relative aspect-4/3 max-h-[260px] w-full overflow-hidden rounded-lg bg-white border border-[#DCE5EF] flex items-center justify-center p-4">
                 <picture className="flex size-full items-center justify-center">
                   <source srcSet={selectedProduct.image} type="image/webp" />
                   <img
-                    src={selectedProduct.image.replace(".webp", ".jpg")}
-                    alt={selectedProduct.title}
-                    width={400}
-                    height={250}
+                    src={
+                      selectedProduct.fallbackImage ||
+                      selectedProduct.image.replace(".webp", ".jpg")
+                    }
+                    alt={selectedProduct.alt || selectedProduct.title}
+                    width={600}
+                    height={450}
                     className="size-full object-contain"
                   />
                 </picture>
@@ -837,20 +937,26 @@ export function ProductsPage() {
                 {selectedProduct.description}
               </p>
 
+              {selectedProduct.confirmationNote && (
+                <p className="rounded-md border border-amber-200 bg-amber-50/75 px-3 py-2 text-xs text-amber-900">
+                  {selectedProduct.confirmationNote}
+                </p>
+              )}
+
               <div className="rounded-lg bg-[#EAF2FA]/70 p-3.5 space-y-2 border border-[#DCE5EF]">
-                <p className="text-xs font-bold text-[#103766]">Singapore Project Supply:</p>
+                <p className="text-xs font-bold text-[#103766]">Workshop &amp; Supply Details:</p>
                 <ul className="text-xs text-[#61738A] space-y-1">
                   <li className="flex items-center gap-1.5">
-                    <Check size={13} className="text-[#0755A4]" />
-                    <span>Fabricated to SMACNA / Singapore BCA ACMV specifications</span>
+                    <Check size={13} className="text-[#0755A4] shrink-0" />
+                    <span>Direct supply from our Kaki Bukit workshop, Singapore</span>
                   </li>
                   <li className="flex items-center gap-1.5">
-                    <Check size={13} className="text-[#0755A4]" />
-                    <span>Direct supply from our Kaki Bukit fabrication workshop</span>
+                    <Check size={13} className="text-[#0755A4] shrink-0" />
+                    <span>Custom project dimensions and specifications supported on enquiry</span>
                   </li>
                   <li className="flex items-center gap-1.5">
-                    <Check size={13} className="text-[#0755A4]" />
-                    <span>Custom dimensions and sheet metal gauges available</span>
+                    <Check size={13} className="text-[#0755A4] shrink-0" />
+                    <span>Fast quotation via Request a Quote or WhatsApp</span>
                   </li>
                 </ul>
               </div>

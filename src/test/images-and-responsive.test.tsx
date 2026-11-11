@@ -80,9 +80,22 @@ describe("High-Resolution Asset Library & Image Integrity", () => {
     });
   });
 
-  it("productCategories list matches expected count and subcategories", () => {
+  it("productCategories list matches expected 8 official categories and subcategories", () => {
     expect(productCategories.length).toBe(9);
-    const ductingCat = productCategories.find((c) => c.id === "hvac-ducting");
-    expect(ductingCat?.subcategories?.length).toBeGreaterThanOrEqual(4);
+    productCategories.forEach((cat) => {
+      expect(cat).not.toHaveProperty("count");
+    });
+
+    const pidDucts = productCategories.find((c) => c.id === "pid-ducts-duct-works");
+    expect(pidDucts?.subcategories?.length).toBeGreaterThanOrEqual(3);
+
+    const acc = productCategories.find((c) => c.id === "pid-duct-accessories");
+    expect(acc?.subcategories?.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("popularProducts use unique non-duplicated images", () => {
+    expect(popularProducts.length).toBe(7);
+    const uniqueImages = new Set(popularProducts.map((p) => p.image));
+    expect(uniqueImages.size).toBe(popularProducts.length);
   });
 });

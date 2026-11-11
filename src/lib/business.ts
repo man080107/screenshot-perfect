@@ -18,6 +18,12 @@ import workshopFacility from "@/assets/workshop-facility.jpg";
 import whyChooseGc from "@/assets/why-choose-gc.jpg";
 
 import { siteImages } from "@/lib/images";
+import {
+  CATALOG_CATEGORIES,
+  CATALOG_PRODUCTS,
+  FEATURED_CAROUSEL_PRODUCT_IDS,
+  HOME_POPULAR_PRODUCT_IDS,
+} from "@/lib/catalogue";
 
 // High-resolution showcase assets from central library
 const heroWorkshop = siteImages.hero.home.webp;
@@ -256,272 +262,101 @@ export const services = [
 export const homeCategoryCards = [
   {
     id: "cat-ducting",
-    title: "HVAC Ducting",
-    description: "GI & PID Ducts, Fittings, Flexible, Pre-Insulated Ducts",
+    title: "PID Ducts & Duct Works",
+    description: "GI & PID Ducts, Fittings, Transitions, Plenums & Filters",
     image: catHvacDucts,
-    href: "/products?category=hvac-ducting",
+    href: "/products?category=pid-ducts-duct-works",
   },
   {
     id: "cat-grilles",
-    title: "Grilles & Diffusers",
-    description: "Air Grilles, Diffusers, Louvers, Dampers",
+    title: "Grilles, Diffusers & Dampers",
+    description: "4-Way & Linear Diffusers, Louvres, Square & Round VCD/NRD",
     image: catGrilles,
-    href: "/products?category=grilles-diffusers",
+    href: "/products?category=grilles-diffusers-louvres",
   },
   {
     id: "cat-services",
-    title: "Fabrication Services",
-    description: "SS Fabrication, Kitchen Hood, Custom Fabrication",
+    title: "Kitchen Hoods & Fabrication",
+    description: "Island & Wall Kitchen Hoods, SS Fabrication & Custom Ducts",
     image: catFabrication,
-    href: "/services",
+    href: "/products?category=kitchen-hoods",
   },
   {
     id: "cat-insulation",
-    title: "Insulation & Accessories",
-    description: "Insulation Materials, Tapes, Duct Accessories",
+    title: "Insulation, Tapes & Accessories",
+    description: "PID Flanges, Fiberglass, Rockwool, Flexible Ducts & Sealing Tapes",
     image: catInsulation,
-    href: "/products?category=insulation",
+    href: "/products?category=insulation-accessories",
   },
   {
     id: "cat-supplies",
-    title: "Industrial Supplies",
-    description: "Hardware, Power Tools, Hand Tools, Paints, Safety Products",
+    title: "Other Industrial Items",
+    description: "Hardware, Paints, Safety Shoes & Power Tools",
     image: catIndustrial,
-    href: "/products?category=hardware-tools",
+    href: "/products?category=other-industrial-items",
   },
 ] as const;
 
-export const popularProducts = [
-  {
-    id: "pop-gi-duct",
-    name: "GI Duct & Fittings",
-    image: popGiDuct,
-    category: "hvac-ducting",
-  },
-  {
-    id: "pop-flex-duct",
-    name: "Flexible Duct",
-    image: popFlexDuct,
-    category: "hvac-ducting",
-  },
-  {
-    id: "pop-pid-duct",
-    name: "Pre-Insulated Duct",
-    image: popPidDuct,
-    category: "hvac-ducting",
-  },
-  {
-    id: "pop-diffuser",
-    name: "Grilles & Diffusers",
-    image: popDiffuser,
-    category: "grilles-diffusers",
-  },
-  {
-    id: "pop-kitchen-hood",
-    name: "Kitchen Hood",
-    image: popKitchenHood,
-    category: "kitchen-hood",
-  },
-  {
-    id: "pop-foil-tape",
-    name: "Aluminium Foil Tape",
-    image: popFoilTape,
-    category: "tapes",
-  },
-  {
-    id: "pop-duct-tape",
-    name: "Duct Tape",
-    image: popDuctTape,
-    category: "tapes",
-  },
-] as const;
+export const popularProducts = HOME_POPULAR_PRODUCT_IDS.map((id) => {
+  const item = CATALOG_PRODUCTS.find((entry) => entry.id === id)!;
+  return {
+    id: item.id,
+    name:
+      item.id === "gi-straight-duct"
+        ? "Straight GI Duct"
+        : item.id === "kitchen-hood-island"
+          ? "Kitchen Hood"
+          : item.name,
+    image: item.image.webp,
+    fallbackImage: item.image.fallback,
+    category: item.categoryId,
+    productId: item.id,
+  };
+});
 
 export const productCategories = [
-  { id: "all", name: "All Products", count: 96 },
-  {
-    id: "hvac-ducting",
-    name: "HVAC Ducting & Fittings",
-    count: 18,
-    subcategories: [
-      "GI & PID Ducts & Fittings",
-      "Flexible Ducts",
-      "Pre-Insulated Ducts",
-      "Duct Accessories",
-    ],
-  },
-  { id: "grilles-diffusers", name: "Grilles & Diffusers", count: 12 },
-  { id: "kitchen-hood", name: "Kitchen Hood", count: 6 },
-  { id: "insulation", name: "Insulation Materials", count: 8 },
-  { id: "tapes", name: "Tapes", count: 10 },
-  { id: "hardware-tools", name: "Hardware & Tools", count: 14 },
-  { id: "paints", name: "Paints", count: 6 },
-  { id: "safety", name: "Safety Products", count: 8 },
-] as const;
-
-export const catalogProducts = [
-  {
-    id: "gi-ducts-fittings",
-    title: "GI Ducts & Fittings",
-    categoryId: "hvac-ducting",
-    categoryName: "HVAC Ducting & Fittings",
-    subcategory: "GI & PID Ducts & Fittings",
-    description: "Durable and reliable galvanized iron ducting and fittings for HVAC systems.",
-    image: prodGiDucts,
-    featured: true,
-  },
-  {
-    id: "flexible-ducts",
-    title: "Flexible Ducts",
-    categoryId: "hvac-ducting",
-    categoryName: "HVAC Ducting & Fittings",
-    subcategory: "Flexible Ducts",
-    description: "Flexible and lightweight ducting solutions for various ventilation applications.",
-    image: prodFlexDucts,
-    featured: true,
-  },
-  {
-    id: "pre-insulated-ducts",
-    title: "Pre-Insulated Ducts",
-    categoryId: "hvac-ducting",
-    categoryName: "HVAC Ducting & Fittings",
-    subcategory: "Pre-Insulated Ducts",
-    description: "Energy-efficient ducting with superior thermal insulation properties.",
-    image: prodPidDucts,
-    featured: true,
-  },
-  {
-    id: "grilles-diffusers-cat",
-    title: "Grilles & Diffusers",
-    categoryId: "grilles-diffusers",
-    categoryName: "Grilles & Diffusers",
-    description:
-      "A wide range of air distribution grilles and diffusers for optimal airflow and comfort.",
-    image: prodGrilles,
-    featured: true,
-  },
-  {
-    id: "kitchen-hood-cat",
-    title: "Kitchen Hood",
-    categoryId: "kitchen-hood",
-    categoryName: "Kitchen Hood",
-    description: "High-performance kitchen hoods for commercial and industrial kitchens.",
-    image: prodKitchenHood,
-    featured: true,
-  },
-  {
-    id: "duct-accessories-cat",
-    title: "Duct Accessories",
-    categoryId: "hvac-ducting",
-    categoryName: "HVAC Ducting & Fittings",
-    subcategory: "Duct Accessories",
-    description: "Essential accessories for a complete and efficient ducting system.",
-    image: prodDuctAccessories,
-    featured: false,
-  },
-  {
-    id: "insulation-materials-cat",
-    title: "Insulation Materials",
-    categoryId: "insulation",
-    categoryName: "Insulation Materials",
-    description: "Thermal and acoustic insulation materials for better efficiency and performance.",
-    image: prodInsulation,
-    featured: false,
-  },
-  {
-    id: "tapes-cat",
-    title: "Tapes",
-    categoryId: "tapes",
-    categoryName: "Tapes",
-    description: "High-quality tapes for sealing insulation and joint applications.",
-    image: prodTapes,
-    featured: true,
-  },
-  {
-    id: "hardware-tools-cat",
-    title: "Hardware & Installation Tools",
-    categoryId: "hardware-tools",
-    categoryName: "Hardware & Tools",
-    description:
-      "Heavy-duty unistrut channels, threaded rods, hanger brackets, drill bits and fasteners.",
-    image: siteImages.products.hardwareTools.webp,
-    featured: false,
-  },
-  {
-    id: "paints-coatings-cat",
-    title: "Industrial Paints & Sealants",
-    categoryId: "paints",
-    categoryName: "Paints",
-    description:
-      "Cold galvanizing zinc sprays, primers, and air-tight mastic sealants for duct joints.",
-    image: catIndustrial,
-    featured: false,
-  },
-  {
-    id: "safety-gear-cat",
-    title: "Safety Products & PPE",
-    categoryId: "safety",
-    categoryName: "Safety Products",
-    description:
-      "Certified safety helmets, anti-cut gloves, protective goggles, and site safety gear.",
-    image: catIndustrial,
-    featured: false,
-  },
-  {
-    id: "volume-dampers-cat",
-    title: "Volume Control Dampers",
-    categoryId: "grilles-diffusers",
-    categoryName: "Grilles & Diffusers",
-    description:
-      "Manual quadrant and motorized multi-blade dampers for precise branch airflow calibration.",
-    image: siteImages.products.volumeControlDamper.webp,
-    featured: true,
-  },
+  { id: "all", name: "All Products" },
+  ...CATALOG_CATEGORIES.map((category) => ({
+    id: category.id,
+    name: category.name,
+    shortName: category.shortName,
+    summary: category.summary,
+    subcategories: category.subcategories,
+    disclaimer: category.disclaimer,
+  })),
 ];
 
-export const featuredCarouselItems = [
-  {
-    id: "fc-round",
-    name: "Round Duct",
-    image: siteImages.products.roundSpiralDuct.webp,
-    href: "/products?category=hvac-ducting",
-  },
-  {
-    id: "fc-rect",
-    name: "Rectangular Duct",
-    image: siteImages.products.giRectangularDuct.webp,
-    href: "/products?category=hvac-ducting",
-  },
-  {
-    id: "fc-flex",
-    name: "Flex Duct",
-    image: popFlexDuct,
-    href: "/products?category=hvac-ducting",
-  },
-  {
-    id: "fc-diffuser",
-    name: "Diffuser",
-    image: popDiffuser,
-    href: "/products?category=grilles-diffusers",
-  },
-  {
-    id: "fc-hood",
-    name: "Kitchen Hood",
-    image: popKitchenHood,
-    href: "/products?category=kitchen-hood",
-  },
-  {
-    id: "fc-damper",
-    name: "Volume Damper",
-    image: siteImages.products.volumeControlDamper.webp,
-    href: "/products?category=grilles-diffusers",
-  },
-  {
-    id: "fc-foil",
-    name: "Aluminium Foil Tape",
-    image: popFoilTape,
-    href: "/products?category=tapes",
-  },
-];
+export const catalogProducts = CATALOG_PRODUCTS.map((item) => ({
+  id: item.id,
+  title: item.name,
+  categoryId: item.categoryId,
+  categoryName: item.category,
+  subcategory: item.subcategory,
+  description: item.description,
+  image: item.image.webp,
+  fallbackImage: item.image.fallback,
+  alt: item.image.alt,
+  keywords: item.keywords,
+  displayOrder: item.displayOrder,
+  featured: Boolean(item.featured),
+  badge: item.badge,
+  confirmationNote: item.confirmationNote,
+}));
+
+export const featuredCarouselItems = FEATURED_CAROUSEL_PRODUCT_IDS.map((id) => {
+  const item = CATALOG_PRODUCTS.find((entry) => entry.id === id)!;
+  return {
+    id: item.id,
+    name:
+      item.id === "gi-straight-duct"
+        ? "Straight GI Duct"
+        : item.id === "kitchen-hood-island"
+          ? "Kitchen Hood"
+          : item.name,
+    image: item.image.webp,
+    href: `/products?category=${item.categoryId}&product=${item.id}`,
+  };
+});
 
 export const projectIndustries = [
   {
