@@ -2,60 +2,45 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   ArrowUpRight,
-  Building2,
-  CheckCircle2,
   ChevronRight,
-  Factory,
+  Cog,
+  FileText,
   Layers,
-  MapPin,
-  MessageCircle,
-  Phone,
-  Ruler,
-  ShieldCheck,
-  Sparkles,
+  Mail,
+  Shield,
+  Utensils,
   Wrench,
+  Wind,
 } from "lucide-react";
 
-import fabricationWorkshop from "@/assets/fabrication-workshop.jpg";
-import ductworkComponents from "@/assets/ductwork-components.jpg";
-import roundDuctwork from "@/assets/round-ductwork.jpg";
-import volumeControlDamper from "@/assets/volume-control-damper.jpg";
-import ductFittingDetail from "@/assets/duct-fitting-detail.jpg";
-import metalFabricationShowcase from "@/assets/metal-fabrication-showcase.jpg";
-import ductWorksCatalog from "@/assets/duct-works-catalog.jpg";
-import pidDuctsFlyer from "@/assets/pid-ducts-flyer.jpg";
-import dampersLouvresCatalog from "@/assets/dampers-louvres-catalog.jpg";
-import accessoriesCatalog from "@/assets/accessories-catalog.jpg";
-import workshopFacility from "@/assets/workshop-facility.jpg";
-
 import { Button } from "@/components/ui/button";
-import { company, generalEnquiryMessage, services, whatsappHref } from "@/lib/business";
 import {
-  ContactBand,
-  SectionHeading,
-  ServiceCard,
-  SiteLayout,
-  WhatsAppButton,
-} from "@/components/site";
+  company,
+  homeCategoryCards,
+  popularProducts,
+  projectIndustries,
+  assets,
+} from "@/lib/business";
+import { BottomCtaSection, SiteLayout } from "@/components/site";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
   head: () => ({
     meta: [
-      { title: "GC Fabrication | ACMV Duct Fabrication Singapore" },
+      { title: "GC Fabrication | HVAC Ducting, Fabrication & ACMV Solutions Singapore" },
       {
         name: "description",
         content:
-          "Professional ACMV duct fabrication and ductwork solutions for commercial and industrial applications in Singapore. Galvanized Iron (GI), Pre-Insulated Ducts (PID), volume control dampers and fittings.",
+          "GC Fabrication provides reliable HVAC duct fabrication, precision sheet metal solutions, and industrial ventilation components for commercial and industrial projects in Singapore.",
       },
       {
         property: "og:title",
-        content: "GC Fabrication | ACMV Duct Fabrication Singapore",
+        content: "GC Fabrication | HVAC Ducting & Fabrication Singapore",
       },
       {
         property: "og:description",
         content:
-          "Precision ACMV ductwork fabrication, GI & PID ducts, volume control dampers, and custom engineering solutions in Singapore.",
+          "High-precision HVAC duct fabrication, GI & PID ducts, volume control dampers, and industrial ventilation solutions in Singapore.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },
@@ -79,615 +64,359 @@ export const Route = createFileRoute("/")({
             postalCode: "415875",
             addressCountry: "SG",
           },
-          geo: {
-            "@type": "GeoCoordinates",
-            latitude: "1.3396",
-            longitude: "103.9048",
-          },
           url: "https://gcfabrication.sg",
-          openingHours: "Mo-Sa 08:00-18:00",
-          priceRange: "$$",
-          areaServed: "Singapore",
           description:
-            "ACMV duct fabrication, Galvanized Iron (GI) ductwork, Pre-Insulated Duct (PID) systems, Volume Control Dampers, and duct accessories for commercial and industrial installations in Singapore.",
+            "HVAC duct fabrication, Galvanized Iron (GI) ductwork, Pre-Insulated Duct (PID) systems, Volume Control Dampers, and ventilation accessories in Singapore.",
         }),
       },
     ],
   }),
 });
 
-const valuePillars = [
-  {
-    icon: Ruler,
-    num: "01",
-    title: "Precision Dimensional Fabrication",
-    description:
-      "Fabricated strictly according to architectural CAD drawings, schedules, and site measurements for accurate on-site installation.",
-  },
-  {
-    icon: Layers,
-    num: "02",
-    title: "GI & PID Material Expertise",
-    description:
-      "Comprehensive capabilities across Galvanized Iron (GI), lightweight Pre-Insulated Ducts (PID), and Stainless Steel (SS) systems.",
-  },
-  {
-    icon: Factory,
-    num: "03",
-    title: "Dedicated Singapore Workshop",
-    description:
-      "In-house machinery and experienced sheet metal craftsmen at Kaki Bukit ensuring rapid fabrication turnarounds.",
-  },
-  {
-    icon: ShieldCheck,
-    num: "04",
-    title: "Singapore Standards Compliance",
-    description:
-      "Duct construction, flange connections, and damper assemblies engineered to meet rigorous commercial ventilation standards.",
-  },
-];
-
 export function HomePage() {
   return (
     <SiteLayout>
       {/* =========================================================================
-          HERO SECTION — High-impact Industrial Editorial Composition
+          SECTION 1 — HERO BANNER (Split Layout with Geometric Photographic Transition)
           ========================================================================= */}
-      <section className="relative min-h-[640px] lg:min-h-[720px] overflow-hidden bg-[#10243A] text-white flex items-center">
-        {/* Real Workshop Background Photo */}
-        <img
-          src={fabricationWorkshop}
-          alt="Technician assembling precision rectangular ductwork in GC Fabrication workshop"
-          width={1536}
-          height={1024}
-          fetchPriority="high"
-          className="absolute inset-0 size-full object-cover object-center opacity-40 mix-blend-luminosity"
-        />
+      <section className="relative overflow-hidden bg-gradient-to-r from-[#F7F9FC] via-[#F7F9FC] to-[#EDF3FA] border-b border-[#DCE5EF]">
+        <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 items-center lg:grid-cols-12 min-h-[440px] lg:min-h-[480px]">
+            {/* Left Content Column */}
+            <div className="py-12 sm:py-16 lg:py-20 lg:col-span-6 z-10 pr-0 lg:pr-8">
+              {/* Eyebrow */}
+              <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-[#0755A4] flex items-center gap-2">
+                QUALITY PRODUCTS | CUSTOM FABRICATION | INDUSTRIAL SOLUTIONS
+              </p>
 
-        {/* Industrial Gradients & Grid Pattern */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#10243A] via-[#10243A]/90 to-[#10243A]/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#10243A] via-transparent to-transparent" />
-        <div className="industrial-grid-dark absolute inset-0 opacity-25 pointer-events-none" />
-
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 w-full">
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
-            {/* Left Hero Column */}
-            <div className="lg:col-span-8 space-y-6">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-semibold backdrop-blur-xs text-white">
-                <span className="size-2 rounded-full bg-[#E87932] animate-pulse" />
-                <span>GI & PID Duct Fabrication Specialist · Singapore</span>
-              </div>
-
-              {/* Headline */}
-              <h1 className="display-font text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.05]">
-                Precision Ductwork.
-                <br />
-                <span className="text-[#E87932]">Built for Performance.</span>
+              {/* Main Heading */}
+              <h1 className="display-font mt-4 text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-[#103766] leading-[1.18]">
+                HVAC Ducting, Fabrication &amp; Industrial Supply Solutions
               </h1>
 
-              {/* Supporting Text */}
-              <p className="max-w-2xl text-base sm:text-lg lg:text-xl text-slate-200 leading-relaxed font-normal">
-                Professional ACMV duct fabrication and ductwork solutions for commercial and
-                industrial applications in Singapore.
+              {/* Description */}
+              <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#61738A] max-w-xl">
+                We provide high-quality HVAC ducting products, fabrication services and a wide range
+                of industrial supplies for commercial, residential and industrial projects in
+                Singapore.
               </p>
 
-              {/* CTAs */}
-              <div className="flex flex-wrap items-center gap-3 pt-2">
+              {/* Two CTA Buttons */}
+              <div className="mt-7 flex flex-wrap items-center gap-3.5">
                 <Button
                   asChild
-                  size="lg"
-                  className="h-12 sm:h-14 bg-[#E87932] text-white hover:bg-[#d56b27] px-7 font-bold text-sm sm:text-base shadow-lg"
+                  className="h-11 rounded-md bg-[#0755A4] px-6 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[#064789]"
                 >
                   <Link to="/quote" className="inline-flex items-center gap-2">
-                    <span>REQUEST A QUOTE</span>
-                    <ArrowRight size={18} />
+                    <span>Request a Quote</span>
+                    <ArrowRight size={15} />
                   </Link>
                 </Button>
 
                 <Button
                   asChild
-                  size="lg"
                   variant="outline"
-                  className="h-12 sm:h-14 border-white/30 text-white bg-white/10 hover:bg-white/20 hover:text-white px-6 font-semibold text-sm sm:text-base backdrop-blur-xs"
+                  className="h-11 rounded-md border-[#DCE5EF] bg-white px-6 text-sm font-semibold text-[#103766] hover:bg-slate-50 transition-colors shadow-xs"
                 >
-                  <Link to="/services" className="inline-flex items-center gap-2">
-                    <span>EXPLORE OUR SERVICES</span>
-                    <ArrowUpRight size={18} />
-                  </Link>
+                  <Link to="/products">Explore Products</Link>
                 </Button>
-
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="h-12 sm:h-14 border-emerald-500/50 text-emerald-300 bg-emerald-950/40 hover:bg-emerald-900/60 hover:text-white px-5 font-semibold text-sm sm:text-base"
-                >
-                  <a
-                    href={whatsappHref(generalEnquiryMessage)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2"
-                  >
-                    <MessageCircle size={18} className="text-emerald-400" />
-                    <span>WhatsApp Direct</span>
-                  </a>
-                </Button>
-              </div>
-
-              {/* Quick credential highlights */}
-              <div className="pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs text-slate-300">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-[#E87932] shrink-0" />
-                  <span>Galvanized & PID Systems</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-[#E87932] shrink-0" />
-                  <span>Kaki Bukit Workshop</span>
-                </div>
-                <div className="flex items-center gap-2 col-span-2 sm:col-span-1">
-                  <CheckCircle2 size={16} className="text-[#E87932] shrink-0" />
-                  <span>Rapid Turnaround</span>
-                </div>
               </div>
             </div>
 
-            {/* Right Hero Card — Workshop Staging Snapshot */}
-            <div className="hidden lg:block lg:col-span-4">
-              <div className="relative rounded-xl border border-white/20 bg-white/10 p-2.5 backdrop-blur-md shadow-2xl">
-                <div className="overflow-hidden rounded-lg aspect-[4/3] relative">
+            {/* Right Photo Column with Geometric Angle */}
+            <div className="relative lg:col-span-6 h-full min-h-[300px] sm:min-h-[380px] lg:min-h-[480px] w-full overflow-hidden flex items-center">
+              {/* Angled Divider Mask on Desktop */}
+              <div
+                className="absolute inset-0 z-10 pointer-events-none hidden lg:block"
+                style={{
+                  background: "linear-gradient(110deg, #F7F9FC 0%, #F7F9FC 7%, transparent 22%)",
+                }}
+              />
+
+              <div className="relative size-full overflow-hidden rounded-lg lg:rounded-none shadow-md lg:shadow-none my-4 lg:my-0">
+                <img
+                  src={assets.heroWorkshop}
+                  alt="GC Fabrication workshop and industrial HVAC ductwork warehouse staging in Singapore"
+                  width={1200}
+                  height={600}
+                  fetchPriority="high"
+                  className="size-full object-cover object-center lg:object-left"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION 2 — PRODUCT CATEGORY CARDS (5 Cards Horizontal Strip)
+          ========================================================================= */}
+      <section className="bg-white py-10 sm:py-12 border-b border-[#DCE5EF]">
+        <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {homeCategoryCards.map((cat) => (
+              <Link
+                key={cat.id}
+                to={cat.href}
+                className="group relative flex flex-col overflow-hidden rounded-lg border border-[#DCE5EF] bg-[#F7F9FC]/60 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#0755A4]/40 hover:bg-white hover:shadow-md"
+              >
+                {/* Image */}
+                <div className="relative h-28 w-full overflow-hidden rounded-md bg-white border border-[#DCE5EF]/60">
                   <img
-                    src={ductworkComponents}
-                    alt="Rectangular ductwork with TDF flanges on workshop table"
-                    width={600}
-                    height={450}
-                    className="size-full object-cover transition-transform duration-700 hover:scale-105"
+                    src={cat.image}
+                    alt={cat.title}
+                    width={400}
+                    height={200}
+                    loading="lazy"
+                    className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#10243A]/90 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 text-white">
-                    <span className="text-[0.68rem] font-bold uppercase tracking-wider text-[#E87932]">
-                      Workshop Assembly
-                    </span>
-                    <p className="text-sm font-bold leading-tight">
-                      Galvanized Rectangular Ducts with TDF Flanges
+                </div>
+
+                {/* Content */}
+                <div className="mt-3 flex flex-1 flex-col justify-between">
+                  <div>
+                    <h3 className="display-font text-sm font-bold text-[#103766] group-hover:text-[#0755A4] transition-colors">
+                      {cat.title}
+                    </h3>
+                    <p className="mt-1 text-xs text-[#61738A] leading-relaxed line-clamp-2">
+                      {cat.description}
                     </p>
                   </div>
+
+                  {/* Circular Blue Arrow Icon */}
+                  <div className="mt-4 flex justify-end">
+                    <span className="flex size-7 items-center justify-center rounded-full bg-[#0755A4] text-white shadow-xs transition-colors duration-200 group-hover:bg-[#064789]">
+                      <ArrowRight size={13} />
+                    </span>
+                  </div>
                 </div>
-                <div className="mt-3 px-2 pb-1 flex items-center justify-between text-xs text-slate-300">
-                  <span className="flex items-center gap-1.5 font-medium">
-                    <MapPin size={13} className="text-[#E87932]" />
-                    Premier @ Kaki Bukit
-                  </span>
-                  <Link
-                    to="/gallery"
-                    className="font-semibold text-[#E87932] hover:underline inline-flex items-center gap-0.5"
-                  >
-                    <span>View Gallery</span>
-                    <ArrowRight size={12} />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          COMPANY INTRODUCTION — Editorial Layout with Genuine Workshop Assets
-          ========================================================================= */}
-      <section id="company-introduction" className="py-20 lg:py-24 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
-            {/* Visual Image Collage with Real Photographs */}
-            <div className="lg:col-span-6 relative">
-              <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-xl bg-slate-100 aspect-[4/3]">
-                <img
-                  src={metalFabricationShowcase}
-                  alt="GC Fabrication metal fabrication showcase featuring angle bars, ducts, insulation and work tables"
-                  width={800}
-                  height={600}
-                  className="size-full object-cover"
-                />
-                <div className="absolute bottom-4 left-4 rounded-md bg-[#10243A]/90 backdrop-blur-xs px-3.5 py-2 text-white shadow-md">
-                  <span className="block text-[0.68rem] font-bold uppercase tracking-wider text-[#E87932]">
-                    Fabrication Standards
-                  </span>
-                  <p className="display-font text-sm font-bold">GI, PID & Metal Engineering</p>
-                </div>
-              </div>
-
-              {/* Floating secondary real asset */}
-              <div className="hidden sm:block absolute -bottom-8 -right-6 w-56 rounded-xl overflow-hidden border-4 border-white shadow-2xl">
-                <img
-                  src={roundDuctwork}
-                  alt="Round spiral ducts"
-                  width={400}
-                  height={300}
-                  className="aspect-[4/3] object-cover"
-                />
-                <div className="bg-[#10243A] p-2 text-center text-white text-xs font-bold">
-                  Spiral Round Ducts
-                </div>
-              </div>
-            </div>
-
-            {/* Introduction Copy */}
-            <div className="lg:col-span-6 lg:pl-6 space-y-6">
-              <div>
-                <span className="section-kicker">Company Introduction</span>
-                <h2 className="display-font mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#10243A] leading-tight">
-                  Engineering Quality Through Precision Fabrication
-                </h2>
-              </div>
-
-              <p className="text-base sm:text-lg leading-relaxed text-[#252B32]">
-                <strong className="text-[#10243A]">GC FABRICATION PTE. LTD.</strong> is a dedicated
-                Singapore industrial fabrication workshop specializing in ACMV (Air-Conditioning and
-                Mechanical Ventilation) duct systems and sheet metal engineering solutions.
-              </p>
-
-              <p className="text-sm sm:text-base leading-relaxed text-[#697586]">
-                From commercial office developments and shopping malls to cleanrooms and industrial
-                plants, our workshop fabricates high-specification rectangular GI ducts, round
-                spiral duct runs, pre-insulated duct (PID) assemblies, and volume control dampers.
-                Every component is engineered to tight dimensional tolerances, ensuring seamless
-                on-site jointing and optimal aerodynamic airflow.
-              </p>
-
-              {/* Value list */}
-              <div className="grid grid-cols-2 gap-3 pt-2">
-                <div className="rounded-lg bg-slate-50 p-3.5 border border-slate-200/80">
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#E87932]">
-                    GI & PID
-                  </p>
-                  <p className="display-font text-sm font-bold text-[#10243A] mt-0.5">
-                    Dual Material Systems
-                  </p>
-                  <p className="text-xs text-[#697586] mt-1">
-                    Galvanized iron & pre-insulated PIR foam duct boards.
-                  </p>
-                </div>
-
-                <div className="rounded-lg bg-slate-50 p-3.5 border border-slate-200/80">
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#E87932]">
-                    Fast Turnaround
-                  </p>
-                  <p className="display-font text-sm font-bold text-[#10243A] mt-0.5">
-                    Direct Workshop Output
-                  </p>
-                  <p className="text-xs text-[#697586] mt-1">
-                    Urgent modifications and schedule-critical fabrications.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-slate-100">
-                <Button
-                  asChild
-                  className="h-11 bg-[#10243A] text-white hover:bg-[#1a3859] px-6 font-semibold"
-                >
-                  <Link to="/about" className="inline-flex items-center gap-2">
-                    <span>Learn More About Us</span>
-                    <ArrowRight size={16} />
-                  </Link>
-                </Button>
-
-                <Button
-                  asChild
-                  variant="outline"
-                  className="h-11 border-slate-300 text-slate-800 hover:bg-slate-50 font-semibold"
-                >
-                  <Link to="/quote">Request a Quote</Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          SERVICES SECTION — 6 Distinctive Service Cards with Real Assets
-          ========================================================================= */}
-      <section className="py-20 lg:py-24 bg-slate-50 border-y border-slate-200">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-            <SectionHeading
-              eyebrow="Core Fabrication Services"
-              title="Comprehensive ACMV Ductwork Solutions"
-              description="Manufactured in our Singapore facility to exact client specifications, project schedules, and dimensional tolerances."
-            />
-            <Button
-              asChild
-              variant="outline"
-              className="self-start md:self-end h-10 border-slate-300 font-semibold shrink-0"
-            >
-              <Link to="/services" className="inline-flex items-center gap-2">
-                <span>View All Services</span>
-                <ArrowRight size={15} />
               </Link>
-            </Button>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => (
-              <ServiceCard key={service.id} {...service} />
             ))}
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          CAPABILITIES & VALUE PILLARS — Engineering Discipline
+          SECTION 3 — POPULAR PRODUCTS (Horizontal Product Showcase)
           ========================================================================= */}
-      <section className="py-20 lg:py-24 bg-[#10243A] text-white relative overflow-hidden">
-        <div className="industrial-grid-dark absolute inset-0 opacity-15 pointer-events-none" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-14">
-            <span className="inline-flex items-center gap-1.5 rounded-sm bg-[#E87932] px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-white">
-              Why GC Fabrication
-            </span>
-            <h2 className="display-font mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
-              A Practical Approach to Industrial Engineering
-            </h2>
-            <p className="mt-4 text-base text-slate-300 leading-relaxed">
-              Every duct system we fabricate balances airtight performance, structural rigidity, and
-              swift site installation.
-            </p>
+      <section className="bg-white py-12 sm:py-16 border-b border-[#DCE5EF]">
+        <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
+          {/* Section Heading & View All link */}
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+            <div>
+              <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] text-[#0755A4]">
+                FEATURED PRODUCTS
+              </p>
+              <h2 className="display-font mt-1 text-2xl sm:text-3xl font-extrabold tracking-tight text-[#103766]">
+                Popular Products
+              </h2>
+            </div>
+            <Link
+              to="/products"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#0755A4] hover:text-[#064789] transition-colors"
+            >
+              <span>View All Products</span>
+              <ArrowRight size={15} />
+            </Link>
           </div>
 
-          <div className="grid gap-px bg-slate-800 rounded-xl overflow-hidden sm:grid-cols-2 lg:grid-cols-4">
-            {valuePillars.map((pillar) => {
-              const Icon = pillar.icon;
-              return (
-                <div
-                  key={pillar.num}
-                  className="bg-[#10243A] p-7 sm:p-8 flex flex-col justify-between hover:bg-[#142c47] transition-colors"
+          {/* 7 Horizontal Cards Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3.5">
+            {popularProducts.map((p) => (
+              <Link
+                key={p.id}
+                to="/products"
+                search={{ category: p.category }}
+                className="group flex flex-col overflow-hidden rounded-lg border border-[#DCE5EF] bg-white p-3 transition-all duration-200 hover:-translate-y-1 hover:border-[#0755A4]/40 hover:shadow-md"
+              >
+                {/* Image */}
+                <div className="relative aspect-square w-full overflow-hidden rounded-md bg-[#F7F9FC] border border-[#DCE5EF]/40 flex items-center justify-center p-2">
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    width={200}
+                    height={200}
+                    loading="lazy"
+                    className="size-full object-contain transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+
+                {/* Footer with Title and Small Arrow */}
+                <div className="mt-2.5 flex items-center justify-between gap-1">
+                  <span className="text-xs font-semibold text-[#103766] group-hover:text-[#0755A4] transition-colors line-clamp-1">
+                    {p.name}
+                  </span>
+                  <ArrowRight
+                    size={13}
+                    className="shrink-0 text-slate-400 group-hover:text-[#0755A4] transition-colors"
+                  />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION 4 — FABRICATION CAPABILITIES (Light Blue Background)
+          ========================================================================= */}
+      <section className="bg-[#EAF2FA]/70 py-14 sm:py-18 lg:py-20 border-b border-[#DCE5EF]">
+        <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
+            {/* Left Description Column */}
+            <div className="lg:col-span-5 space-y-4">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#0755A4]">
+                OUR CAPABILITIES
+              </p>
+              <h2 className="display-font text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#103766] leading-tight">
+                Precision Fabrication.
+                <br />
+                Reliable Supply.
+              </h2>
+              <p className="text-sm leading-relaxed text-[#61738A]">
+                With advanced fabrication facilities and a wide product range, GC Fabrication
+                supports contractors and engineering teams with practical, project-specific ACMV
+                solutions.
+              </p>
+              <div className="pt-2">
+                <Button
+                  asChild
+                  className="h-10 rounded-md bg-[#0755A4] px-5 font-semibold text-white shadow-xs hover:bg-[#064789]"
                 >
+                  <Link to="/services" className="inline-flex items-center gap-2">
+                    <span>Learn More</span>
+                    <ArrowRight size={14} />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Right Capability 2x2 Grid with Blue Outline Icons */}
+            <div className="lg:col-span-7">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* 1. Duct Fabrication */}
+                <div className="flex items-start gap-4 rounded-lg border border-[#DCE5EF] bg-white p-5 shadow-xs transition-colors hover:border-[#0755A4]/40">
+                  <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-[#EAF2FA] text-[#0755A4]">
+                    <Wind size={22} className="stroke-[2.2]" />
+                  </div>
                   <div>
-                    <div className="flex items-center justify-between mb-6">
-                      <span className="flex size-11 items-center justify-center rounded-lg bg-white/10 text-[#E87932]">
-                        <Icon size={22} />
-                      </span>
-                      <span className="text-xs font-mono font-bold text-slate-400">
-                        {pillar.num}
-                      </span>
-                    </div>
-                    <h3 className="display-font text-lg font-bold text-white leading-snug">
-                      {pillar.title}
-                    </h3>
-                    <p className="mt-3 text-sm text-slate-300 leading-relaxed">
-                      {pillar.description}
-                    </p>
+                    <h3 className="text-sm font-bold text-[#103766]">Duct Fabrication</h3>
+                    <p className="mt-0.5 text-xs text-[#61738A]">GI / PID Ducts &amp; Fittings</p>
                   </div>
                 </div>
-              );
-            })}
+
+                {/* 2. Stainless Steel Fabrication */}
+                <div className="flex items-start gap-4 rounded-lg border border-[#DCE5EF] bg-white p-5 shadow-xs transition-colors hover:border-[#0755A4]/40">
+                  <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-[#EAF2FA] text-[#0755A4]">
+                    <Layers size={22} className="stroke-[2.2]" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#103766]">
+                      Stainless Steel Fabrication
+                    </h3>
+                    <p className="mt-0.5 text-xs text-[#61738A]">Custom Metal Works</p>
+                  </div>
+                </div>
+
+                {/* 3. Kitchen Hood Fabrication */}
+                <div className="flex items-start gap-4 rounded-lg border border-[#DCE5EF] bg-white p-5 shadow-xs transition-colors hover:border-[#0755A4]/40">
+                  <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-[#EAF2FA] text-[#0755A4]">
+                    <Utensils size={22} className="stroke-[2.2]" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#103766]">Kitchen Hood Fabrication</h3>
+                    <p className="mt-0.5 text-xs text-[#61738A]">Commercial &amp; Industrial</p>
+                  </div>
+                </div>
+
+                {/* 4. Custom Fabrication */}
+                <div className="flex items-start gap-4 rounded-lg border border-[#DCE5EF] bg-white p-5 shadow-xs transition-colors hover:border-[#0755A4]/40">
+                  <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-[#EAF2FA] text-[#0755A4]">
+                    <Cog size={22} className="stroke-[2.2]" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#103766]">Custom Fabrication</h3>
+                    <p className="mt-0.5 text-xs text-[#61738A]">As per Project Requirements</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          PRODUCT SHOWCASE PREVIEW — Real Product Catalogues
+          SECTION 5 — PROJECTS / INDUSTRIES
           ========================================================================= */}
-      <section className="py-20 lg:py-24 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-            <SectionHeading
-              eyebrow="Product Catalogue"
-              title="Precision Components for Commercial Ventilation"
-              description="Browse standard and project-specific components available for fabrication and supply."
-            />
-            <Button
-              asChild
-              className="self-start md:self-end h-10 bg-[#E87932] text-white hover:bg-[#d56b27] font-semibold shrink-0"
-            >
-              <Link to="/products" className="inline-flex items-center gap-2">
-                <span>Browse Products</span>
-                <ArrowRight size={15} />
-              </Link>
-            </Button>
-          </div>
+      <section className="bg-white py-14 sm:py-18 border-b border-[#DCE5EF]">
+        <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
+            {/* Left side text */}
+            <div className="lg:col-span-4 space-y-3">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#0755A4]">
+                OUR PROJECTS
+              </p>
+              <h2 className="display-font text-2xl sm:text-3xl font-extrabold tracking-tight text-[#103766]">
+                Trusted Solutions Across Industries
+              </h2>
+              <p className="text-xs sm:text-sm text-[#61738A] leading-relaxed">
+                From commercial buildings to industrial facilities, our fabrication and supply
+                solutions support a wide range of projects and applications.
+              </p>
+              <div className="pt-2">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-9 rounded-md border-[#DCE5EF] text-xs font-semibold text-[#103766] hover:bg-slate-50"
+                >
+                  <Link to="/gallery" className="inline-flex items-center gap-1.5">
+                    <span>View Projects</span>
+                    <ArrowRight size={13} />
+                  </Link>
+                </Button>
+              </div>
+            </div>
 
-          {/* 4 Feature Cards with Real Catalog Sheets */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <Link
-              to="/products"
-              className="group rounded-xl border border-slate-200 overflow-hidden bg-white shadow-xs hover:border-[#E87932] transition-all"
-            >
-              <div className="aspect-[4/3] overflow-hidden bg-slate-100">
-                <img
-                  src={ductWorksCatalog}
-                  alt="Duct works and fittings catalog"
-                  width={500}
-                  height={375}
-                  className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+            {/* Right side 4 project images */}
+            <div className="lg:col-span-8">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+                {projectIndustries.slice(0, 4).map((proj) => (
+                  <div
+                    key={proj.id}
+                    className="group overflow-hidden rounded-lg border border-[#DCE5EF] bg-white shadow-xs"
+                  >
+                    <div className="relative h-24 sm:h-28 w-full overflow-hidden bg-slate-100">
+                      <img
+                        src={proj.image}
+                        alt={proj.name}
+                        width={400}
+                        height={250}
+                        loading="lazy"
+                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="p-2.5 bg-[#082D55] text-white">
+                      <p className="text-[11px] font-semibold tracking-wide text-center truncate">
+                        {proj.name}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="p-5">
-                <span className="text-[0.68rem] font-bold uppercase tracking-wider text-[#E87932]">
-                  Duct Works
-                </span>
-                <h3 className="display-font font-bold text-[#10243A] text-base mt-1 group-hover:text-[#E87932] transition-colors">
-                  Fittings, Elbows & Tees
-                </h3>
-                <p className="text-xs text-[#697586] mt-1.5 leading-relaxed">
-                  Straight ducts, elbows, reducers, tees, and cross fittings.
-                </p>
-              </div>
-            </Link>
-
-            <Link
-              to="/products"
-              className="group rounded-xl border border-slate-200 overflow-hidden bg-white shadow-xs hover:border-[#E87932] transition-all"
-            >
-              <div className="aspect-[4/3] overflow-hidden bg-slate-100">
-                <img
-                  src={pidDuctsFlyer}
-                  alt="Pre-insulated ducting system showcase"
-                  width={500}
-                  height={375}
-                  className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-5">
-                <span className="text-[0.68rem] font-bold uppercase tracking-wider text-[#E87932]">
-                  PID Ducts
-                </span>
-                <h3 className="display-font font-bold text-[#10243A] text-base mt-1 group-hover:text-[#E87932] transition-colors">
-                  Pre-Insulated Duct Systems
-                </h3>
-                <p className="text-xs text-[#697586] mt-1.5 leading-relaxed">
-                  Lightweight PIR duct board, high thermal insulation and airtight joints.
-                </p>
-              </div>
-            </Link>
-
-            <Link
-              to="/products"
-              className="group rounded-xl border border-slate-200 overflow-hidden bg-white shadow-xs hover:border-[#E87932] transition-all"
-            >
-              <div className="aspect-[4/3] overflow-hidden bg-slate-100">
-                <img
-                  src={dampersLouvresCatalog}
-                  alt="Dampers and grilles catalog"
-                  width={500}
-                  height={375}
-                  className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-5">
-                <span className="text-[0.68rem] font-bold uppercase tracking-wider text-[#E87932]">
-                  Air Distribution
-                </span>
-                <h3 className="display-font font-bold text-[#10243A] text-base mt-1 group-hover:text-[#E87932] transition-colors">
-                  Dampers, Diffusers & Louvres
-                </h3>
-                <p className="text-xs text-[#697586] mt-1.5 leading-relaxed">
-                  Square/round VCD & NRD, 4-way diffusers, and weather louvres.
-                </p>
-              </div>
-            </Link>
-
-            <Link
-              to="/products"
-              className="group rounded-xl border border-slate-200 overflow-hidden bg-white shadow-xs hover:border-[#E87932] transition-all"
-            >
-              <div className="aspect-[4/3] overflow-hidden bg-slate-100">
-                <img
-                  src={accessoriesCatalog}
-                  alt="ACMV accessories and hardware catalog"
-                  width={500}
-                  height={375}
-                  className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-5">
-                <span className="text-[0.68rem] font-bold uppercase tracking-wider text-[#E87932]">
-                  Hardware & Tapes
-                </span>
-                <h3 className="display-font font-bold text-[#10243A] text-base mt-1 group-hover:text-[#E87932] transition-colors">
-                  ACMV Accessories & Doors
-                </h3>
-                <p className="text-xs text-[#697586] mt-1.5 leading-relaxed">
-                  Access doors, TDF corners, unistrut, clips, and insulation tapes.
-                </p>
-              </div>
-            </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-          GALLERY PREVIEW SECTION — Real Workshop & Product Images
+          SECTION 6 — FINAL DEEP NAVY CTA
           ========================================================================= */}
-      <section className="py-20 lg:py-24 bg-slate-50 border-t border-slate-200">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-            <SectionHeading
-              eyebrow="Workshop In Action"
-              title="Real Company Workshop & Fabrications"
-              description="A closer look inside GC Fabrication's workshop facilities and fabricated components."
-            />
-            <Button
-              asChild
-              variant="outline"
-              className="self-start md:self-end h-10 border-slate-300 font-semibold shrink-0"
-            >
-              <Link to="/gallery" className="inline-flex items-center gap-2">
-                <span>Explore Full Gallery</span>
-                <ArrowRight size={15} />
-              </Link>
-            </Button>
-          </div>
-
-          <div className="grid gap-5 md:grid-cols-3">
-            <Link
-              to="/gallery"
-              className="group relative overflow-hidden rounded-xl bg-slate-900 aspect-[4/3] shadow-md"
-            >
-              <img
-                src={workshopFacility}
-                alt="GC Fabrication workshop floor"
-                width={800}
-                height={600}
-                className="size-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#10243A] via-transparent to-transparent opacity-80" />
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <span className="text-[0.68rem] font-bold uppercase tracking-wider text-[#E87932]">
-                  Facility
-                </span>
-                <p className="display-font text-base font-bold">Workshop Floor & Staging</p>
-              </div>
-            </Link>
-
-            <Link
-              to="/gallery"
-              className="group relative overflow-hidden rounded-xl bg-slate-900 aspect-[4/3] shadow-md"
-            >
-              <img
-                src={roundDuctwork}
-                alt="Round spiral ducts and reducers"
-                width={800}
-                height={600}
-                className="size-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#10243A] via-transparent to-transparent opacity-80" />
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <span className="text-[0.68rem] font-bold uppercase tracking-wider text-[#E87932]">
-                  Spiral Ducts
-                </span>
-                <p className="display-font text-base font-bold">Round Duct Runs & Reducers</p>
-              </div>
-            </Link>
-
-            <Link
-              to="/gallery"
-              className="group relative overflow-hidden rounded-xl bg-slate-900 aspect-[4/3] shadow-md"
-            >
-              <img
-                src={volumeControlDamper}
-                alt="Volume control damper detail"
-                width={800}
-                height={600}
-                className="size-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#10243A] via-transparent to-transparent opacity-80" />
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <span className="text-[0.68rem] font-bold uppercase tracking-wider text-[#E87932]">
-                  Airflow Control
-                </span>
-                <p className="display-font text-base font-bold">Volume Control Dampers (VCD)</p>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          CONVERSION SECTION — Direct Action Band
-          ========================================================================= */}
-      <ContactBand />
+      <BottomCtaSection
+        heading="Need a specific product or custom solution?"
+        description="Submit your requirement and our team will get back to you with a suitable quotation."
+        buttonText="Request a Quote"
+        buttonHref="/quote"
+      />
     </SiteLayout>
   );
 }

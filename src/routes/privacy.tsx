@@ -29,10 +29,10 @@ function PrivacyPage() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
           <div className="prose prose-slate max-w-none space-y-8 text-sm sm:text-base leading-relaxed text-slate-700">
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-[#E87932]">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#0755A4]">
                 Effective Date: November 2026
               </p>
-              <h2 className="display-font mt-2 text-xl sm:text-2xl font-bold text-[#10243A]">
+              <h2 className="display-font mt-2 text-xl sm:text-2xl font-bold text-[#103766]">
                 1. Introduction
               </h2>
               <p className="mt-2">
@@ -45,7 +45,7 @@ function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="display-font text-xl sm:text-2xl font-bold text-[#10243A]">
+              <h2 className="display-font text-xl sm:text-2xl font-bold text-[#103766]">
                 2. Information We Collect
               </h2>
               <p className="mt-2">
@@ -66,7 +66,7 @@ function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="display-font text-xl sm:text-2xl font-bold text-[#10243A]">
+              <h2 className="display-font text-xl sm:text-2xl font-bold text-[#103766]">
                 3. Purpose of Data Collection
               </h2>
               <p className="mt-2">
@@ -88,7 +88,7 @@ function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="display-font text-xl sm:text-2xl font-bold text-[#10243A]">
+              <h2 className="display-font text-xl sm:text-2xl font-bold text-[#103766]">
                 4. Confidentiality of Technical Drawings & BOQ
               </h2>
               <p className="mt-2">
@@ -100,7 +100,7 @@ function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="display-font text-xl sm:text-2xl font-bold text-[#10243A]">
+              <h2 className="display-font text-xl sm:text-2xl font-bold text-[#103766]">
                 5. Third-Party Links & Messaging Channels
               </h2>
               <p className="mt-2">
@@ -111,29 +111,29 @@ function PrivacyPage() {
             </div>
 
             <div>
-              <h2 className="display-font text-xl sm:text-2xl font-bold text-[#10243A]">
+              <h2 className="display-font text-xl sm:text-2xl font-bold text-[#103766]">
                 6. Data Protection Officer (DPO) Contact
               </h2>
               <p className="mt-2">
                 For questions regarding this policy, requests to access or correct your personal
                 data, or to withdraw consent, please contact our Data Protection Officer:
               </p>
-              <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4 text-xs sm:text-sm space-y-1">
-                <p className="font-bold text-[#10243A]">{company.name}</p>
+              <div className="mt-4 rounded-lg border border-[#DCE5EF] bg-slate-50 p-4 text-xs sm:text-sm space-y-1">
+                <p className="font-bold text-[#103766]">{company.name}</p>
                 <p>Address: {company.address}</p>
                 <p>Email: {company.email}</p>
                 <p>Contact Phone: {company.phone}</p>
               </div>
             </div>
 
-            <div className="pt-6 border-t border-slate-200 flex justify-between items-center">
+            <div className="pt-6 border-t border-[#DCE5EF] flex justify-between items-center">
               <Button asChild variant="outline">
                 <Link to="/" className="inline-flex items-center gap-1.5">
                   <ArrowLeft size={16} />
                   <span>Return to Home</span>
                 </Link>
               </Button>
-              <Button asChild className="bg-[#E87932] text-white hover:bg-[#d56b27]">
+              <Button asChild className="bg-[#0755A4] text-white hover:bg-[#064789]">
                 <Link to="/contact">Contact Our Office</Link>
               </Button>
             </div>

@@ -15,17 +15,18 @@ export function BrandLogo({
 }: BrandLogoProps) {
   const sizeClasses = {
     sm: "size-8",
-    md: "size-10 sm:size-11",
-    lg: "size-14",
+    md: "size-9 sm:size-10",
+    lg: "size-12",
   };
 
   const isDark = variant === "dark";
 
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
+    <div className={`flex items-center gap-2.5 sm:gap-3 ${className}`}>
+      {/* Official GC swoosh icon */}
       <div
-        className={`relative overflow-hidden rounded-md border bg-white p-0.5 shadow-sm transition-transform hover:scale-105 ${sizeClasses[size]} ${
-          isDark ? "border-white/20" : "border-slate-200"
+        className={`relative overflow-hidden rounded-md border bg-white p-0.5 shadow-xs shrink-0 transition-transform hover:scale-105 ${sizeClasses[size]} ${
+          isDark ? "border-white/20" : "border-[#DCE5EF]"
         }`}
       >
         <img
@@ -37,25 +38,35 @@ export function BrandLogo({
           loading="eager"
         />
       </div>
+
+      {/* Official Typography lockup matching client reference */}
       {showText && (
-        <div className="flex flex-col">
+        <div className="flex items-center gap-1.5 select-none">
           <span
-            className={`display-font text-base sm:text-lg font-extrabold tracking-tight leading-none ${
-              isDark ? "text-white" : "text-[#10243A]"
+            className={`display-font text-xl sm:text-2xl font-black tracking-tight leading-none ${
+              isDark ? "text-white" : "text-[#103766]"
             }`}
           >
-            GC FABRICATION
+            GC
           </span>
-          <span
-            className={`text-[0.62rem] sm:text-[0.68rem] font-semibold tracking-[0.14em] uppercase mt-0.5 ${
-              isDark ? "text-slate-300" : "text-[#697586]"
-            }`}
-          >
-            Pte. Ltd. · Singapore
-          </span>
+          <div className="flex flex-col justify-center leading-none">
+            <span
+              className={`display-font text-[0.72rem] sm:text-[0.78rem] font-extrabold tracking-[0.06em] uppercase ${
+                isDark ? "text-white" : "text-[#103766]"
+              }`}
+            >
+              FABRICATION
+            </span>
+            <span
+              className={`text-[0.52rem] sm:text-[0.58rem] font-semibold tracking-[0.14em] uppercase mt-0.5 ${
+                isDark ? "text-slate-300" : "text-[#103766]/80"
+              }`}
+            >
+              PTE. LTD. —
+            </span>
+          </div>
         </div>
       )}
     </div>
   );
 }
-

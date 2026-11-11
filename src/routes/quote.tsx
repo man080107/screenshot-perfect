@@ -266,8 +266,8 @@ function QuotePage() {
                         isCompleted
                           ? "border-emerald-600 text-emerald-800"
                           : isCurrent
-                            ? "border-[#E87932] text-[#10243A]"
-                            : "border-slate-200 text-slate-400"
+                            ? "border-[#0755A4] text-[#103766]"
+                            : "border-[#DCE5EF] text-slate-400"
                       }`}
                     >
                       <span className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
@@ -284,12 +284,12 @@ function QuotePage() {
               </div>
 
               {/* Mobile Step Bar */}
-              <div className="sm:hidden flex items-center justify-between bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
+              <div className="sm:hidden flex items-center justify-between bg-white p-4 rounded-lg border border-[#DCE5EF] shadow-xs">
                 <div>
-                  <span className="text-xs font-bold text-[#E87932] uppercase tracking-wider">
+                  <span className="text-xs font-bold text-[#0755A4] uppercase tracking-wider">
                     Step {currentStep} of 5
                   </span>
-                  <p className="text-base font-bold text-[#10243A]">
+                  <p className="text-base font-bold text-[#103766]">
                     {steps[currentStep - 1]?.title}
                   </p>
                 </div>
@@ -298,7 +298,7 @@ function QuotePage() {
                     <span
                       key={s.num}
                       className={`h-2.5 w-6 rounded-full ${
-                        s.num <= currentStep ? "bg-[#E87932]" : "bg-slate-200"
+                        s.num <= currentStep ? "bg-[#0755A4]" : "bg-slate-200"
                       }`}
                     />
                   ))}
@@ -308,7 +308,7 @@ function QuotePage() {
           )}
 
           {/* Form Container */}
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-10">
+          <div className="rounded-xl border border-[#DCE5EF] bg-white p-6 shadow-sm sm:p-10">
             {submitted ? (
               /* Success / Confirmation State */
               <div className="space-y-6 text-center py-6">
@@ -319,7 +319,7 @@ function QuotePage() {
                   <span className="inline-block rounded-sm bg-emerald-50 border border-emerald-200 px-3 py-1 text-xs font-bold text-emerald-800 uppercase tracking-wider">
                     Quotation Request Prepared
                   </span>
-                  <h2 className="display-font text-2xl sm:text-3xl font-bold text-[#10243A]">
+                  <h2 className="display-font text-2xl sm:text-3xl font-bold text-[#103766]">
                     Thank You, {customer.fullName}!
                   </h2>
                   <p className="max-w-xl mx-auto text-sm text-[#697586] leading-relaxed">
@@ -365,8 +365,8 @@ function QuotePage() {
 
                 {/* Technical Drawings Attachment Note */}
                 {uploadedFiles.length > 0 && (
-                  <div className="rounded-lg bg-orange-50 border border-orange-200 p-4 text-left max-w-lg mx-auto text-xs text-orange-950 space-y-1">
-                    <p className="font-bold flex items-center gap-1.5 text-orange-900">
+                  <div className="rounded-lg bg-[#EAF2FA] border border-orange-200 p-4 text-left max-w-lg mx-auto text-xs text-blue-950 space-y-1">
+                    <p className="font-bold flex items-center gap-1.5 text-blue-900">
                       <FileCheck size={16} /> Technical Drawings Attachment:
                     </p>
                     <p className="leading-relaxed">
@@ -397,10 +397,10 @@ function QuotePage() {
                 {currentStep === 1 && (
                   <div className="space-y-6">
                     <div>
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#E87932]">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#0755A4]">
                         Step 1 of 5
                       </span>
-                      <h2 className="display-font mt-1 text-2xl font-bold text-[#10243A]">
+                      <h2 className="display-font mt-1 text-2xl font-bold text-[#103766]">
                         Customer & Company Information
                       </h2>
                       <p className="text-sm text-[#697586]">
@@ -500,7 +500,7 @@ function QuotePage() {
                         type="button"
                         disabled={!canProceedStep1}
                         onClick={() => setCurrentStep(2)}
-                        className="h-11 bg-[#E87932] text-white hover:bg-[#d56b27] px-6 font-semibold"
+                        className="h-11 bg-[#0755A4] text-white hover:bg-[#064789] px-6 font-semibold"
                       >
                         <span>Next: Select Services</span>
                         <ArrowRight size={16} className="ml-1.5" />
@@ -513,10 +513,10 @@ function QuotePage() {
                 {currentStep === 2 && (
                   <div className="space-y-6">
                     <div>
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#E87932]">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#0755A4]">
                         Step 2 of 5
                       </span>
-                      <h2 className="display-font mt-1 text-2xl font-bold text-[#10243A]">
+                      <h2 className="display-font mt-1 text-2xl font-bold text-[#103766]">
                         Services Required
                       </h2>
                       <p className="text-sm text-[#697586]">
@@ -534,15 +534,15 @@ function QuotePage() {
                             onClick={() => toggleService(service)}
                             className={`flex items-center justify-between rounded-lg border p-4 text-left font-medium transition-all ${
                               isSelected
-                                ? "border-[#E87932] bg-orange-50/70 text-[#10243A] shadow-xs"
-                                : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
+                                ? "border-[#0755A4] bg-[#EAF2FA]/70 text-[#103766] shadow-xs"
+                                : "border-[#DCE5EF] bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
                             }`}
                           >
                             <span className="text-sm font-semibold">{service}</span>
                             <div
                               className={`flex size-5 items-center justify-center rounded-sm border ${
                                 isSelected
-                                  ? "border-[#E87932] bg-[#E87932] text-white"
+                                  ? "border-[#0755A4] bg-[#0755A4] text-white"
                                   : "border-slate-300 bg-white"
                               }`}
                             >
@@ -567,7 +567,7 @@ function QuotePage() {
                         type="button"
                         disabled={!canProceedStep2}
                         onClick={() => setCurrentStep(3)}
-                        className="h-11 bg-[#E87932] text-white hover:bg-[#d56b27] px-6 font-semibold"
+                        className="h-11 bg-[#0755A4] text-white hover:bg-[#064789] px-6 font-semibold"
                       >
                         <span>Next: Project Scope</span>
                         <ArrowRight size={16} className="ml-1.5" />
@@ -580,10 +580,10 @@ function QuotePage() {
                 {currentStep === 3 && (
                   <div className="space-y-6">
                     <div>
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#E87932]">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#0755A4]">
                         Step 3 of 5
                       </span>
-                      <h2 className="display-font mt-1 text-2xl font-bold text-[#10243A]">
+                      <h2 className="display-font mt-1 text-2xl font-bold text-[#103766]">
                         Project Details & Specifications
                       </h2>
                       <p className="text-sm text-[#697586]">
@@ -771,7 +771,7 @@ function QuotePage() {
                         type="button"
                         disabled={!canProceedStep3}
                         onClick={() => setCurrentStep(4)}
-                        className="h-11 bg-[#E87932] text-white hover:bg-[#d56b27] px-6 font-semibold"
+                        className="h-11 bg-[#0755A4] text-white hover:bg-[#064789] px-6 font-semibold"
                       >
                         <span>Next: Document Uploads</span>
                         <ArrowRight size={16} className="ml-1.5" />
@@ -784,10 +784,10 @@ function QuotePage() {
                 {currentStep === 4 && (
                   <div className="space-y-6">
                     <div>
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#E87932]">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#0755A4]">
                         Step 4 of 5
                       </span>
-                      <h2 className="display-font mt-1 text-2xl font-bold text-[#10243A]">
+                      <h2 className="display-font mt-1 text-2xl font-bold text-[#103766]">
                         Engineering Drawings & BOQ Uploads
                       </h2>
                       <p className="text-sm text-[#697586]">
@@ -798,7 +798,7 @@ function QuotePage() {
                     </div>
 
                     {/* Upload Dropzone */}
-                    <div className="relative rounded-xl border-2 border-dashed border-slate-300 p-8 text-center hover:border-[#E87932] transition-colors bg-slate-50/50">
+                    <div className="relative rounded-xl border-2 border-dashed border-slate-300 p-8 text-center hover:border-[#0755A4] transition-colors bg-slate-50/50">
                       <input
                         type="file"
                         multiple
@@ -808,16 +808,16 @@ function QuotePage() {
                         id="drawingUpload"
                         aria-label="Upload drawing documents"
                       />
-                      <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-orange-100 text-[#E87932]">
+                      <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-orange-100 text-[#0755A4]">
                         <Upload size={24} />
                       </div>
-                      <p className="mt-3 text-sm font-semibold text-[#10243A]">
+                      <p className="mt-3 text-sm font-semibold text-[#103766]">
                         Click or drag files here to upload
                       </p>
                       <p className="mt-1 text-xs text-slate-500">
                         PDF drawings, CAD exports, BOQ spreadsheets, or site photos
                       </p>
-                      <span className="mt-3 inline-block rounded-sm bg-white border border-slate-200 px-2.5 py-1 text-[0.7rem] font-mono text-slate-600">
+                      <span className="mt-3 inline-block rounded-sm bg-white border border-[#DCE5EF] px-2.5 py-1 text-[0.7rem] font-mono text-slate-600">
                         Limit: {MAX_FILE_SIZE_MB}MB per file
                       </span>
                     </div>
@@ -835,16 +835,16 @@ function QuotePage() {
                         <p className="text-xs font-bold uppercase tracking-wider text-slate-700">
                           Selected Documents ({uploadedFiles.length})
                         </p>
-                        <div className="divide-y divide-slate-100 rounded-lg border border-slate-200 bg-white">
+                        <div className="divide-y divide-slate-100 rounded-lg border border-[#DCE5EF] bg-white">
                           {uploadedFiles.map((file, idx) => (
                             <div
                               key={`${file.name}-${idx}`}
                               className="flex items-center justify-between p-3 text-sm"
                             >
                               <div className="flex items-center gap-3 min-w-0">
-                                <FileText size={20} className="shrink-0 text-[#E87932]" />
+                                <FileText size={20} className="shrink-0 text-[#0755A4]" />
                                 <div className="min-w-0">
-                                  <p className="font-semibold truncate text-[#10243A] text-xs sm:text-sm">
+                                  <p className="font-semibold truncate text-[#103766] text-xs sm:text-sm">
                                     {file.name}
                                   </p>
                                   <span className="text-[0.68rem] text-slate-500">
@@ -887,7 +887,7 @@ function QuotePage() {
                       <Button
                         type="button"
                         onClick={() => setCurrentStep(5)}
-                        className="h-11 bg-[#E87932] text-white hover:bg-[#d56b27] px-6 font-semibold"
+                        className="h-11 bg-[#0755A4] text-white hover:bg-[#064789] px-6 font-semibold"
                       >
                         <span>Next: Review & Submit</span>
                         <ArrowRight size={16} className="ml-1.5" />
@@ -900,10 +900,10 @@ function QuotePage() {
                 {currentStep === 5 && (
                   <div className="space-y-6">
                     <div>
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#E87932]">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#0755A4]">
                         Step 5 of 5
                       </span>
-                      <h2 className="display-font mt-1 text-2xl font-bold text-[#10243A]">
+                      <h2 className="display-font mt-1 text-2xl font-bold text-[#103766]">
                         Review Your Quotation Request
                       </h2>
                       <p className="text-sm text-[#697586]">
@@ -912,15 +912,15 @@ function QuotePage() {
                     </div>
 
                     {/* Review Section 1 */}
-                    <div className="rounded-lg border border-slate-200 p-4 space-y-3">
+                    <div className="rounded-lg border border-[#DCE5EF] p-4 space-y-3">
                       <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#10243A]">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#103766]">
                           1. Customer Information
                         </span>
                         <button
                           type="button"
                           onClick={() => setCurrentStep(1)}
-                          className="text-xs font-semibold text-[#E87932] hover:underline"
+                          className="text-xs font-semibold text-[#0755A4] hover:underline"
                         >
                           Edit
                         </button>
@@ -946,15 +946,15 @@ function QuotePage() {
                     </div>
 
                     {/* Review Section 2 */}
-                    <div className="rounded-lg border border-slate-200 p-4 space-y-3">
+                    <div className="rounded-lg border border-[#DCE5EF] p-4 space-y-3">
                       <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#10243A]">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#103766]">
                           2. Services Selected
                         </span>
                         <button
                           type="button"
                           onClick={() => setCurrentStep(2)}
-                          className="text-xs font-semibold text-[#E87932] hover:underline"
+                          className="text-xs font-semibold text-[#0755A4] hover:underline"
                         >
                           Edit
                         </button>
@@ -963,7 +963,7 @@ function QuotePage() {
                         {selectedServices.map((s) => (
                           <span
                             key={s}
-                            className="rounded-sm bg-orange-50 border border-orange-200 px-2.5 py-1 text-xs font-medium text-orange-950"
+                            className="rounded-sm bg-[#EAF2FA] border border-orange-200 px-2.5 py-1 text-xs font-medium text-blue-950"
                           >
                             {s}
                           </span>
@@ -972,15 +972,15 @@ function QuotePage() {
                     </div>
 
                     {/* Review Section 3 */}
-                    <div className="rounded-lg border border-slate-200 p-4 space-y-3">
+                    <div className="rounded-lg border border-[#DCE5EF] p-4 space-y-3">
                       <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#10243A]">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#103766]">
                           3. Project Scope & Specifications
                         </span>
                         <button
                           type="button"
                           onClick={() => setCurrentStep(3)}
-                          className="text-xs font-semibold text-[#E87932] hover:underline"
+                          className="text-xs font-semibold text-[#0755A4] hover:underline"
                         >
                           Edit
                         </button>
@@ -1028,15 +1028,15 @@ function QuotePage() {
                     </div>
 
                     {/* Review Section 4 */}
-                    <div className="rounded-lg border border-slate-200 p-4 space-y-3">
+                    <div className="rounded-lg border border-[#DCE5EF] p-4 space-y-3">
                       <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#10243A]">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#103766]">
                           4. Documents & Drawings
                         </span>
                         <button
                           type="button"
                           onClick={() => setCurrentStep(4)}
-                          className="text-xs font-semibold text-[#E87932] hover:underline"
+                          className="text-xs font-semibold text-[#0755A4] hover:underline"
                         >
                           Edit
                         </button>
@@ -1072,7 +1072,7 @@ function QuotePage() {
                       </Button>
                       <Button
                         type="submit"
-                        className="h-12 bg-[#E87932] text-white hover:bg-[#d56b27] px-8 font-semibold text-base shadow-sm"
+                        className="h-12 bg-[#0755A4] text-white hover:bg-[#064789] px-8 font-semibold text-base shadow-sm"
                       >
                         <span>Submit Quotation Request</span>
                         <ArrowRight size={17} className="ml-2" />

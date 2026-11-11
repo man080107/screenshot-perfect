@@ -17,6 +17,98 @@ import pidDuctsFlyer from "@/assets/pid-ducts-flyer.jpg";
 import workshopFacility from "@/assets/workshop-facility.jpg";
 import whyChooseGc from "@/assets/why-choose-gc.jpg";
 
+// Extracted client reference showcase assets
+import heroWorkshop from "@/assets/showcase/hero-workshop.jpg";
+import aboutFacility from "@/assets/showcase/about-facility.jpg";
+import prodDuctsHero from "@/assets/showcase/prod-ducts-hero.jpg";
+import catHvacDucts from "@/assets/showcase/cat-hvac-ducts.jpg";
+import catGrilles from "@/assets/showcase/cat-grilles.jpg";
+import catFabrication from "@/assets/showcase/cat-fabrication.jpg";
+import catInsulation from "@/assets/showcase/cat-insulation.jpg";
+import catIndustrial from "@/assets/showcase/cat-industrial.jpg";
+import popGiDuct from "@/assets/showcase/pop-gi-duct.jpg";
+import popFlexDuct from "@/assets/showcase/pop-flex-duct.jpg";
+import popPidDuct from "@/assets/showcase/pop-pid-duct.jpg";
+import popDiffuser from "@/assets/showcase/pop-diffuser.jpg";
+import popKitchenHood from "@/assets/showcase/pop-kitchen-hood.jpg";
+import popFoilTape from "@/assets/showcase/pop-foil-tape.jpg";
+import popDuctTape from "@/assets/showcase/pop-duct-tape.jpg";
+import projCommercial from "@/assets/showcase/proj-commercial.jpg";
+import projIndustrial from "@/assets/showcase/proj-industrial.jpg";
+import projHospitality from "@/assets/showcase/proj-hospitality.jpg";
+import projResidential from "@/assets/showcase/proj-residential.jpg";
+import aboutWelder from "@/assets/showcase/about-welder.jpg";
+import aboutCapDucting from "@/assets/showcase/about-cap-ducting.jpg";
+import aboutCapHood from "@/assets/showcase/about-cap-hood.jpg";
+import aboutCapDiffuser from "@/assets/showcase/about-cap-diffuser.jpg";
+import aboutCapSupplies from "@/assets/showcase/about-cap-supplies.jpg";
+import aboutIndHealthcare from "@/assets/showcase/about-ind-healthcare.jpg";
+import prodCustomFabrication from "@/assets/showcase/prod-custom-fabrication.jpg";
+import prodGiDucts from "@/assets/showcase/prod-gi-ducts.jpg";
+import prodFlexDucts from "@/assets/showcase/prod-flex-ducts.jpg";
+import prodPidDucts from "@/assets/showcase/prod-pid-ducts.jpg";
+import prodGrilles from "@/assets/showcase/prod-grilles.jpg";
+import prodKitchenHood from "@/assets/showcase/prod-kitchen-hood.jpg";
+import prodDuctAccessories from "@/assets/showcase/prod-duct-accessories.jpg";
+import prodInsulation from "@/assets/showcase/prod-insulation.jpg";
+import prodTapes from "@/assets/showcase/prod-tapes.jpg";
+
+export const assets = {
+  gcLogo,
+  companyBanner,
+  fabricationWorkshop,
+  ductworkComponents,
+  roundDuctwork,
+  volumeControlDamper,
+  ductFittingDetail,
+  ductWorksCatalog,
+  dampersLouvresCatalog,
+  accessoriesCatalog,
+  pidAccessoriesCatalog,
+  insulationTapesCatalog,
+  metalFabricationShowcase,
+  perforatedSheetFlyer,
+  ductSolutionsBanner,
+  pidDuctsFlyer,
+  workshopFacility,
+  whyChooseGc,
+  // Showcase
+  heroWorkshop,
+  aboutFacility,
+  prodDuctsHero,
+  catHvacDucts,
+  catGrilles,
+  catFabrication,
+  catInsulation,
+  catIndustrial,
+  popGiDuct,
+  popFlexDuct,
+  popPidDuct,
+  popDiffuser,
+  popKitchenHood,
+  popFoilTape,
+  popDuctTape,
+  projCommercial,
+  projIndustrial,
+  projHospitality,
+  projResidential,
+  aboutWelder,
+  aboutCapDucting,
+  aboutCapHood,
+  aboutCapDiffuser,
+  aboutCapSupplies,
+  aboutIndHealthcare,
+  prodCustomFabrication,
+  prodGiDucts,
+  prodFlexDucts,
+  prodPidDucts,
+  prodGrilles,
+  prodKitchenHood,
+  prodDuctAccessories,
+  prodInsulation,
+  prodTapes,
+};
+
 export const company = {
   name: "GC FABRICATION PTE. LTD.",
   shortName: "GC Fabrication",
@@ -64,7 +156,7 @@ export const services = [
   },
   {
     id: "round-ducts",
-    title: "Round Duct Fabrication",
+    title: "Round Spiral Ducts",
     category: "Spiral & Round",
     shortDescription:
       "Round spiral and seam-welded ducting solutions providing high airflow efficiency and low static pressure loss.",
@@ -159,118 +251,306 @@ export const services = [
   },
 ] as const;
 
-export const products = [
+export const homeCategoryCards = [
   {
-    id: "gi-rectangular-ducts",
-    name: "Galvanized Iron (GI) Ducts & Fittings",
-    category: "GI Ducts",
-    description:
-      "Precision rectangular and spiral galvanized ductwork fabricated for commercial and industrial ventilation systems.",
-    image: ductworkComponents,
-    alt: "Galvanized iron rectangular ductwork and components",
-    highlights: [
-      "Lockseam & TDF construction",
-      "Singapore ACMV standard compliance",
-      "All standard & custom dimensions",
-    ],
+    id: "cat-ducting",
+    title: "HVAC Ducting",
+    description: "GI & PID Ducts, Fittings, Flexible, Pre-Insulated Ducts",
+    image: catHvacDucts,
+    href: "/products?category=hvac-ducting",
   },
   {
-    id: "pid-duct-systems",
-    name: "Pre-Insulated Duct (PID) Systems",
-    category: "PID Ducts",
-    description:
-      "Lightweight, high-thermal-efficiency pre-insulated PIR ducting systems with embossed aluminium facings.",
-    image: pidDuctsFlyer,
-    alt: "Pre-insulated ducting system features and lightweight PIR board showcase",
-    highlights: [
-      "Superior thermal insulation",
-      "Airtight & leak-proof joints",
-      "Corrosion resistant & cleanroom suitable",
-    ],
+    id: "cat-grilles",
+    title: "Grilles & Diffusers",
+    description: "Air Grilles, Diffusers, Louvers, Dampers",
+    image: catGrilles,
+    href: "/products?category=grilles-diffusers",
   },
   {
-    id: "round-spiral-ductwork",
-    name: "Round Spiral Ducts & Fittings",
-    category: "Round Ducts",
-    description:
-      "High-velocity spiral lockseam round ducts, round elbows, reducers, and circular branch take-offs.",
-    image: roundDuctwork,
-    alt: "Round galvanized ventilation spiral ducts and reducers",
-    highlights: [
-      "High aerodynamic efficiency",
-      "Minimal air friction & noise",
-      "Ideal for exposed ceiling designs",
-    ],
+    id: "cat-services",
+    title: "Fabrication Services",
+    description: "SS Fabrication, Kitchen Hood, Custom Fabrication",
+    image: catFabrication,
+    href: "/services",
   },
   {
-    id: "vcd-nrd-dampers",
-    name: "Volume Control & Non-Return Dampers",
-    category: "Dampers",
-    description:
-      "Square and round volume control dampers (VCD) and non-return dampers (NRD) for precise airflow balancing.",
-    image: volumeControlDamper,
-    alt: "Volume control damper mechanism for airflow regulation",
-    highlights: [
-      "Manual quadrant with lock",
-      "Opposed blade aerodynamic design",
-      "Motorised actuator mounting ready",
-    ],
+    id: "cat-insulation",
+    title: "Insulation & Accessories",
+    description: "Insulation Materials, Tapes, Duct Accessories",
+    image: catInsulation,
+    href: "/products?category=insulation",
   },
   {
-    id: "grilles-diffusers-louvres",
-    name: "Grilles, Diffusers & Louvres",
-    category: "Air Distribution",
-    description:
-      "4-way ceiling diffusers, round diffusers, linear slot diffusers, jet nozzles, and weather-proof external louvres.",
-    image: dampersLouvresCatalog,
-    alt: "Catalog of grilles, diffusers, louvres, and ventilation dampers",
-    highlights: [
-      "4-way & round diffusers",
-      "Single & double deflection grilles",
-      "Weatherproof external louvres",
-    ],
+    id: "cat-supplies",
+    title: "Industrial Supplies",
+    description: "Hardware, Power Tools, Hand Tools, Paints, Safety Products",
+    image: catIndustrial,
+    href: "/products?category=hardware-tools",
+  },
+] as const;
+
+export const popularProducts = [
+  {
+    id: "pop-gi-duct",
+    name: "GI Duct & Fittings",
+    image: popGiDuct,
+    category: "hvac-ducting",
   },
   {
-    id: "acmv-accessories-hardware",
-    name: "ACMV Accessories & Hardware",
-    category: "Accessories",
+    id: "pop-flex-duct",
+    name: "Flexible Duct",
+    image: popFlexDuct,
+    category: "hvac-ducting",
+  },
+  {
+    id: "pop-pid-duct",
+    name: "Pre-Insulated Duct",
+    image: popPidDuct,
+    category: "hvac-ducting",
+  },
+  {
+    id: "pop-diffuser",
+    name: "Grilles & Diffusers",
+    image: popDiffuser,
+    category: "grilles-diffusers",
+  },
+  {
+    id: "pop-kitchen-hood",
+    name: "Kitchen Hood",
+    image: popKitchenHood,
+    category: "kitchen-hood",
+  },
+  {
+    id: "pop-foil-tape",
+    name: "Aluminium Foil Tape",
+    image: popFoilTape,
+    category: "tapes",
+  },
+  {
+    id: "pop-duct-tape",
+    name: "Duct Tape",
+    image: popDuctTape,
+    category: "tapes",
+  },
+] as const;
+
+export const productCategories = [
+  { id: "all", name: "All Products", count: 96 },
+  {
+    id: "hvac-ducting",
+    name: "HVAC Ducting & Fittings",
+    count: 18,
+    subcategories: [
+      "GI & PID Ducts & Fittings",
+      "Flexible Ducts",
+      "Pre-Insulated Ducts",
+      "Duct Accessories",
+    ],
+  },
+  { id: "grilles-diffusers", name: "Grilles & Diffusers", count: 12 },
+  { id: "kitchen-hood", name: "Kitchen Hood", count: 6 },
+  { id: "insulation", name: "Insulation Materials", count: 8 },
+  { id: "tapes", name: "Tapes", count: 10 },
+  { id: "hardware-tools", name: "Hardware & Tools", count: 14 },
+  { id: "paints", name: "Paints", count: 6 },
+  { id: "safety", name: "Safety Products", count: 8 },
+] as const;
+
+export const catalogProducts = [
+  {
+    id: "gi-ducts-fittings",
+    title: "GI Ducts & Fittings",
+    categoryId: "hvac-ducting",
+    categoryName: "HVAC Ducting & Fittings",
+    subcategory: "GI & PID Ducts & Fittings",
+    description: "Durable and reliable galvanized iron ducting and fittings for HVAC systems.",
+    image: prodGiDucts,
+    featured: true,
+  },
+  {
+    id: "flexible-ducts",
+    title: "Flexible Ducts",
+    categoryId: "hvac-ducting",
+    categoryName: "HVAC Ducting & Fittings",
+    subcategory: "Flexible Ducts",
+    description: "Flexible and lightweight ducting solutions for various ventilation applications.",
+    image: prodFlexDucts,
+    featured: true,
+  },
+  {
+    id: "pre-insulated-ducts",
+    title: "Pre-Insulated Ducts",
+    categoryId: "hvac-ducting",
+    categoryName: "HVAC Ducting & Fittings",
+    subcategory: "Pre-Insulated Ducts",
+    description: "Energy-efficient ducting with superior thermal insulation properties.",
+    image: prodPidDucts,
+    featured: true,
+  },
+  {
+    id: "grilles-diffusers-cat",
+    title: "Grilles & Diffusers",
+    categoryId: "grilles-diffusers",
+    categoryName: "Grilles & Diffusers",
     description:
-      "Insulated access doors, TDF corner pieces, TDF clips, unistrut channels, threaded rods, and hardware fasteners.",
+      "A wide range of air distribution grilles and diffusers for optimal airflow and comfort.",
+    image: prodGrilles,
+    featured: true,
+  },
+  {
+    id: "kitchen-hood-cat",
+    title: "Kitchen Hood",
+    categoryId: "kitchen-hood",
+    categoryName: "Kitchen Hood",
+    description: "High-performance kitchen hoods for commercial and industrial kitchens.",
+    image: prodKitchenHood,
+    featured: true,
+  },
+  {
+    id: "duct-accessories-cat",
+    title: "Duct Accessories",
+    categoryId: "hvac-ducting",
+    categoryName: "HVAC Ducting & Fittings",
+    subcategory: "Duct Accessories",
+    description: "Essential accessories for a complete and efficient ducting system.",
+    image: prodDuctAccessories,
+    featured: false,
+  },
+  {
+    id: "insulation-materials-cat",
+    title: "Insulation Materials",
+    categoryId: "insulation",
+    categoryName: "Insulation Materials",
+    description: "Thermal and acoustic insulation materials for better efficiency and performance.",
+    image: prodInsulation,
+    featured: false,
+  },
+  {
+    id: "tapes-cat",
+    title: "Tapes",
+    categoryId: "tapes",
+    categoryName: "Tapes",
+    description: "High-quality tapes for sealing insulation and joint applications.",
+    image: prodTapes,
+    featured: true,
+  },
+  {
+    id: "hardware-tools-cat",
+    title: "Hardware & Installation Tools",
+    categoryId: "hardware-tools",
+    categoryName: "Hardware & Tools",
+    description:
+      "Heavy-duty unistrut channels, threaded rods, hanger brackets, drill bits and fasteners.",
     image: accessoriesCatalog,
-    alt: "Catalog of duct accessories including access doors, TDF corners, and hardware",
-    highlights: [
-      "Access doors for duct inspection",
-      "TDF corners, clips & flanges",
-      "Unistrut channels & support brackets",
-    ],
+    featured: false,
   },
   {
-    id: "insulation-flexible-ducts",
-    name: "Insulation, Tapes & Flexible Ducts",
-    category: "Insulation & Tapes",
+    id: "paints-coatings-cat",
+    title: "Industrial Paints & Sealants",
+    categoryId: "paints",
+    categoryName: "Paints",
     description:
-      "Insulated flexible ducting, closed-cell rubber, fiberglass, rockwool slabs, aluminium foil, and duct sealing tapes.",
-    image: insulationTapesCatalog,
-    alt: "Catalog of duct insulation, flexible ducts, and industrial tapes",
-    highlights: [
-      "Insulated & uninsulated flexible ducts",
-      "Rockwool & fiberglass insulation",
-      "Aluminium & gasket sealing tapes",
-    ],
+      "Cold galvanizing zinc sprays, primers, and air-tight mastic sealants for duct joints.",
+    image: catIndustrial,
+    featured: false,
   },
   {
-    id: "perforated-sheets-plates",
-    name: "GI Perforated Sheets & Plates",
-    category: "Sheet Metal",
+    id: "safety-gear-cat",
+    title: "Safety Products & PPE",
+    categoryId: "safety",
+    categoryName: "Safety Products",
     description:
-      "Galvanized perforated sheets, mild steel plates, wire mesh, and sound attenuator lining materials.",
-    image: perforatedSheetFlyer,
-    alt: "Galvanized perforated sheet flyer showing patterns and applications",
-    highlights: [
-      "High strength & corrosion resistant",
-      "Acoustic & ventilation panels",
-      "Custom cut-to-size sheets",
-    ],
+      "Certified safety helmets, anti-cut gloves, protective goggles, and site safety gear.",
+    image: catIndustrial,
+    featured: false,
+  },
+  {
+    id: "volume-dampers-cat",
+    title: "Volume Control Dampers",
+    categoryId: "grilles-diffusers",
+    categoryName: "Grilles & Diffusers",
+    description:
+      "Manual quadrant and motorized multi-blade dampers for precise branch airflow calibration.",
+    image: volumeControlDamper,
+    featured: true,
+  },
+];
+
+export const featuredCarouselItems = [
+  {
+    id: "fc-round",
+    name: "Round Duct",
+    image: roundDuctwork,
+    href: "/products?category=hvac-ducting",
+  },
+  {
+    id: "fc-rect",
+    name: "Rectangular Duct",
+    image: ductworkComponents,
+    href: "/products?category=hvac-ducting",
+  },
+  {
+    id: "fc-flex",
+    name: "Flex Duct",
+    image: popFlexDuct,
+    href: "/products?category=hvac-ducting",
+  },
+  {
+    id: "fc-diffuser",
+    name: "Diffuser",
+    image: popDiffuser,
+    href: "/products?category=grilles-diffusers",
+  },
+  {
+    id: "fc-hood",
+    name: "Kitchen Hood",
+    image: popKitchenHood,
+    href: "/products?category=kitchen-hood",
+  },
+  {
+    id: "fc-damper",
+    name: "Volume Damper",
+    image: volumeControlDamper,
+    href: "/products?category=grilles-diffusers",
+  },
+  {
+    id: "fc-foil",
+    name: "Aluminium Foil Tape",
+    image: popFoilTape,
+    href: "/products?category=tapes",
+  },
+];
+
+export const projectIndustries = [
+  {
+    id: "comm",
+    name: "Commercial Buildings",
+    description: "Commercial offices, shopping malls, and mixed-use complexes.",
+    image: projCommercial,
+  },
+  {
+    id: "ind",
+    name: "Industrial Facilities",
+    description: "Manufacturing plants, logistics hubs, and heavy engineering facilities.",
+    image: projIndustrial,
+  },
+  {
+    id: "hosp",
+    name: "Hospitality & Restaurants",
+    description: "Hotels, commercial kitchens, exhaust hood systems, and restaurants.",
+    image: projHospitality,
+  },
+  {
+    id: "res",
+    name: "Residential Projects",
+    description: "Condominiums, residential towers, and landed estate ventilation.",
+    image: projResidential,
+  },
+  {
+    id: "health",
+    name: "Healthcare",
+    description: "Hospitals, cleanrooms, medical laboratories, and pharmaceutical suites.",
+    image: aboutIndHealthcare,
   },
 ] as const;
 
@@ -318,7 +598,7 @@ export const galleryItems = [
   {
     id: "duct-works-comprehensive",
     title: "Duct Works & Fittings Catalog",
-    category: "Catalog",
+    category: "Ductwork",
     caption: "Comprehensive fabrication lineup including elbows, tees, S-bends, and crosses.",
     image: ductWorksCatalog,
     alt: "Catalog showing full range of duct works and geometric fittings",
@@ -334,7 +614,7 @@ export const galleryItems = [
   {
     id: "dampers-louvres-selection",
     title: "Dampers, Diffusers & Louvres Range",
-    category: "Catalog",
+    category: "Dampers",
     caption: "Air balancing dampers, diffusers, jet nozzles, and architectural louvres.",
     image: dampersLouvresCatalog,
     alt: "Catalogue of dampers, grilles, diffusers and louvres",
@@ -388,6 +668,17 @@ export const galleryItems = [
     alt: "Metal fabrication showcase showing angle bars, ducts, and work tables",
   },
 ] as const;
+
+// Backward-compatible products list export
+export const products = catalogProducts.map((p) => ({
+  id: p.id,
+  name: p.title,
+  category: p.categoryName,
+  description: p.description,
+  image: p.image,
+  alt: p.title,
+  highlights: ["ACMV Commercial Grade", "Singapore Project Ready", "Direct Workshop Supply"],
+}));
 
 export function pageHead(title: string, description: string, path: string) {
   return {
