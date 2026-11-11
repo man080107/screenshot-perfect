@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import {
   ArrowDown,
@@ -42,6 +42,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
+  catalogProducts,
   company,
   generalEnquiryMessage,
   productCategories,
@@ -56,26 +57,106 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [whatsappObscured, setWhatsappObscured] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
-  const searchResults = searchTerm.trim()
+  // Close mobile drawer when navigating to another route
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname, location.search]);
+
+  // Body scroll lock & Escape handler while mobile drawer is open
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
+
+  // Auto-hide floating WhatsApp button when footer, bottom CTAs, carousel, or form actions enter view
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof IntersectionObserver === "undefined") return;
+    const targets = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-whatsapp-hide="true"]'),
+    );
+    if (targets.length === 0) {
+      setWhatsappObscured(false);
+      return;
+    }
+
+    const visibleSet = new Set<Element>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) visibleSet.add(entry.target);
+          else visibleSet.delete(entry.target);
+        }
+        setWhatsappObscured(visibleSet.size > 0);
+      },
+      { threshold: 0.01, rootMargin: "0px 0px 48px 0px" },
+    );
+
+    targets.forEach((el) => observer.observe(el));
+    return () => {
+      setWhatsappObscured(false);
+      observer.disconnect();
+    };
+  }, [location.pathname, location.search]);
+
+  // Also hide floating WhatsApp whenever any Radix/modal dialog is open in the DOM
+  useEffect(() => {
+    if (typeof document === "undefined" || typeof MutationObserver === "undefined") return;
+    const syncDialogState = () => {
+      setDialogOpen(Boolean(document.querySelector('[role="dialog"]')));
+    };
+    syncDialogState();
+    const observer = new MutationObserver(syncDialogState);
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
+  const query = searchTerm.trim().toLowerCase();
+  const searchResults = query
     ? [
         ...productCategories
           .filter(
             (c) =>
-              c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-              (c.subcategories &&
-                c.subcategories.some((s) => s.toLowerCase().includes(searchTerm.toLowerCase()))),
+              c.id !== "all" &&
+              (c.name.toLowerCase().includes(query) ||
+                ("subcategories" in c &&
+                  c.subcategories?.some((s) => s.toLowerCase().includes(query)))),
           )
           .map((c) => ({
-            type: "Product Category",
+            type: "Category",
             title: c.name,
             href: `/products?category=${c.id}`,
+          })),
+        ...catalogProducts
+          .filter(
+            (p) =>
+              p.title.toLowerCase().includes(query) ||
+              p.categoryName.toLowerCase().includes(query) ||
+              p.subcategory.toLowerCase().includes(query) ||
+              p.keywords.some((kw) => kw.toLowerCase().includes(query)),
+          )
+          .slice(0, 10)
+          .map((p) => ({
+            type: p.categoryName,
+            title: p.title,
+            href: `/products?category=${p.categoryId}&product=${p.id}`,
           })),
         ...services
           .filter(
             (s) =>
-              s.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-              s.shortDescription.toLowerCase().includes(searchTerm.toLowerCase()),
+              s.title.toLowerCase().includes(query) ||
+              s.shortDescription.toLowerCase().includes(query),
           )
           .map((s) => ({
             type: "Fabrication Service",
@@ -158,7 +239,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="start"
-                className="w-72 rounded-lg border border-[#DCE5EF] bg-white p-2 shadow-xl"
+                className="w-80 rounded-lg border border-[#DCE5EF] bg-white p-2 shadow-xl"
               >
                 <DropdownMenuLabel className="px-2 py-1.5 text-xs font-bold uppercase tracking-wider text-[#61738A]">
                   Company Product Catalogue
@@ -169,86 +250,23 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                     className="flex items-center justify-between font-semibold text-[#103766] hover:bg-[#EAF2FA] hover:text-[#0755A4]"
                   >
                     <span>All Products</span>
-                    <span className="text-xs text-[#61738A]">96 Items</span>
+                    <ArrowRight size={13} className="text-[#0755A4]" />
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="my-1 bg-[#DCE5EF]" />
-                <DropdownMenuItem asChild>
-                  <Link
-                    to="/products"
-                    search={{ category: "hvac-ducting" }}
-                    className="flex flex-col items-start gap-0.5 hover:bg-[#EAF2FA] hover:text-[#0755A4]"
-                  >
-                    <span className="font-medium text-[#103766]">HVAC Ducting & Fittings</span>
-                    <span className="text-[11px] text-[#61738A]">
-                      GI & PID Ducts, Flexible, Accessories
-                    </span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link
-                    to="/products"
-                    search={{ category: "grilles-diffusers" }}
-                    className="flex flex-col items-start gap-0.5 hover:bg-[#EAF2FA] hover:text-[#0755A4]"
-                  >
-                    <span className="font-medium text-[#103766]">Grilles & Diffusers</span>
-                    <span className="text-[11px] text-[#61738A]">
-                      4-Way Diffusers, Louvers, VCD Dampers
-                    </span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link
-                    to="/products"
-                    search={{ category: "kitchen-hood" }}
-                    className="flex flex-col items-start gap-0.5 hover:bg-[#EAF2FA] hover:text-[#0755A4]"
-                  >
-                    <span className="font-medium text-[#103766]">
-                      Kitchen Hood & SS Fabrication
-                    </span>
-                    <span className="text-[11px] text-[#61738A]">
-                      Commercial & Industrial Kitchen Solutions
-                    </span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link
-                    to="/products"
-                    search={{ category: "insulation" }}
-                    className="flex flex-col items-start gap-0.5 hover:bg-[#EAF2FA] hover:text-[#0755A4]"
-                  >
-                    <span className="font-medium text-[#103766]">Insulation Materials</span>
-                    <span className="text-[11px] text-[#61738A]">
-                      Fiberglass, Rockwool & PIR Boards
-                    </span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link
-                    to="/products"
-                    search={{ category: "tapes" }}
-                    className="flex flex-col items-start gap-0.5 hover:bg-[#EAF2FA] hover:text-[#0755A4]"
-                  >
-                    <span className="font-medium text-[#103766]">Tapes & Sealants</span>
-                    <span className="text-[11px] text-[#61738A]">
-                      Aluminium Foil Tape, Duct Tapes
-                    </span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link
-                    to="/products"
-                    search={{ category: "hardware-tools" }}
-                    className="flex flex-col items-start gap-0.5 hover:bg-[#EAF2FA] hover:text-[#0755A4]"
-                  >
-                    <span className="font-medium text-[#103766]">
-                      Hardware, Tools & Sheet Metal
-                    </span>
-                    <span className="text-[11px] text-[#61738A]">
-                      Unistruts, Threaded Rods, Perforated Sheets
-                    </span>
-                  </Link>
-                </DropdownMenuItem>
+                {productCategories
+                  .filter((cat) => cat.id !== "all")
+                  .map((cat) => (
+                    <DropdownMenuItem key={cat.id} asChild>
+                      <Link
+                        to="/products"
+                        search={{ category: cat.id }}
+                        className="flex items-center justify-between py-1.5 font-medium text-[#103766] hover:bg-[#EAF2FA] hover:text-[#0755A4]"
+                      >
+                        <span>{cat.name}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -329,14 +347,14 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             </Link>
           </nav>
 
-          {/* Far Right: Search Icon + Prominent Blue "Request a Quote" Button */}
-          <div className="flex items-center gap-3">
-            {/* Search Trigger */}
+          {/* Far Right: Desktop Search + Quote CTA + Mobile Hamburger */}
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            {/* Desktop Search Trigger (moved inside mobile drawer below lg) */}
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
               aria-label="Search catalogue and services"
-              className="flex size-9 items-center justify-center rounded-full text-[#103766] transition-colors hover:bg-[#EAF2FA] hover:text-[#0755A4] focus:outline-hidden"
+              className="hidden lg:flex size-9 items-center justify-center rounded-full text-[#103766] transition-colors hover:bg-[#EAF2FA] hover:text-[#0755A4] focus:outline-hidden"
             >
               <Search size={18} />
             </button>
@@ -344,217 +362,227 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             {/* Request a Quote Button */}
             <Button
               asChild
-              className="hidden sm:inline-flex h-9 rounded-md bg-[#0755A4] px-4 font-semibold text-white shadow-xs transition-colors hover:bg-[#064789]"
+              className="inline-flex h-9 shrink-0 whitespace-nowrap rounded-md bg-[#0755A4] px-3 sm:px-4 text-xs sm:text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[#064789]"
             >
               <Link to="/quote" className="inline-flex items-center gap-1.5">
-                <span>Request a Quote</span>
-                <ArrowRight size={15} />
+                <span className="min-[380px]:hidden">Get Quote</span>
+                <span className="hidden min-[380px]:inline">Request a Quote</span>
+                <ArrowRight size={14} className="shrink-0" />
               </Link>
             </Button>
 
-            {/* Mobile Menu Hamburger */}
+            {/* Mobile Menu Hamburger (min 44x44px touch target) */}
             <Button
               variant="outline"
               size="icon"
-              className="size-9 shrink-0 lg:hidden border-[#DCE5EF] text-[#103766]"
+              className="size-11 shrink-0 lg:hidden border-[#DCE5EF] text-[#103766]"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav-drawer"
               onClick={() => setMobileMenuOpen((open) => !open)}
             >
-              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              {mobileMenuOpen ? <X size={21} /> : <Menu size={21} />}
             </Button>
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile Navigation Drawer + Outside-Click Backdrop */}
         {mobileMenuOpen && (
-          <nav
-            className="border-b border-[#DCE5EF] bg-white px-4 py-4 shadow-xl lg:hidden max-h-[80vh] overflow-y-auto"
-            aria-label="Mobile Navigation"
-          >
-            <div className="flex flex-col gap-1">
-              <Link
-                to="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center justify-between rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
-                  isHomeActive ? "bg-[#EAF2FA] text-[#0755A4]" : "text-[#103766] hover:bg-slate-50"
-                }`}
-              >
-                <span>Home</span>
-                <ChevronRight size={16} />
-              </Link>
-
-              <Link
-                to="/about"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center justify-between rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
-                  isAboutActive ? "bg-[#EAF2FA] text-[#0755A4]" : "text-[#103766] hover:bg-slate-50"
-                }`}
-              >
-                <span>About Us</span>
-                <ChevronRight size={16} />
-              </Link>
-
-              {/* Products Submenu Accordion */}
-              <div>
+          <>
+            <div
+              className="fixed inset-0 top-[68px] z-40 bg-slate-950/35 backdrop-blur-[1px] lg:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+            <nav
+              id="mobile-nav-drawer"
+              className="relative z-50 border-t border-b border-[#DCE5EF] bg-white px-4 py-4 shadow-xl lg:hidden max-h-[calc(100dvh-68px)] overflow-y-auto"
+              aria-label="Mobile Navigation"
+            >
+              <div className="flex flex-col gap-1">
+                {/* Mobile Drawer Search Button */}
                 <button
                   type="button"
-                  onClick={() => setMobileProductsOpen((v) => !v)}
-                  className="flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-semibold text-[#103766] hover:bg-slate-50"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setSearchOpen(true);
+                  }}
+                  className="mb-2 flex min-h-11 w-full items-center gap-2.5 rounded-lg border border-[#DCE5EF] bg-[#F7F9FC] px-3.5 py-2 text-left text-sm text-[#61738A] hover:border-[#0755A4]/40 hover:text-[#103766]"
                 >
-                  <span>Products</span>
-                  <ChevronDown
-                    size={16}
-                    className={`transition-transform duration-200 ${
-                      mobileProductsOpen ? "rotate-180 text-[#0755A4]" : "text-slate-400"
-                    }`}
-                  />
+                  <Search size={16} className="shrink-0 text-[#0755A4]" />
+                  <span>Search products &amp; services...</span>
                 </button>
-                {mobileProductsOpen && (
-                  <div className="ml-3 my-1 space-y-1 border-l-2 border-[#0755A4]/30 pl-3">
-                    <Link
-                      to="/products"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-1 text-xs font-semibold text-[#0755A4]"
-                    >
-                      View All Products (96 Items)
-                    </Link>
-                    <Link
-                      to="/products"
-                      search={{ category: "hvac-ducting" }}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-1 text-xs text-[#172E49] hover:text-[#0755A4]"
-                    >
-                      HVAC Ducting & Fittings
-                    </Link>
-                    <Link
-                      to="/products"
-                      search={{ category: "grilles-diffusers" }}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-1 text-xs text-[#172E49] hover:text-[#0755A4]"
-                    >
-                      Grilles & Diffusers
-                    </Link>
-                    <Link
-                      to="/products"
-                      search={{ category: "kitchen-hood" }}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-1 text-xs text-[#172E49] hover:text-[#0755A4]"
-                    >
-                      Kitchen Hood & SS Fabrication
-                    </Link>
-                    <Link
-                      to="/products"
-                      search={{ category: "insulation" }}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-1 text-xs text-[#172E49] hover:text-[#0755A4]"
-                    >
-                      Insulation Materials
-                    </Link>
-                    <Link
-                      to="/products"
-                      search={{ category: "tapes" }}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-1 text-xs text-[#172E49] hover:text-[#0755A4]"
-                    >
-                      Tapes & Sealants
-                    </Link>
-                  </div>
-                )}
-              </div>
 
-              {/* Fabrication Services Accordion */}
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setMobileServicesOpen((v) => !v)}
-                  className="flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-semibold text-[#103766] hover:bg-slate-50"
+                <Link
+                  to="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex min-h-11 items-center justify-between rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
+                    isHomeActive
+                      ? "bg-[#EAF2FA] text-[#0755A4]"
+                      : "text-[#103766] hover:bg-slate-50"
+                  }`}
                 >
-                  <span>Fabrication Services</span>
-                  <ChevronDown
-                    size={16}
-                    className={`transition-transform duration-200 ${
-                      mobileServicesOpen ? "rotate-180 text-[#0755A4]" : "text-slate-400"
+                  <span>Home</span>
+                  <ChevronRight size={16} />
+                </Link>
+
+                <Link
+                  to="/about"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex min-h-11 items-center justify-between rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
+                    isAboutActive
+                      ? "bg-[#EAF2FA] text-[#0755A4]"
+                      : "text-[#103766] hover:bg-slate-50"
+                  }`}
+                >
+                  <span>About Us</span>
+                  <ChevronRight size={16} />
+                </Link>
+
+                {/* Products Submenu Accordion */}
+                <div>
+                  <button
+                    type="button"
+                    aria-expanded={mobileProductsOpen}
+                    onClick={() => setMobileProductsOpen((v) => !v)}
+                    className={`flex min-h-11 w-full items-center justify-between rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
+                      isProductsActive
+                        ? "bg-[#EAF2FA] text-[#0755A4]"
+                        : "text-[#103766] hover:bg-slate-50"
                     }`}
-                  />
-                </button>
-                {mobileServicesOpen && (
-                  <div className="ml-3 my-1 space-y-1 border-l-2 border-[#0755A4]/30 pl-3">
-                    <Link
-                      to="/services"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-1 text-xs font-semibold text-[#0755A4]"
-                    >
-                      All Fabrication Services Overview
-                    </Link>
-                    {services.map((srv) => (
-                      <a
-                        key={srv.id}
-                        href={`/services#${srv.id}`}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="block py-1 text-xs text-[#172E49] hover:text-[#0755A4]"
-                      >
-                        {srv.title}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <Link
-                to="/gallery"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center justify-between rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
-                  isGalleryActive
-                    ? "bg-[#EAF2FA] text-[#0755A4]"
-                    : "text-[#103766] hover:bg-slate-50"
-                }`}
-              >
-                <span>Projects</span>
-                <ChevronRight size={16} />
-              </Link>
-
-              <Link
-                to="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center justify-between rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
-                  isContactActive
-                    ? "bg-[#EAF2FA] text-[#0755A4]"
-                    : "text-[#103766] hover:bg-slate-50"
-                }`}
-              >
-                <span>Contact</span>
-                <ChevronRight size={16} />
-              </Link>
-
-              {/* Action Buttons */}
-              <div className="mt-4 grid gap-2 border-t border-[#DCE5EF] pt-4">
-                <Button
-                  asChild
-                  className="h-10 w-full rounded-md bg-[#0755A4] font-semibold text-white hover:bg-[#064789]"
-                >
-                  <Link to="/quote" onClick={() => setMobileMenuOpen(false)}>
-                    Request a Quote <ArrowRight size={16} className="ml-1.5" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="h-10 w-full border-emerald-600/40 font-semibold text-emerald-700 bg-emerald-50/50 hover:bg-emerald-100"
-                >
-                  <a
-                    href={whatsappHref(generalEnquiryMessage)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2"
                   >
-                    <MessageCircle size={16} className="text-emerald-600" />
-                    <span>WhatsApp: {company.phone}</span>
-                  </a>
-                </Button>
+                    <span>Products</span>
+                    <ChevronDown
+                      size={16}
+                      className={`transition-transform duration-200 ${
+                        mobileProductsOpen ? "rotate-180 text-[#0755A4]" : "text-slate-400"
+                      }`}
+                    />
+                  </button>
+                  {mobileProductsOpen && (
+                    <div className="ml-3 my-1 space-y-1 border-l-2 border-[#0755A4]/30 pl-3">
+                      <Link
+                        to="/products"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex min-h-9 items-center py-1 text-xs font-semibold text-[#0755A4]"
+                      >
+                        View All Products
+                      </Link>
+                      {productCategories
+                        .filter((cat) => cat.id !== "all")
+                        .map((cat) => (
+                          <Link
+                            key={cat.id}
+                            to="/products"
+                            search={{ category: cat.id }}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex min-h-9 items-center py-1 text-xs text-[#172E49] hover:text-[#0755A4]"
+                          >
+                            {cat.name}
+                          </Link>
+                        ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Fabrication Services Accordion */}
+                <div>
+                  <button
+                    type="button"
+                    aria-expanded={mobileServicesOpen}
+                    onClick={() => setMobileServicesOpen((v) => !v)}
+                    className={`flex min-h-11 w-full items-center justify-between rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
+                      isServicesActive
+                        ? "bg-[#EAF2FA] text-[#0755A4]"
+                        : "text-[#103766] hover:bg-slate-50"
+                    }`}
+                  >
+                    <span>Fabrication Services</span>
+                    <ChevronDown
+                      size={16}
+                      className={`transition-transform duration-200 ${
+                        mobileServicesOpen ? "rotate-180 text-[#0755A4]" : "text-slate-400"
+                      }`}
+                    />
+                  </button>
+                  {mobileServicesOpen && (
+                    <div className="ml-3 my-1 space-y-1 border-l-2 border-[#0755A4]/30 pl-3">
+                      <Link
+                        to="/services"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex min-h-9 items-center py-1 text-xs font-semibold text-[#0755A4]"
+                      >
+                        All Fabrication Services Overview
+                      </Link>
+                      {services.map((srv) => (
+                        <a
+                          key={srv.id}
+                          href={`/services#${srv.id}`}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex min-h-9 items-center py-1 text-xs text-[#172E49] hover:text-[#0755A4]"
+                        >
+                          {srv.title}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <Link
+                  to="/gallery"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex min-h-11 items-center justify-between rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
+                    isGalleryActive
+                      ? "bg-[#EAF2FA] text-[#0755A4]"
+                      : "text-[#103766] hover:bg-slate-50"
+                  }`}
+                >
+                  <span>Projects</span>
+                  <ChevronRight size={16} />
+                </Link>
+
+                <Link
+                  to="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex min-h-11 items-center justify-between rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
+                    isContactActive
+                      ? "bg-[#EAF2FA] text-[#0755A4]"
+                      : "text-[#103766] hover:bg-slate-50"
+                  }`}
+                >
+                  <span>Contact</span>
+                  <ChevronRight size={16} />
+                </Link>
+
+                {/* Action Buttons */}
+                <div className="mt-4 grid gap-2 border-t border-[#DCE5EF] pt-4">
+                  <Button
+                    asChild
+                    className="h-11 w-full rounded-md bg-[#0755A4] font-semibold text-white hover:bg-[#064789]"
+                  >
+                    <Link to="/quote" onClick={() => setMobileMenuOpen(false)}>
+                      Request a Quote <ArrowRight size={16} className="ml-1.5" />
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="h-11 w-full border-emerald-600/40 font-semibold text-emerald-700 bg-emerald-50/50 hover:bg-emerald-100"
+                  >
+                    <a
+                      href={whatsappHref(generalEnquiryMessage)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2"
+                    >
+                      <MessageCircle size={16} className="text-emerald-600" />
+                      <span>WhatsApp: {company.phone}</span>
+                    </a>
+                  </Button>
+                </div>
               </div>
-            </div>
-          </nav>
+            </nav>
+          </>
         )}
       </header>
 
@@ -649,7 +677,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       {/* =========================================================================
           GLOBAL CORPORATE FOOTER — Section 7
           ========================================================================= */}
-      <footer className="border-t border-[#DCE5EF] bg-white text-[#172E49]">
+      <footer
+        data-whatsapp-hide="true"
+        className="border-t border-[#DCE5EF] bg-white text-[#172E49]"
+      >
         <div className="mx-auto grid max-w-[1320px] gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8 lg:py-16">
           {/* Column 1: Brand & Overview */}
           <div className="space-y-4">
@@ -661,7 +692,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             </p>
             <div className="flex items-center gap-2 text-xs font-semibold text-[#0755A4]">
               <ShieldCheck size={16} />
-              <span>Singapore Registered Workshop</span>
+              <span>Singapore ACMV Ductwork Workshop</span>
             </div>
           </div>
 
@@ -814,16 +845,23 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         </div>
       </footer>
 
-      {/* Floating WhatsApp Quick-Contact Button */}
-      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2">
+      {/* Floating WhatsApp Quick-Contact Button (auto-hides over footer/CTAs/modals/open drawer) */}
+      <div
+        className={`fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(0.875rem,env(safe-area-inset-right))] sm:bottom-6 sm:right-6 z-40 flex items-center transition-all duration-150 ${
+          mobileMenuOpen || whatsappObscured || searchOpen || dialogOpen
+            ? "pointer-events-none translate-y-2 scale-90 opacity-0"
+            : "opacity-100 scale-100"
+        }`}
+      >
         <a
           href={whatsappHref(generalEnquiryMessage)}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat with GC Fabrication on WhatsApp"
-          className="group flex size-13 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-hidden"
+          tabIndex={mobileMenuOpen || whatsappObscured || searchOpen || dialogOpen ? -1 : 0}
+          className="group flex size-11 sm:size-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl focus:outline-hidden"
         >
-          <MessageCircle size={26} className="fill-current" />
+          <MessageCircle size={21} className="fill-current sm:size-6" />
         </a>
       </div>
     </div>
@@ -843,7 +881,10 @@ export function BottomCtaSection({
   buttonHref?: string;
 }) {
   return (
-    <section className="relative overflow-hidden bg-[#082D55] text-white py-12 sm:py-14">
+    <section
+      data-whatsapp-hide="true"
+      className="relative overflow-hidden bg-[#082D55] text-white py-11 sm:py-14"
+    >
       {/* Subtle industrial background texture */}
       <div className="absolute inset-0 bg-radial-[circle_at_top_right] from-blue-900/30 via-transparent to-transparent pointer-events-none" />
       <div className="mx-auto flex max-w-[1320px] flex-col gap-6 px-4 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
@@ -877,7 +918,7 @@ export function BottomCtaSection({
 // White Bottom Trust Strip (Reference 1 Standard)
 export function BottomTrustStrip() {
   return (
-    <section className="border-t border-[#DCE5EF] bg-white py-8">
+    <section data-whatsapp-hide="true" className="border-t border-[#DCE5EF] bg-white py-8">
       <div className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
           <span className="display-font text-sm sm:text-base font-bold text-[#103766]">

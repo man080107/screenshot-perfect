@@ -176,7 +176,6 @@ export function AboutPage() {
                         alt="HVAC Ducting installations"
                         width={400}
                         height={250}
-                        loading="lazy"
                         className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </picture>
@@ -205,7 +204,6 @@ export function AboutPage() {
                         alt="Fabrication Services and stainless kitchen hood"
                         width={400}
                         height={250}
-                        loading="lazy"
                         className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </picture>
@@ -233,7 +231,6 @@ export function AboutPage() {
                         alt="HVAC Components grilles and diffusers"
                         width={400}
                         height={250}
-                        loading="lazy"
                         className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </picture>
@@ -261,7 +258,6 @@ export function AboutPage() {
                         alt="Industrial supplies, paints, tools and accessories"
                         width={400}
                         height={250}
-                        loading="lazy"
                         className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </picture>
@@ -300,7 +296,6 @@ export function AboutPage() {
                     alt="Precision duct welding and sheet metal craftsmanship at GC Fabrication workshop"
                     width={1400}
                     height={900}
-                    loading="lazy"
                     className="size-full object-cover"
                   />
                 </picture>
@@ -422,7 +417,6 @@ export function AboutPage() {
                         alt="Commercial Buildings applications"
                         width={300}
                         height={200}
-                        loading="lazy"
                         className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </picture>
@@ -444,7 +438,6 @@ export function AboutPage() {
                         alt="Industrial Facilities ACMV solutions"
                         width={300}
                         height={200}
-                        loading="lazy"
                         className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </picture>
@@ -466,7 +459,6 @@ export function AboutPage() {
                         alt="Residential Projects ventilation"
                         width={300}
                         height={200}
-                        loading="lazy"
                         className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </picture>
@@ -488,7 +480,6 @@ export function AboutPage() {
                         alt="Hospitality and Retail exhaust hoods and ducting"
                         width={300}
                         height={200}
-                        loading="lazy"
                         className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </picture>
@@ -510,7 +501,6 @@ export function AboutPage() {
                         alt="Healthcare and cleanroom ventilation systems"
                         width={300}
                         height={200}
-                        loading="lazy"
                         className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </picture>

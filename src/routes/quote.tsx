@@ -495,7 +495,10 @@ function QuotePage() {
                       </div>
                     </div>
 
-                    <div className="flex justify-end pt-4 border-t border-slate-100">
+                    <div
+                      data-whatsapp-hide="true"
+                      className="flex justify-end pt-4 border-t border-slate-100"
+                    >
                       <Button
                         type="button"
                         disabled={!canProceedStep1}
@@ -553,7 +556,10 @@ function QuotePage() {
                       })}
                     </div>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <div
+                      data-whatsapp-hide="true"
+                      className="flex items-center justify-between pt-4 border-t border-slate-100"
+                    >
                       <Button
                         type="button"
                         variant="outline"
@@ -757,7 +763,10 @@ function QuotePage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <div
+                      data-whatsapp-hide="true"
+                      className="flex items-center justify-between pt-4 border-t border-slate-100"
+                    >
                       <Button
                         type="button"
                         variant="outline"
@@ -874,7 +883,10 @@ function QuotePage() {
                       </p>
                     </div>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <div
+                      data-whatsapp-hide="true"
+                      className="flex items-center justify-between pt-4 border-t border-slate-100"
+                    >
                       <Button
                         type="button"
                         variant="outline"
@@ -925,7 +937,7 @@ function QuotePage() {
                           Edit
                         </button>
                       </div>
-                      <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
                         <div>
                           <span className="text-slate-500">Contact:</span>{" "}
                           <span className="font-medium text-slate-900">{customer.fullName}</span>
@@ -985,7 +997,7 @@ function QuotePage() {
                           Edit
                         </button>
                       </div>
-                      <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
                         <div>
                           <span className="text-slate-500">Project:</span>{" "}
                           <span className="font-medium text-slate-900">{project.projectName}</span>
@@ -1060,22 +1072,25 @@ function QuotePage() {
                       )}
                     </div>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <div
+                      data-whatsapp-hide="true"
+                      className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3 pt-4 border-t border-slate-100"
+                    >
                       <Button
                         type="button"
                         variant="outline"
                         onClick={() => setCurrentStep(4)}
-                        className="h-11 px-5"
+                        className="h-11 px-5 w-full sm:w-auto"
                       >
                         <ArrowLeft size={16} className="mr-1.5" />
                         <span>Back</span>
                       </Button>
                       <Button
                         type="submit"
-                        className="h-12 bg-[#0755A4] text-white hover:bg-[#064789] px-8 font-semibold text-base shadow-sm"
+                        className="min-h-12 h-auto py-2.5 px-6 sm:px-8 w-full sm:w-auto whitespace-normal text-center bg-[#0755A4] text-white hover:bg-[#064789] font-semibold text-sm sm:text-base shadow-sm"
                       >
                         <span>Submit Quotation Request</span>
-                        <ArrowRight size={17} className="ml-2" />
+                        <ArrowRight size={17} className="ml-2 shrink-0" />
                       </Button>
                     </div>
                   </div>

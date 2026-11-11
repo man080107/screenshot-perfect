@@ -278,12 +278,12 @@ export function ContactPage() {
                     />
                   </div>
 
-                  <div className="pt-2">
+                  <div data-whatsapp-hide="true" className="pt-2">
                     <Button
                       type="submit"
-                      className="w-full h-11 rounded-md bg-[#0755A4] hover:bg-[#064789] text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer"
+                      className="w-full min-h-11 h-auto py-2.5 px-4 whitespace-normal text-center rounded-md bg-[#0755A4] hover:bg-[#064789] text-white font-semibold text-xs sm:text-sm shadow-xs cursor-pointer"
                     >
-                      <Send size={15} className="mr-2" />
+                      <Send size={15} className="mr-2 shrink-0" />
                       <span>Connect via WhatsApp with Prefilled Enquiry</span>
                     </Button>
                   </div>
