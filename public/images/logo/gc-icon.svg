@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="gcGrad" x1="15%" y1="10%" x2="85%" y2="90%">
+      <stop offset="0%" stop-color="#00A3E0"/>
+      <stop offset="50%" stop-color="#0755A4"/>
+      <stop offset="100%" stop-color="#103766"/>
+    </linearGradient>
+    <linearGradient id="swooshGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#00C0F3"/>
+      <stop offset="100%" stop-color="#0755A4"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer precision swoosh ring -->
+  <path d="M 60 14 C 84.85 14 105 34.15 105 59 C 105 80.5 89.8 98.4 69.8 102.7 C 65.5 103.6 61.2 101.4 60.3 97.1 C 59.4 92.8 62.1 88.5 66.4 87.5 C 80.2 84.5 90.6 72 90.6 57 C 90.6 39.8 76.8 26 59.8 26 C 42.8 26 29 39.8 29 57 C 29 70.8 38 82.5 50.8 86.4 C 55.2 87.7 57.7 92.4 56.4 96.8 C 55.1 101.2 50.4 103.7 46 102.4 C 28.2 97 15 80.5 15 61 C 15 35 35.1 14 60 14 Z" fill="url(#gcGrad)"/>
+  <!-- Dynamic inner crossbar & spiral spur -->
+  <path d="M 52 53 L 88 53 C 91.3 53 94 55.7 94 59 C 94 62.3 91.3 65 88 65 L 64 65 C 61.8 65 60 66.8 60 69 L 60 73 C 60 75.2 61.8 77 64 77 L 78 77 C 81.3 77 84 79.7 84 83 C 84 86.3 81.3 89 78 89 L 58 89 C 53.6 89 50 85.4 50 81 L 50 55 C 50 53.9 50.9 53 52 53 Z" fill="url(#swooshGrad)"/>
+</svg>
+

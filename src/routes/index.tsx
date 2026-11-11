@@ -124,7 +124,7 @@ export function HomePage() {
             </div>
 
             {/* Right Photo Column with Geometric Angle */}
-            <div className="relative lg:col-span-6 h-full min-h-[300px] sm:min-h-[380px] lg:min-h-[480px] w-full overflow-hidden flex items-center">
+            <div className="relative lg:col-span-6 h-full min-h-[280px] sm:min-h-[380px] lg:min-h-[480px] w-full overflow-hidden flex items-center">
               {/* Angled Divider Mask on Desktop */}
               <div
                 className="absolute inset-0 z-10 pointer-events-none hidden lg:block"
@@ -134,14 +134,17 @@ export function HomePage() {
               />
 
               <div className="relative size-full overflow-hidden rounded-lg lg:rounded-none shadow-md lg:shadow-none my-4 lg:my-0">
-                <img
-                  src={assets.heroWorkshop}
-                  alt="GC Fabrication workshop and industrial HVAC ductwork warehouse staging in Singapore"
-                  width={1200}
-                  height={600}
-                  fetchPriority="high"
-                  className="size-full object-cover object-center lg:object-left"
-                />
+                <picture>
+                  <source srcSet="/images/hero/home-hero-wide.webp" type="image/webp" />
+                  <img
+                    src="/images/hero/home-hero-wide.jpg"
+                    alt="GC Fabrication workshop and industrial HVAC ductwork warehouse staging in Singapore"
+                    width={1920}
+                    height={1000}
+                    fetchPriority="high"
+                    className="size-full object-cover object-center lg:object-left"
+                  />
+                </picture>
               </div>
             </div>
           </div>
@@ -161,15 +164,18 @@ export function HomePage() {
                 className="group relative flex flex-col overflow-hidden rounded-lg border border-[#DCE5EF] bg-[#F7F9FC]/60 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#0755A4]/40 hover:bg-white hover:shadow-md"
               >
                 {/* Image */}
-                <div className="relative h-28 w-full overflow-hidden rounded-md bg-white border border-[#DCE5EF]/60">
-                  <img
-                    src={cat.image}
-                    alt={cat.title}
-                    width={400}
-                    height={200}
-                    loading="lazy"
-                    className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                <div className="relative h-32 sm:h-36 w-full overflow-hidden rounded-md bg-white border border-[#DCE5EF]/60">
+                  <picture>
+                    <source srcSet={cat.image} type="image/webp" />
+                    <img
+                      src={cat.image.replace(".webp", ".jpg")}
+                      alt={cat.title}
+                      width={600}
+                      height={450}
+                      loading="lazy"
+                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </picture>
                 </div>
 
                 {/* Content */}
@@ -231,14 +237,17 @@ export function HomePage() {
               >
                 {/* Image */}
                 <div className="relative aspect-square w-full overflow-hidden rounded-md bg-[#F7F9FC] border border-[#DCE5EF]/40 flex items-center justify-center p-2">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    width={200}
-                    height={200}
-                    loading="lazy"
-                    className="size-full object-contain transition-transform duration-300 group-hover:scale-105"
-                  />
+                  <picture>
+                    <source srcSet={p.image} type="image/webp" />
+                    <img
+                      src={p.image.replace(".webp", ".jpg")}
+                      alt={p.name}
+                      width={300}
+                      height={300}
+                      loading="lazy"
+                      className="size-full object-contain transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </picture>
                 </div>
 
                 {/* Footer with Title and Small Arrow */}
@@ -385,15 +394,18 @@ export function HomePage() {
                     key={proj.id}
                     className="group overflow-hidden rounded-lg border border-[#DCE5EF] bg-white shadow-xs"
                   >
-                    <div className="relative h-24 sm:h-28 w-full overflow-hidden bg-slate-100">
-                      <img
-                        src={proj.image}
-                        alt={proj.name}
-                        width={400}
-                        height={250}
-                        loading="lazy"
-                        className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
+                    <div className="relative h-28 sm:h-32 w-full overflow-hidden bg-slate-100">
+                      <picture>
+                        <source srcSet={proj.image} type="image/webp" />
+                        <img
+                          src={proj.image.replace(".webp", ".jpg")}
+                          alt={proj.name}
+                          width={600}
+                          height={400}
+                          loading="lazy"
+                          className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </picture>
                     </div>
                     <div className="p-2.5 bg-[#082D55] text-white">
                       <p className="text-[11px] font-semibold tracking-wide text-center truncate">

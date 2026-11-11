@@ -114,14 +114,17 @@ export function AboutPage() {
               />
 
               <div className="relative size-full overflow-hidden rounded-lg lg:rounded-none shadow-md lg:shadow-none my-4 lg:my-0">
-                <img
-                  src={assets.aboutFacility}
-                  alt="GC Fabrication industrial facility and workshop exterior with company signage in Singapore"
-                  width={1200}
-                  height={700}
-                  fetchPriority="high"
-                  className="size-full object-cover object-center"
-                />
+                <picture>
+                  <source srcSet="/images/hero/about-hero-facility.webp" type="image/webp" />
+                  <img
+                    src="/images/hero/about-hero-facility.jpg"
+                    alt="GC Fabrication industrial facility and workshop exterior with company signage in Singapore"
+                    width={1920}
+                    height={1000}
+                    fetchPriority="high"
+                    className="size-full object-cover object-center"
+                  />
+                </picture>
               </div>
             </div>
           </div>
@@ -277,15 +280,18 @@ export function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Photo: Welder with Sparks */}
             <div className="lg:col-span-3">
-              <div className="overflow-hidden rounded-lg border border-[#DCE5EF] bg-white shadow-sm h-48 sm:h-52 w-full">
-                <img
-                  src={assets.aboutWelder}
-                  alt="Precision duct welding and sheet metal craftsmanship at GC Fabrication workshop"
-                  width={500}
-                  height={400}
-                  loading="lazy"
-                  className="size-full object-cover"
-                />
+              <div className="overflow-hidden rounded-lg border border-[#DCE5EF] bg-white shadow-sm h-48 sm:h-56 w-full">
+                <picture>
+                  <source srcSet="/images/workshop/workshop-welder.webp" type="image/webp" />
+                  <img
+                    src="/images/workshop/workshop-welder.jpg"
+                    alt="Precision duct welding and sheet metal craftsmanship at GC Fabrication workshop"
+                    width={1400}
+                    height={900}
+                    loading="lazy"
+                    className="size-full object-cover"
+                  />
+                </picture>
               </div>
             </div>
 

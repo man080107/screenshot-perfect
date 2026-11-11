@@ -159,27 +159,27 @@ export function GalleryPage() {
           if (!open) setSelectedIndex(null);
         }}
       >
-        <DialogContent className="max-w-4xl rounded-xl border border-[#DCE5EF] bg-white p-6 shadow-2xl">
+        <DialogContent className="w-[94vw] max-w-4xl max-h-[92vh] overflow-y-auto rounded-xl border border-[#DCE5EF] bg-white p-4 sm:p-6 shadow-2xl">
           {activeItem && (
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <div className="flex items-center justify-between border-b border-[#DCE5EF] pb-3">
                 <div>
                   <span className="text-xs font-bold uppercase tracking-wider text-[#0755A4]">
                     {activeItem.category}
                   </span>
-                  <DialogTitle className="display-font text-lg sm:text-xl font-bold text-[#103766]">
+                  <DialogTitle className="display-font text-base sm:text-xl font-bold text-[#103766]">
                     {activeItem.title}
                   </DialogTitle>
                 </div>
               </div>
 
-              <div className="relative overflow-hidden rounded-lg bg-black/5 aspect-16/10 flex items-center justify-center">
+              <div className="relative overflow-hidden rounded-lg bg-black/5 aspect-4/3 sm:aspect-16/10 flex items-center justify-center">
                 <img
                   src={activeItem.image}
                   alt={activeItem.alt}
                   width={1200}
                   height={800}
-                  className="max-h-[60vh] w-auto object-contain"
+                  className="max-h-[45vh] sm:max-h-[60vh] w-auto object-contain"
                 />
 
                 {/* Left/Right overlay controls */}
@@ -190,9 +190,9 @@ export function GalleryPage() {
                     showPrev();
                   }}
                   aria-label="Previous photograph"
-                  className="absolute left-3 top-1/2 -translate-y-1/2 flex size-10 items-center justify-center rounded-full bg-white/90 text-[#103766] shadow-md hover:bg-white transition-all cursor-pointer"
+                  className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 flex size-8 sm:size-10 items-center justify-center rounded-full bg-white/90 text-[#103766] shadow-md hover:bg-white transition-all cursor-pointer"
                 >
-                  <ChevronLeft size={20} />
+                  <ChevronLeft size={18} />
                 </button>
                 <button
                   type="button"
@@ -201,9 +201,9 @@ export function GalleryPage() {
                     showNext();
                   }}
                   aria-label="Next photograph"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 flex size-10 items-center justify-center rounded-full bg-white/90 text-[#103766] shadow-md hover:bg-white transition-all cursor-pointer"
+                  className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 flex size-8 sm:size-10 items-center justify-center rounded-full bg-white/90 text-[#103766] shadow-md hover:bg-white transition-all cursor-pointer"
                 >
-                  <ChevronRight size={20} />
+                  <ChevronRight size={18} />
                 </button>
               </div>
 

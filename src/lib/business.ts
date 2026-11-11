@@ -17,41 +17,43 @@ import pidDuctsFlyer from "@/assets/pid-ducts-flyer.jpg";
 import workshopFacility from "@/assets/workshop-facility.jpg";
 import whyChooseGc from "@/assets/why-choose-gc.jpg";
 
-// Extracted client reference showcase assets
-import heroWorkshop from "@/assets/showcase/hero-workshop.jpg";
-import aboutFacility from "@/assets/showcase/about-facility.jpg";
-import prodDuctsHero from "@/assets/showcase/prod-ducts-hero.jpg";
-import catHvacDucts from "@/assets/showcase/cat-hvac-ducts.jpg";
-import catGrilles from "@/assets/showcase/cat-grilles.jpg";
-import catFabrication from "@/assets/showcase/cat-fabrication.jpg";
-import catInsulation from "@/assets/showcase/cat-insulation.jpg";
-import catIndustrial from "@/assets/showcase/cat-industrial.jpg";
-import popGiDuct from "@/assets/showcase/pop-gi-duct.jpg";
-import popFlexDuct from "@/assets/showcase/pop-flex-duct.jpg";
-import popPidDuct from "@/assets/showcase/pop-pid-duct.jpg";
-import popDiffuser from "@/assets/showcase/pop-diffuser.jpg";
-import popKitchenHood from "@/assets/showcase/pop-kitchen-hood.jpg";
-import popFoilTape from "@/assets/showcase/pop-foil-tape.jpg";
-import popDuctTape from "@/assets/showcase/pop-duct-tape.jpg";
-import projCommercial from "@/assets/showcase/proj-commercial.jpg";
-import projIndustrial from "@/assets/showcase/proj-industrial.jpg";
-import projHospitality from "@/assets/showcase/proj-hospitality.jpg";
-import projResidential from "@/assets/showcase/proj-residential.jpg";
-import aboutWelder from "@/assets/showcase/about-welder.jpg";
-import aboutCapDucting from "@/assets/showcase/about-cap-ducting.jpg";
-import aboutCapHood from "@/assets/showcase/about-cap-hood.jpg";
-import aboutCapDiffuser from "@/assets/showcase/about-cap-diffuser.jpg";
-import aboutCapSupplies from "@/assets/showcase/about-cap-supplies.jpg";
-import aboutIndHealthcare from "@/assets/showcase/about-ind-healthcare.jpg";
-import prodCustomFabrication from "@/assets/showcase/prod-custom-fabrication.jpg";
-import prodGiDucts from "@/assets/showcase/prod-gi-ducts.jpg";
-import prodFlexDucts from "@/assets/showcase/prod-flex-ducts.jpg";
-import prodPidDucts from "@/assets/showcase/prod-pid-ducts.jpg";
-import prodGrilles from "@/assets/showcase/prod-grilles.jpg";
-import prodKitchenHood from "@/assets/showcase/prod-kitchen-hood.jpg";
-import prodDuctAccessories from "@/assets/showcase/prod-duct-accessories.jpg";
-import prodInsulation from "@/assets/showcase/prod-insulation.jpg";
-import prodTapes from "@/assets/showcase/prod-tapes.jpg";
+import { siteImages } from "@/lib/images";
+
+// High-resolution showcase assets from central library
+const heroWorkshop = siteImages.hero.home.webp;
+const aboutFacility = siteImages.hero.about.webp;
+const prodDuctsHero = siteImages.hero.products.webp;
+const catHvacDucts = siteImages.categories.ducting.webp;
+const catGrilles = siteImages.categories.grilles.webp;
+const catFabrication = siteImages.categories.services.webp;
+const catInsulation = siteImages.categories.insulation.webp;
+const catIndustrial = siteImages.categories.supplies.webp;
+const popGiDuct = siteImages.products.giRectangularDuct.webp;
+const popFlexDuct = siteImages.products.flexibleDuct.webp;
+const popPidDuct = siteImages.products.preInsulatedDuct.webp;
+const popDiffuser = siteImages.products.grillesDiffusers.webp;
+const popKitchenHood = siteImages.products.kitchenExhaustHood.webp;
+const popFoilTape = siteImages.products.aluminiumFoilTape.webp;
+const popDuctTape = siteImages.products.ductTape.webp;
+const projCommercial = siteImages.industries.commercial.webp;
+const projIndustrial = siteImages.industries.industrial.webp;
+const projHospitality = siteImages.industries.hospitality.webp;
+const projResidential = siteImages.industries.residential.webp;
+const aboutWelder = siteImages.workshop.welder.webp;
+const aboutCapDucting = siteImages.categories.ducting.webp;
+const aboutCapHood = siteImages.products.kitchenExhaustHood.webp;
+const aboutCapDiffuser = siteImages.products.grillesDiffusers.webp;
+const aboutCapSupplies = siteImages.categories.supplies.webp;
+const aboutIndHealthcare = siteImages.industries.healthcare.webp;
+const prodCustomFabrication = siteImages.products.customFabrication.webp;
+const prodGiDucts = siteImages.products.giRectangularDuct.webp;
+const prodFlexDucts = siteImages.products.flexibleDuct.webp;
+const prodPidDucts = siteImages.products.preInsulatedDuct.webp;
+const prodGrilles = siteImages.products.grillesDiffusers.webp;
+const prodKitchenHood = siteImages.products.kitchenExhaustHood.webp;
+const prodDuctAccessories = siteImages.products.ductAccessories.webp;
+const prodInsulation = siteImages.products.insulationMaterials.webp;
+const prodTapes = siteImages.products.aluminiumFoilTape.webp;
 
 export const assets = {
   gcLogo,
@@ -145,7 +147,7 @@ export const services = [
       "High-precision rectangular galvanized iron (GI) and pre-insulated duct (PID) fabrication. Fabricated with Pittsburgh locks, TDF/TDC flange connections, and stiffeners complying with Singapore ventilation standards.",
     application:
       "Central air conditioning, mechanical ventilation, exhaust air, and AHU ductwork runs.",
-    image: ductworkComponents,
+    image: siteImages.products.giRectangularDuct.webp,
     alt: "Fabricated rectangular ductwork sections and assembly in GC Fabrication workshop",
     features: [
       "Galvanized Iron (GI) sheet gauges tailored to duct dimensions",
@@ -164,7 +166,7 @@ export const services = [
       "Round duct systems fabricated for commercial venues, exposed architectural ceilings, and industrial air handling where aerodynamic performance and acoustic quietness are paramount.",
     application:
       "Exposed architectural ceilings, industrial exhaust, fume collection, and high-velocity systems.",
-    image: roundDuctwork,
+    image: siteImages.products.roundSpiralDuct.webp,
     alt: "Round galvanized ventilation ducts, reducers, and spiral elbows",
     features: [
       "Rigid spiral lockseam construction for superior burst strength",
@@ -183,7 +185,7 @@ export const services = [
       "Engineering transitions that smoothly bridge different duct cross-sections, route around structural obstacles, and connect AHUs or fan coil units to main distribution ducts without turbulent backpressure.",
     application:
       "Equipment connections, shaft entries, beam clearances, and system size transitions.",
-    image: ductFittingDetail,
+    image: siteImages.products.ductAccessories.webp,
     alt: "Fabricated rectangular to square duct transitions and offset fittings",
     features: [
       "Gradual taper angles to maintain laminar airflow velocity",
@@ -202,7 +204,7 @@ export const services = [
       "Full spectrum of ductwork fittings including 90° and 45° elbows with turning vanes, branch tees, pants/trouser pieces, cross tees, and boot transitions designed for efficient distribution and clean routing.",
     application:
       "Complex duct routing, branch take-offs, directional changes, and riser connections.",
-    image: ductWorksCatalog,
+    image: siteImages.products.grillesDiffusers.webp,
     alt: "Complete duct works catalogue of fabricated fittings and components",
     features: [
       "Radius and square elbows with engineered turning vanes",
@@ -221,7 +223,7 @@ export const services = [
       "Heavy-duty rectangular and round dampers engineered to calibrate, balance, and isolate airflow across branches. Features opposed-blade or parallel-blade mechanisms with external quadrants and locking handles.",
     application:
       "Zone airflow balancing, AHU supply/return branch regulation, and mechanical isolation.",
-    image: volumeControlDamper,
+    image: siteImages.products.volumeControlDamper.webp,
     alt: "Heavy duty volume control damper with multi-blade linkage mechanism",
     features: [
       "Extruded aerodynamic blades for low turbulence and quiet operation",
@@ -240,7 +242,7 @@ export const services = [
       "Specialist fabrication enquiries built directly to client drawings, CAD submittals, or site dimensions. From custom plenum boxes and sound attenuator casings to heavy industrial fabrication.",
     application:
       "Unique architectural constraints, plant rooms, industrial exhaust, and retrofitting.",
-    image: fabricationWorkshop,
+    image: siteImages.workshop.facility.webp,
     alt: "Craftsman assembling bespoke ductwork components in fabrication workshop",
     features: [
       "Fabrication directly from client drawings, BOQ, and CAD plans",
@@ -441,7 +443,7 @@ export const catalogProducts = [
     categoryName: "Hardware & Tools",
     description:
       "Heavy-duty unistrut channels, threaded rods, hanger brackets, drill bits and fasteners.",
-    image: accessoriesCatalog,
+    image: siteImages.products.hardwareTools.webp,
     featured: false,
   },
   {
@@ -471,7 +473,7 @@ export const catalogProducts = [
     categoryName: "Grilles & Diffusers",
     description:
       "Manual quadrant and motorized multi-blade dampers for precise branch airflow calibration.",
-    image: volumeControlDamper,
+    image: siteImages.products.volumeControlDamper.webp,
     featured: true,
   },
 ];
@@ -480,13 +482,13 @@ export const featuredCarouselItems = [
   {
     id: "fc-round",
     name: "Round Duct",
-    image: roundDuctwork,
+    image: siteImages.products.roundSpiralDuct.webp,
     href: "/products?category=hvac-ducting",
   },
   {
     id: "fc-rect",
     name: "Rectangular Duct",
-    image: ductworkComponents,
+    image: siteImages.products.giRectangularDuct.webp,
     href: "/products?category=hvac-ducting",
   },
   {
@@ -510,7 +512,7 @@ export const featuredCarouselItems = [
   {
     id: "fc-damper",
     name: "Volume Damper",
-    image: volumeControlDamper,
+    image: siteImages.products.volumeControlDamper.webp,
     href: "/products?category=grilles-diffusers",
   },
   {
@@ -560,7 +562,7 @@ export const galleryItems = [
     title: "Workshop Duct Assembly",
     category: "Workshop",
     caption: "Galvanized rectangular duct assembly on precision metal fabrication workbench.",
-    image: fabricationWorkshop,
+    image: siteImages.workshop.facility.webp,
     alt: "Technician assembling rectangular ductwork in GC Fabrication workshop",
   },
   {
@@ -568,7 +570,7 @@ export const galleryItems = [
     title: "Rectangular Duct Sections & Transitions",
     category: "Ductwork",
     caption: "Cleanly finished rectangular ducts with TDF flanges ready for transport.",
-    image: ductworkComponents,
+    image: siteImages.products.giRectangularDuct.webp,
     alt: "Finished rectangular duct sections and transition pieces",
   },
   {
@@ -576,7 +578,7 @@ export const galleryItems = [
     title: "Round Spiral Ducts & Reducers",
     category: "Ductwork",
     caption: "Galvanized spiral ducts, segmented elbows, and concentric cone reducers.",
-    image: roundDuctwork,
+    image: siteImages.products.roundSpiralDuct.webp,
     alt: "Round spiral ducts and segmented elbow components in workshop",
   },
   {
@@ -584,7 +586,7 @@ export const galleryItems = [
     title: "Volume Control Damper Assembly",
     category: "Dampers",
     caption: "Multi-blade volume control damper with precision linkage and adjustment handle.",
-    image: volumeControlDamper,
+    image: siteImages.products.volumeControlDamper.webp,
     alt: "Close-up of volume control damper and blade linkage mechanism",
   },
   {
@@ -592,7 +594,7 @@ export const galleryItems = [
     title: "Precision Transition Fittings",
     category: "Fittings",
     caption: "Offset and transition fittings manufactured for specialized building clearances.",
-    image: ductFittingDetail,
+    image: siteImages.products.ductAccessories.webp,
     alt: "Close up of fabricated duct transitions and offset fittings",
   },
   {
@@ -600,7 +602,7 @@ export const galleryItems = [
     title: "Duct Works & Fittings Catalog",
     category: "Ductwork",
     caption: "Comprehensive fabrication lineup including elbows, tees, S-bends, and crosses.",
-    image: ductWorksCatalog,
+    image: siteImages.products.grillesDiffusers.webp,
     alt: "Catalog showing full range of duct works and geometric fittings",
   },
   {
@@ -608,15 +610,15 @@ export const galleryItems = [
     title: "Pre-Insulated Duct (PID) System",
     category: "PID Systems",
     caption: "PID lightweight pre-insulated ducting system and PIR board specifications.",
-    image: pidDuctsFlyer,
-    alt: "PID duct system overview flyer showing lightweight pre-insulated duct box",
+    image: siteImages.products.preInsulatedDuct.webp,
+    alt: "PID duct system showing lightweight pre-insulated duct sections",
   },
   {
     id: "dampers-louvres-selection",
     title: "Dampers, Diffusers & Louvres Range",
     category: "Dampers",
     caption: "Air balancing dampers, diffusers, jet nozzles, and architectural louvres.",
-    image: dampersLouvresCatalog,
+    image: siteImages.products.grillesDiffusers.webp,
     alt: "Catalogue of dampers, grilles, diffusers and louvres",
   },
   {
@@ -624,7 +626,7 @@ export const galleryItems = [
     title: "Fabrication Accessories & Hardware",
     category: "Accessories",
     caption: "TDF corners, access doors, unistrut, clips, and sheet metal hardware.",
-    image: accessoriesCatalog,
+    image: siteImages.products.ductAccessories.webp,
     alt: "Fabrication accessories including access doors and TDF corners",
   },
   {
@@ -632,7 +634,7 @@ export const galleryItems = [
     title: "PID Accessories & Tooling",
     category: "PID Systems",
     caption: "PID flanges, tiger connectors, angles, adhesives, and installation toolkits.",
-    image: pidAccessoriesCatalog,
+    image: siteImages.products.preInsulatedDuct.webp,
     alt: "PID accessories, flanges, adhesives, and tools",
   },
   {
@@ -640,7 +642,7 @@ export const galleryItems = [
     title: "Insulation & Specialist Tapes",
     category: "Accessories",
     caption: "Flexible ducts, rockwool, closed cell insulation, and aluminium tapes.",
-    image: insulationTapesCatalog,
+    image: siteImages.products.insulationMaterials.webp,
     alt: "Insulation materials and specialist tapes catalog",
   },
   {
@@ -648,15 +650,15 @@ export const galleryItems = [
     title: "GI Perforated Sheets & Plates",
     category: "Sheet Metal",
     caption: "Perforated sheet patterns for acoustic, architectural, and ventilation uses.",
-    image: perforatedSheetFlyer,
-    alt: "GI perforated sheet flyer and features",
+    image: siteImages.products.hardwareTools.webp,
+    alt: "GI perforated sheet showing various hole patterns",
   },
   {
     id: "workshop-facility-floor",
     title: "Workshop Facility & Staging",
     category: "Workshop",
     caption: "Spacious workshop facility in Kaki Bukit for duct fabrication and QA staging.",
-    image: workshopFacility,
+    image: siteImages.workshop.facility.webp,
     alt: "GC Fabrication workshop facility showing rows of fabricated ductwork",
   },
   {
@@ -664,7 +666,7 @@ export const galleryItems = [
     title: "Metal Fabrication & Tables",
     category: "Sheet Metal",
     caption: "Angle bars, duct staging, insulations, and heavy-duty fabrication work tables.",
-    image: metalFabricationShowcase,
+    image: siteImages.products.customFabrication.webp,
     alt: "Metal fabrication showcase showing angle bars, ducts, and work tables",
   },
 ] as const;
